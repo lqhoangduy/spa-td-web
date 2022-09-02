@@ -1,0 +1,71 @@
+@import "../../styles/variables";
+
+.login-background {
+  height: 100vh;
+  background: linear-gradient(135deg, $primary-light 0%, $primary-white 100%);
+  position: relative;
+
+  .login-container {
+    width: 400px;
+    max-width: 90%;
+    margin: 0 auto;
+    background-color: $primary-white;
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    .login-content {
+      padding: 24px 20px;
+
+      .login-title {
+        font-weight: 600;
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      .login-label {
+          color: $neutral-60;
+          margin-bottom: 8px;
+      }
+
+      .login-btn {
+        width: 100%;
+        margin: 12px 0;
+        border-radius: 5px;
+        border: none;
+        background: linear-gradient(135deg, $primary-orange 0%, $primary-light 100%);
+        color: $primary-white;
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .forgot-password {
+        font-size: 14px;
+        color: $neutral-60;
+      }
+
+      .login-social {
+        display: flex;
+        justify-content: center;
+
+        .btn-social {
+          font-size: 24px;
+
+          &:first-child {
+            margin-right: 20px;
+            color: $common-red;
+            border: 2px solid $common-red;
+          }
+
+          &:last-child {
+            color: $colormain;
+            border: 2px solid $colormain;
+          }
+        }
+      }
+    }
+  }
+}
