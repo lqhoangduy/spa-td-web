@@ -17,7 +17,8 @@
         "forbiden-request": "Invalid input data",
         "fail-to-load-all-code": "Fail to load data from allcode",
         "sum": "Sum",
-        "date-range-invalid": "Date range invalid"
+        "date-range-invalid": "Date range invalid",
+        "logout": "Logout"
     },
     "login": {
         "login": "Login",

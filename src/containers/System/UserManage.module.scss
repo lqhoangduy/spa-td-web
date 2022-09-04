@@ -1,0 +1,14 @@
+@import "../../styles/common.scss";
+
+.userContainer {
+  :global {
+    .btn-delete {
+      color: $common-red;
+    }
+  
+    .btn-add-user {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

@@ -15,11 +15,15 @@ import { path } from "../utils";
 import Home from "../routes/Home";
 // import Login from "../routes/Login";
 import Login from "./Auth/Login";
-import Header from "./Header/Header";
 import System from "../routes/System";
+import AdminLayout from "./AdminLayout/AdminLayout";
 
 import { CustomToastCloseButton } from "../components/CustomToast";
 import ConfirmModal from "../components/ConfirmModal";
+
+const MapLayout = ({ isLoggedIn, children }) => {
+	return isLoggedIn ? <AdminLayout>{children}</AdminLayout> : <>{children}</>;
+};
 
 class App extends Component {
 	handlePersistorState = () => {
@@ -46,34 +50,35 @@ class App extends Component {
 				<Router history={history}>
 					<div className='main-container'>
 						<ConfirmModal />
-						{this.props.isLoggedIn && <Header />}
+						<MapLayout isLoggedIn={this.props.isLoggedIn}>
+							<span className='content-container'>
+								<Switch>
+									<Route path={path.HOME} exact component={Home} />
+									<Route
+										path={path.LOGIN}
+										component={userIsNotAuthenticated(Login)}
+									/>
+									<Route
+										path={path.SYSTEM}
+										component={userIsAuthenticated(System)}
+									/>
+								</Switch>
+							</span>
 
-						<span className='content-container'>
-							<Switch>
-								<Route path={path.HOME} exact component={Home} />
-								<Route
-									path={path.LOGIN}
-									component={userIsNotAuthenticated(Login)}
-								/>
-								<Route
-									path={path.SYSTEM}
-									component={userIsAuthenticated(System)}
-								/>
-							</Switch>
-						</span>
-
-						<ToastContainer
-							className='toast-container'
-							toastClassName='toast-item'
-							bodyClassName='toast-item-body'
-							autoClose={false}
-							hideProgressBar={true}
-							pauseOnHover={false}
-							pauseOnFocusLoss={true}
-							closeOnClick={false}
-							draggable={false}
-							closeButton={<CustomToastCloseButton />}
-						/>
+							<ToastContainer
+								className='toast-container'
+								toastClassName='toast-item'
+								bodyClassName='toast-item-body'
+								autoClose={false}
+								hideProgressBar={true}
+								pauseOnHover={false}
+								pauseOnFocusLoss={true}
+								closeOnClick={false}
+								draggable={false}
+								closeButton={<CustomToastCloseButton />}
+							/>
+						</MapLayout>
+						{/* {this.props.isLoggedIn && <Header />} */}
 					</div>
 				</Router>
 			</Fragment>

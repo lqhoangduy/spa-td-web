@@ -7,7 +7,7 @@ import { GooglePlusOutlined, FacebookOutlined } from "@ant-design/icons";
 import * as actions from "./../../store/actions";
 import { userService } from "../../services";
 
-import "./Login.scss";
+import styles from "./Login.module.scss";
 
 class Login extends Component {
 	constructor(props) {
@@ -15,7 +15,6 @@ class Login extends Component {
 	}
 
 	onLogin = async (values) => {
-		console.log("values", values);
 		try {
 			const result = await userService.login(values);
 			if (result?.errorCode !== 0) {
@@ -35,7 +34,7 @@ class Login extends Component {
 
 	render() {
 		return (
-			<div className='login-background'>
+			<div className={styles.loginWrapper}>
 				<div className='login-container shadow-primary'>
 					<div className='login-content row'>
 						<div className='col-12 login-title'>Login</div>

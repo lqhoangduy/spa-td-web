@@ -1,0 +1,17 @@
+@import "../../styles/common.scss";
+
+.modalUser {
+  :global {
+    .ant-form-item {
+      margin-bottom: 16px;
+    }
+
+    .ant-form-item-label{
+      padding-bottom: 0;
+
+      &>label {
+        color: $neutral-60;
+      }
+    }
+  }
+}
