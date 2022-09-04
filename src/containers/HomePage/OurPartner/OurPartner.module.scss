@@ -1,0 +1,23 @@
+@import "../../../styles/common.scss";
+@import "../../../styles/media";
+
+.ourPartnerWrap {
+  height: 230px;
+  overflow: hidden;
+  margin-top: 40px;
+  margin-bottom: 40px;
+
+  .ourPartner {
+    padding: 20px 0;
+
+    .ourPartnerItem {
+      width: 200px;
+      padding: 40px;
+    }
+
+    .image {
+      height: 130px;
+      object-fit: contain;
+    }
+  }
+}

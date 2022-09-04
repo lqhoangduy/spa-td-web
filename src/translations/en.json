@@ -18,13 +18,28 @@
         "fail-to-load-all-code": "Fail to load data from allcode",
         "sum": "Sum",
         "date-range-invalid": "Date range invalid",
-        "logout": "Logout"
+        "logout": "Logout",
+        "or": "Or",
+        "yes": "Yes",
+        "no": "No",
+        "action": "Action",
+        "male": "Male",
+        "female": "Female",
+        "admin": "Admin",
+        "doctor": "Doctor",
+        "patient": "Patient",
+        "search": "Search"
     },
     "login": {
         "login": "Login",
         "username": "Username",
         "password": "Password",
-        "userpass-wrong": "Invalid username or password!"
+        "userpass-wrong": "Invalid username or password!",
+        "email": "Email:",
+        "email_error_required": "Please enter Email!",
+        "email_error_valid": "Please enter Email valid!",
+        "password_error_required": "Please enter password!",
+        "forgot_password": "Forgot password?"
     },
     "menu": {
         "system": {
@@ -65,7 +80,24 @@
                 "fullname": "Please fill in fullname",
                 "password": "Please fill in password"
             },
-            "sure-delete-user": "Are you sure to delete this user?"
+            "sure-delete-user": "Are you sure to delete this user?",
+            "first-name": "First name",
+            "last-name": "Last name",
+            "address": "Address",
+            "gender": "Gender",
+            "gender-placeholder": "Select gender",
+            "role": "Role",
+            "role-placeholder": "Select role",
+            "email-required": "Please enter Email!",
+            "email-valid": "Please enter Email valid!",
+            "password-required": "Please enter password!",
+            "firstname-required": "Please enter first name!",
+            "lastname-required": "Please enter last name!",
+            "address-required": "Please enter address!",
+            "mobile-required": "Please enter phone number!",
+            "mobile-valid": "Please enter phone number valid!",
+            "gender-required": "Please selected gender!",
+            "role-required": "Please selected role!"
         },
         "product-manage": {
             "fail-to-load-foprtype": "Fail to load packages list",
@@ -117,5 +149,25 @@
             "remove-assign-fail": "Fail to unassign service package to customer",
             "sure-delete-assign": "Are you sure to unassign service package to customer?"
         }
+    },
+    "header": {
+        "specialist": "Specialist",
+        "specialist-note": "Find a doctor by specialty",
+        "branch": "Branch",
+        "branch-note": "Select branch",
+        "doctor": "Doctor",
+        "doctor-note": "Select doctor",
+        "package": "Beauty pack",
+        "package-note": "Select beauty pack",
+        "help": "Help"
+    },
+    "homepage": {
+        "section-title": "Welcome to Rejuvenate, Relaxation and Respite.",
+        "section-description": "Everybody is looking for places where to relax and get more energy. In our wellness center silence, energy, beauty and vitality meet. The treatments we offer will refresh both your body and soul.We'll be glad to welcome you and recommend our facilities and services.",
+        "physiotherapist": "Physiotherapist",
+        "chief-masseuse": "Chief masseuse",
+        "manager": "Manager",
+        "cosmetologist": "Cosmetologist",
+        "meet-the-team": "Meet The Team of Rejuvenate"
     }
 }

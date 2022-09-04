@@ -2,6 +2,7 @@ import { Table, Space, Button, Tooltip, message, Popconfirm } from "antd";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import { FormattedMessage } from "react-intl";
 import { userService } from "../../services";
 import ModalUser from "./ModalUser";
 import styles from "./UserManage.module.scss";
@@ -112,27 +113,29 @@ class UserManage extends Component {
 	render() {
 		const columns = [
 			{
-				title: "Email",
+				title: <FormattedMessage id='system.user-manage.email' />,
 				dataIndex: "email",
 			},
 			{
-				title: "First name",
+				title: <FormattedMessage id='system.user-manage.first-name' />,
 				dataIndex: "firstName",
 			},
 			{
-				title: "Last name",
+				title: <FormattedMessage id='system.user-manage.last-name' />,
 				dataIndex: "lastName",
 			},
 			{
-				title: "Address",
+				title: <FormattedMessage id='system.user-manage.address' />,
 				dataIndex: "address",
 			},
 			{
-				title: "Action",
+				title: <FormattedMessage id='common.action' />,
 				key: "action",
 				render: (_, record) => (
 					<Space size='small'>
-						<Tooltip placement='bottom' title='Edit'>
+						<Tooltip
+							placement='bottom'
+							title={<FormattedMessage id='common.edit' />}>
 							<Button
 								type='link'
 								icon={<EditOutlined />}
@@ -140,11 +143,15 @@ class UserManage extends Component {
 							/>
 						</Tooltip>
 						<Popconfirm
-							title='Are you sure to delete this user?'
+							title={
+								<FormattedMessage id='system.user-manage.sure-delete-user' />
+							}
 							onConfirm={() => this.handleDeleteUser(record.key)}
-							okText='Yes'
-							cancelText='No'>
-							<Tooltip placement='bottom' title='Delete'>
+							okText={<FormattedMessage id='common.yes' />}
+							cancelText={<FormattedMessage id='common.no' />}>
+							<Tooltip
+								placement='bottom'
+								title={<FormattedMessage id='common.delete' />}>
 								<Button
 									type='link'
 									icon={<DeleteOutlined />}
@@ -160,7 +167,9 @@ class UserManage extends Component {
 		return (
 			<>
 				<div className={`${styles.userContainer} container`}>
-					<div className='title text-center'>Manage User</div>
+					<div className='title text-center'>
+						<FormattedMessage id='menu.system.system-administrator.user-manage' />
+					</div>
 					<Button
 						onClick={() => {
 							this.setState({
@@ -170,7 +179,7 @@ class UserManage extends Component {
 						type='primary'
 						icon={<PlusOutlined />}
 						className='btn-add-user'>
-						Add a user
+						<FormattedMessage id='system.user-manage.add-user' />
 					</Button>
 					<div className='users-table mt-3'>
 						<Table

@@ -18,13 +18,28 @@
         "fail-to-load-all-code": "Không thể tải về dữ liệu allcode",
         "sum": "Tổng",
         "date-range-invalid": "Khoảng thời gian không hợp lệ",
-        "logout": "Đăng xuất"
+        "logout": "Đăng xuất",
+        "or": "Hoặc",
+        "yes": "Có",
+        "no": "Không",
+        "action": "Hành động",
+        "male": "Nam",
+        "female": "Nữ",
+        "admin": "Quản trị viên",
+        "doctor": "Bác sĩ",
+        "patient": "Bệnh nhân",
+        "search": "Tìm kiếm"
     },
     "login": {
         "login": "Đăng nhập",
         "username": "Tên đăng nhập",
-        "password": "Mật khẩu",
-        "userpass-wrong": "Sai tên đăng nhập hoặc mật khẩu!"
+        "password": "Mật khẩu:",
+        "userpass-wrong": "Sai tên đăng nhập hoặc mật khẩu!",
+        "email": "Email:",
+        "email_error_required": "Vui lòng nhập Email!",
+        "email_error_valid": "Vui lòng nhập Email chính xác!",
+        "password_error_required": "Vui lòng nhập mật khẩu!",
+        "forgot_password": "Quên mật khẩu?"
     },
     "menu": {
         "system": {
@@ -65,7 +80,24 @@
                 "fullname": "Quý khách vui lòng nhập tên đầy đủ",
                 "password": "Quý khách vui lòng nhập mật khẩu"
             },
-            "sure-delete-user": "Bạn có chắc chắn muốn xóa người dùng này?"
+            "sure-delete-user": "Bạn có chắc chắn muốn xóa người dùng này?",
+            "first-name": "Họ",
+            "last-name": "Tên",
+            "address": "Địa chỉ",
+            "gender": "Giới tính",
+            "gender-placeholder": "Chọn giới tính",
+            "role": "Chức vụ",
+            "role-placeholder": "Chọn chức vụ",
+            "email-required": "Vui lòng nhập Email!",
+            "email-valid": "Vui lòng nhập Email chính xác!",
+            "password-required": "Vui lòng nhập Mật khẩu!",
+            "firstname-required": "Vui lòng nhập họ!",
+            "lastname-required": "Vui lòng nhập tên!",
+            "address-required": "Vui lòng nhập địa chỉ!",
+            "mobile-required": "Vui lòng nhập số điện thoại!",
+            "mobile-valid": "Vui lòng nhập số điện thoại chính xác!",
+            "gender-required": "Vui lòng chọn giới tính!",
+            "role-required": "Vui lòng chọn chức vụ!"
         },
         "product-manage": {
             "fail-to-load-foprtype": "Không thể tải về danh sách gói",
@@ -117,5 +149,25 @@
             "remove-assign-fail": "Bỏ gán gói dịch vụ cho khách hàng thất bại",
             "sure-delete-assign": "Bạn có chắc chắn muốn bỏ gán gói dịch vụ cho khách hàng?"
         }
+    },
+    "header": {
+        "specialist": "Chuyên khoa",
+        "specialist-note": "Tìm bác sĩ theo chuyên khoa",
+        "branch": "Chi nhánh",
+        "branch-note": "Chọn chi nhánh",
+        "doctor": "Bác sĩ",
+        "doctor-note": "Chọn bác sĩ",
+        "package": "Gói làm đẹp",
+        "package-note": "Chọn gói làm đẹp",
+        "help": "Hỗ trợ"
+    },
+    "homepage": {
+        "section-title": "Chào mừng đến với Rejuvenate, hãy thư giãn và nghỉ ngơi.",
+        "section-description": "Mọi người đều đang tìm kiếm những nơi để thư giãn và tiếp thêm năng lượng. Trong sự im lặng của trung tâm chăm sóc sức khỏe của chúng tôi, năng lượng, vẻ đẹp và sức sống gặp nhau. Các phương pháp điều trị mà chúng tôi cung cấp sẽ làm mới cả cơ thể và tâm hồn của bạn.",
+        "physiotherapist": "Vật lý trị liệu",
+        "chief-masseuse": "Chuyên viên massage",
+        "manager": "Quản lý",
+        "cosmetologist": "Chuyên viên thẩm mỹ",
+        "meet-the-team": "Gặp gỡ đội ngũ của Rejuvenate"
     }
 }

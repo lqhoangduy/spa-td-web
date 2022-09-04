@@ -1,0 +1,34 @@
+@import "../../../styles/common.scss";
+@import "../../../styles/media";
+
+.teamWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .teamTitle {
+    color: $primary-orange;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 40px 0;
+  }
+
+  .staff {
+    border-radius: 5px;
+    border: none;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+    }
+
+    :global {
+      .ant-card-meta-title {
+        color: $primary-orange;
+      }
+    }
+  }
+}

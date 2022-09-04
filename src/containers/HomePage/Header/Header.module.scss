@@ -1,0 +1,129 @@
+@import "../../../styles/common.scss";
+@import "../../../styles/_media.scss";
+
+.header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: $primary-brown;
+
+  :global {
+    .ant-layout-header {
+      background-color: $primary-brown;
+    }
+  }
+
+  .headerWrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .leftContainer {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      color: $primary-white;
+      margin-right: 60px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+
+      .navItem {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 12px;
+
+        &:hover {
+          opacity: 0.8;
+          cursor: pointer;
+        }
+
+        h4 {
+          font-size: 16px;
+          color: $primary-white;
+        }
+
+        span {
+          font-size: 12px;
+          line-height: 14px;
+          color: $primary-light;
+        }
+      }
+    }
+
+    .rightContainer {
+      display: flex;
+      align-items: center;
+
+      .help {
+        display: flex;
+        align-items: center;
+        .icon {
+          color: $primary-light;
+          margin-right: 4px;
+          font-size: 16px;
+        }
+
+        .helpNote {
+          font-size: 16px;
+          color: $primary-light;
+        }
+      }
+
+      .languageWrap {
+        margin: 0 24px;
+        display: flex;
+        align-items: center;
+
+        .langBtn {
+          color: $primary-light;
+          padding-right: 4px;
+          padding-left: 4px;
+          font-size: 16px;
+        }
+
+        .langBtn.active {
+          font-weight: bold;
+          color: #fff;
+        }
+
+        :global {
+          .ant-divider {
+            height: 18px;
+            border-left: 1px solid $primary-light; 
+          }
+        }
+      }
+
+      .btnMenu {
+        color: $primary-light;
+        font-size: 20px;
+      }
+    }
+
+    @include maxLg {
+      .nav {
+        display: none;
+      }
+
+      .logo {
+        margin-right: 0;
+      }
+    }
+
+    @include maxSm {
+      .rightContainer {
+        .help {
+          display: none;
+        }
+      }
+    }
+  }
+}

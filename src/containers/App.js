@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import { ConnectedRouter as Router } from "connected-react-router";
 import { history } from "../redux";
 import { ToastContainer } from "react-toastify";
+import HomePage from "../containers/HomePage/HomePage";
 
 import {
 	userIsAuthenticated,
@@ -19,7 +20,6 @@ import System from "../routes/System";
 import AdminLayout from "./AdminLayout/AdminLayout";
 
 import { CustomToastCloseButton } from "../components/CustomToast";
-import ConfirmModal from "../components/ConfirmModal";
 
 const MapLayout = ({ isLoggedIn, children }) => {
 	return isLoggedIn ? <AdminLayout>{children}</AdminLayout> : <>{children}</>;
@@ -49,7 +49,6 @@ class App extends Component {
 			<Fragment>
 				<Router history={history}>
 					<div className='main-container'>
-						<ConfirmModal />
 						<MapLayout isLoggedIn={this.props.isLoggedIn}>
 							<span className='content-container'>
 								<Switch>
@@ -62,6 +61,7 @@ class App extends Component {
 										path={path.SYSTEM}
 										component={userIsAuthenticated(System)}
 									/>
+									<Route path={path.HOMEPAGE} component={HomePage} />
 								</Switch>
 							</span>
 
@@ -78,7 +78,6 @@ class App extends Component {
 								closeButton={<CustomToastCloseButton />}
 							/>
 						</MapLayout>
-						{/* {this.props.isLoggedIn && <Header />} */}
 					</div>
 				</Router>
 			</Fragment>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Form, Input, Row, Col, Select, Button } from "antd";
+import { FormattedMessage } from "react-intl";
 import styles from "./ModalUser.module.scss";
 import CommonUtils from "./../../utils/CommonUtils";
 
@@ -47,21 +48,31 @@ const ModalUser = ({
 
 	return (
 		<Modal
-			title={isEdit ? "Edit user" : "Add user"}
+			title={
+				isEdit ? (
+					<FormattedMessage id='system.user-manage.edit-user' />
+				) : (
+					<FormattedMessage id='system.user-manage.add-user' />
+				)
+			}
 			visible={isShow}
 			onOk={handleSubmitUser}
 			onCancel={handleCancel}
 			className={styles.modalUser}
 			footer={[
 				<Button key='back' onClick={handleCancel}>
-					Cancel
+					<FormattedMessage id='common.close' />
 				</Button>,
 				<Button
 					key='submit'
 					type='primary'
 					loading={isLoading}
 					onClick={handleSubmitUser}>
-					Submit
+					{isEdit ? (
+						<FormattedMessage id='common.edit' />
+					) : (
+						<FormattedMessage id='common.add' />
+					)}
 				</Button>,
 			]}>
 			<Form
@@ -74,13 +85,20 @@ const ModalUser = ({
 				<Row gutter={[16, 16]}>
 					<Col xs={isEdit ? 24 : 12}>
 						<Form.Item
-							label='Email'
+							label={<FormattedMessage id='system.user-manage.email' />}
 							name='email'
 							rules={[
-								{ required: true, message: "Please input your email!" },
+								{
+									required: true,
+									message: (
+										<FormattedMessage id='system.user-manage.email-required' />
+									),
+								},
 								{
 									type: "email",
-									message: "Email is not a valid email!",
+									message: (
+										<FormattedMessage id='system.user-manage.email-valid' />
+									),
 								},
 							]}>
 							<Input disabled={isEdit} />
@@ -89,10 +107,15 @@ const ModalUser = ({
 					{!isEdit && (
 						<Col xs={12}>
 							<Form.Item
-								label='Password'
+								label={<FormattedMessage id='system.user-manage.password' />}
 								name='password'
 								rules={[
-									{ required: true, message: "Please input your password!" },
+									{
+										required: true,
+										message: (
+											<FormattedMessage id='system.user-manage.password-required' />
+										),
+									},
 								]}>
 								<Input.Password />
 							</Form.Item>
@@ -102,20 +125,30 @@ const ModalUser = ({
 				<Row gutter={[16, 16]}>
 					<Col xs={12}>
 						<Form.Item
-							label='Fist name'
+							label={<FormattedMessage id='system.user-manage.first-name' />}
 							name='firstName'
 							rules={[
-								{ required: true, message: "Please input your firstName!" },
+								{
+									required: true,
+									message: (
+										<FormattedMessage id='system.user-manage.firstname-required' />
+									),
+								},
 							]}>
 							<Input />
 						</Form.Item>
 					</Col>
 					<Col xs={12}>
 						<Form.Item
-							label='Last name'
+							label={<FormattedMessage id='system.user-manage.last-name' />}
 							name='lastName'
 							rules={[
-								{ required: true, message: "Please input your lastName!" },
+								{
+									required: true,
+									message: (
+										<FormattedMessage id='system.user-manage.lastname-required' />
+									),
+								},
 							]}>
 							<Input />
 						</Form.Item>
@@ -124,10 +157,15 @@ const ModalUser = ({
 				<Row gutter={[16, 16]}>
 					<Col xs={24}>
 						<Form.Item
-							label='Address'
+							label={<FormattedMessage id='system.user-manage.address' />}
 							name='address'
 							rules={[
-								{ required: true, message: "Please input your address!" },
+								{
+									required: true,
+									message: (
+										<FormattedMessage id='system.user-manage.address-required' />
+									),
+								},
 							]}>
 							<Input />
 						</Form.Item>
@@ -136,12 +174,14 @@ const ModalUser = ({
 				<Row gutter={[16, 16]}>
 					<Col xs={12}>
 						<Form.Item
-							label='Phone number'
+							label={<FormattedMessage id='system.user-manage.mobile' />}
 							name='phoneNumber'
 							rules={[
 								{
 									required: true,
-									message: "Please input your phone number!",
+									message: (
+										<FormattedMessage id='system.user-manage.mobile-required' />
+									),
 								},
 								() => ({
 									validator(_, value) {
@@ -152,7 +192,9 @@ const ModalUser = ({
 										) {
 											return Promise.resolve();
 										}
-										return Promise.reject("Number phone invalid!");
+										return Promise.reject(
+											<FormattedMessage id='system.user-manage.mobile-valid' />
+										);
 									},
 								}),
 							]}>
@@ -161,36 +203,57 @@ const ModalUser = ({
 					</Col>
 					<Col xs={6}>
 						<Form.Item
-							label='Gender'
+							label={<FormattedMessage id='system.user-manage.gender' />}
 							name='gender'
 							hasFeedback
 							rules={[
 								{
 									required: true,
-									message: "Please select a gender!",
+									message: (
+										<FormattedMessage id='system.user-manage.gender-required' />
+									),
 								},
 							]}>
-							<Select placeholder='Please select a gender'>
-								<Option value='1'>Male</Option>
-								<Option value='2'>Female</Option>
+							<Select
+								placeholder={
+									<FormattedMessage id='system.user-manage.gender-placeholder' />
+								}>
+								<Option value='1'>
+									<FormattedMessage id='common.male' />
+								</Option>
+								<Option value='2'>
+									<FormattedMessage id='common.female' />
+								</Option>
 							</Select>
 						</Form.Item>
 					</Col>
 					<Col xs={6}>
 						<Form.Item
-							label='Role'
+							label={<FormattedMessage id='system.user-manage.role' />}
 							name='roleId'
 							hasFeedback
 							rules={[
 								{
 									required: true,
-									message: "Please select a role!",
+									message: (
+										<FormattedMessage id='system.user-manage.role-required' />
+									),
 								},
 							]}>
-							<Select placeholder='Please select a role' disabled={isEdit}>
-								<Option value='1'>Admin</Option>
-								<Option value='2'>Doctor</Option>
-								<Option value='3'>Patient</Option>
+							<Select
+								placeholder={
+									<FormattedMessage id='system.user-manage.role-placeholder' />
+								}
+								disabled={isEdit}>
+								<Option value='1'>
+									<FormattedMessage id='common.admin' />
+								</Option>
+								<Option value='2'>
+									<FormattedMessage id='common.doctor' />
+								</Option>
+								<Option value='3'>
+									<FormattedMessage id='common.patient' />
+								</Option>
 							</Select>
 						</Form.Item>
 					</Col>

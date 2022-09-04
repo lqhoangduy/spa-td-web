@@ -1,0 +1,55 @@
+@import "../../../styles/common.scss";
+@import "../../../styles/media";
+
+.slider {
+
+  .sliderImage {
+    width: 100%;
+    height: 800px;
+    object-fit: cover;
+  }
+
+  .sliderItem {
+    height: 800px;
+    position: relative;
+  }
+
+  .sliderContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sliderTile {
+    font-size: 60px;
+    color: $primary-light;
+  }
+
+  .sliderInput {
+    background: transparent;
+    border: 1px solid $primary-light;
+    border-color: $primary-light !important;
+    color: $primary-white;
+    box-shadow: none;
+
+    input {
+      background: transparent;
+      color: $primary-white;
+    }
+  }
+
+  @include maxMd {
+    .sliderImage {
+      height: 600px;
+    }
+  
+    .sliderItem {
+      height: 600px;
+    }
+  }
+}

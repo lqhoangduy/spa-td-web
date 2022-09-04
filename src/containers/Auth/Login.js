@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { Divider, Button, Form, Input, message } from "antd";
 import { GooglePlusOutlined, FacebookOutlined } from "@ant-design/icons";
+import { FormattedMessage } from "react-intl";
 
 import * as actions from "./../../store/actions";
 import { userService } from "../../services";
@@ -37,30 +38,47 @@ class Login extends Component {
 			<div className={styles.loginWrapper}>
 				<div className='login-container shadow-primary'>
 					<div className='login-content row'>
-						<div className='col-12 login-title'>Login</div>
+						<div className='col-12 login-title'>
+							<FormattedMessage id='login.login' />
+						</div>
 						<Form
 							name='login'
 							labelCol={{ span: 24 }}
 							wrapperCol={{ span: 24 }}
 							initialValues={this.state}
-							onFinish={this.onLogin}
-							// autoComplete='off'
-						>
-							<label className='login-label'>Email:</label>
+							onFinish={this.onLogin}>
+							<label className='login-label'>
+								<FormattedMessage id='login.email' />
+							</label>
 							<Form.Item
 								name='email'
 								rules={[
-									{ required: true, message: "Please input your email!" },
-									{ type: "email", message: "Email is not a valid email!" },
+									{
+										required: true,
+										message: (
+											<FormattedMessage id='login.email_error_required' />
+										),
+									},
+									{
+										type: "email",
+										message: <FormattedMessage id='login.email_error_valid' />,
+									},
 								]}>
 								<Input size='large' />
 							</Form.Item>
 
-							<label className='login-label'>Password:</label>
+							<label className='login-label'>
+								<FormattedMessage id='login.password' />
+							</label>
 							<Form.Item
 								name='password'
 								rules={[
-									{ required: true, message: "Please input your password!" },
+									{
+										required: true,
+										message: (
+											<FormattedMessage id='login.password_error_required' />
+										),
+									},
 								]}>
 								<Input.Password size='large' />
 							</Form.Item>
@@ -70,11 +88,15 @@ class Login extends Component {
 									htmlType='submit'
 									className='login-btn'
 									size='large'>
-									Login
+									<FormattedMessage id='login.login' />
 								</Button>
-								<span className='forgot-password'>For got your password?</span>
+								<span className='forgot-password'>
+									<FormattedMessage id='login.forgot_password' />
+								</span>
 							</Form.Item>
-							<Divider>Or</Divider>
+							<Divider>
+								<FormattedMessage id='common.or' />
+							</Divider>
 							<div className='col-12 login-social'>
 								<Button
 									className='btn-social'

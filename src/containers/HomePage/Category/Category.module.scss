@@ -1,0 +1,77 @@
+@import "../../../styles/common.scss";
+@import "../../../styles/media";
+
+.category {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px 0;
+
+  .categoryItem {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+
+    .iconWrap {
+      height: 140px;
+      width: 140px;
+      border-radius: 50%;
+      background-color: $primary-pink-2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .categoryTitle {
+      color: $primary-orange;
+      font-size: 18px;
+    }
+
+    @include maxMd {
+      .iconWrap {
+        height: 80px;
+        width: 80px;
+
+        .sliderImage {
+          width: 40px;
+        }
+      }
+    }
+  }
+}
+
+.sectionWrap {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+
+  .sectionContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 60px 10px 60px;
+
+    .sectionTitle {
+      font-size: 28px;
+      color: $primary-orange;
+      text-align: center;
+      max-width: 470px;
+      margin: 40px 0;
+    }
+
+    .sectionDescription {
+      color: $neutral-60;
+      text-align: center;
+      font-size: 13px;
+      max-width: 600px;
+    }
+  }
+}
