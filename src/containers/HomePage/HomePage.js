@@ -5,6 +5,7 @@ import Slider from "./Slider/Slider";
 import Category from "./Category/Category";
 import MeetTheTeam from "./MeetTheTeam/MeetTheTeam";
 import OurPartner from "./OurPartner/OurPartner";
+import Footer from "./Footer/Footer";
 import styles from "./HomePage.module.scss";
 
 const HomePage = () => {
@@ -15,6 +16,7 @@ const HomePage = () => {
 			<Category />
 			<MeetTheTeam />
 			<OurPartner />
+			<Footer />
 		</div>
 	);
 };

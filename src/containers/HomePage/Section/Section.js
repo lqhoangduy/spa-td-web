@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Drawer, Button, Divider } from "antd";
+import { Button } from "antd";
 import { FormattedMessage } from "react-intl";
-import { QuestionCircleOutlined, MenuOutlined } from "@ant-design/icons";
-import styles from "./Header.module.scss";
-import { languages } from "../../../utils/constant";
-import * as actions from "../../../store/actions";
+import styles from "./Section.module.scss";
 
 const Section = () => {
-	return <section></section>;
+	return (
+		<>
+			<section className={styles.sectionSpecialty}></section>
+		</>
+	);
 };
 
 const mapStateToProps = (state) => {

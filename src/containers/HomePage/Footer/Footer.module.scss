@@ -1,0 +1,49 @@
+@import "../../../styles/common.scss";
+@import "../../../styles/media";
+
+.footer {
+  background-color: $primary-brown;
+  color: $primary-white;
+  padding: 30px 0;
+  font-size: 16px;
+
+  :global {
+    .ant-divider {
+      border-left: 2px solid $primary-white;
+      height: 16px;
+    }
+  }
+
+  .footerWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .footerLogo, .footerSocial, .footerContact, .footerCR, .footerPoweredBy {
+      margin-bottom: 20px;
+    }
+
+    .footerLogo {
+      font-size: 32px;
+    }
+
+    .footerSocial {
+      display: flex;
+      justify-content: space-between;
+
+      .footerSocialItem {
+        height: 50px;
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover{
+          opacity: 0.8;
+          cursor: pointer;
+        }
+        font-size: 30px;
+      }
+    }
+  }
+}
