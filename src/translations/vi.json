@@ -181,5 +181,11 @@
         "offer-4-description": "Một hệ thống thuốc điều trị toàn bộ cá nhân và loại bỏ bệnh tật hoặc phục hồi sức khỏe.",
         "appointment-title": "Chào mừng bạn đến với Rejuvenate. Đặt lịch ngay hôm nay.",
         "appointment-description": "ĐẶT LỊCH HẸN"
+    },
+    "section": {
+        "specialist": "Các chuyên khoa",
+        "branches": "Các chi nhánh",
+        "doctors": "Các bác sĩ nổi bật",
+        "handbooks": "Cẩm nang"
     }
 }

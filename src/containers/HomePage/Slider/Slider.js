@@ -38,6 +38,15 @@ function SliderComponent() {
 		speed: 300,
 		slidesToShow: 1,
 		slidesToScroll: 1,
+		pauseOnHover: true,
+		dotsClass: "slick-dots slick-thumb",
+		customPaging: function (i) {
+			return (
+				<a href='/#'>
+					<img src={`/images/banner-slider-${i + 1}.jpeg`} alt='banner-small' />
+				</a>
+			);
+		},
 	};
 
 	return (

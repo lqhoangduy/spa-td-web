@@ -38,21 +38,24 @@ function MeetTheTeam() {
 				<h4 className={styles.teamTitle}>
 					<FormattedMessage id='homepage.meet-the-team' />
 				</h4>
-				<div className={styles.staffs}>
-					<Row gutter={[16, 16]}>
-						{staffs.map((staff) => {
-							return (
-								<Col key={staff.key} xs={24} sm={12} lg={6}>
-									<Card
-										cover={<img alt='staff' src={staff.image} />}
-										className={styles.staff}>
-										<Meta title={staff.name} description={staff.position} />
-									</Card>
-								</Col>
-							);
-						})}
-					</Row>
-				</div>
+				<Row gutter={[16, 16]} className={styles.teamList}>
+					{staffs.map((staff) => {
+						return (
+							<Col
+								key={staff.key}
+								xs={24}
+								sm={12}
+								lg={6}
+								className={styles.teamItem}>
+								<Card
+									cover={<img alt='staff' src={staff.image} />}
+									className={styles.staff}>
+									<Meta title={staff.name} description={staff.position} />
+								</Card>
+							</Col>
+						);
+					})}
+				</Row>
 			</div>
 		</section>
 	);

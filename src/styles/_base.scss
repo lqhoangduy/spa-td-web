@@ -3,9 +3,6 @@
  */
  @import "./media";
  body, html {
-    background-image: "#fff";
-    background-repeat: no-repeat;
-    background-size: cover;
     font-family: $fontmain;
     font-size: $base-size - 2px;
     overflow-x: hidden;

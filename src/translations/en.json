@@ -181,5 +181,11 @@
         "offer-4-description": "A system of medicine that treats the whole individual and removing sickness or restoring health.",
         "appointment-title": "Welcome to Rejuvenate. Book Your Stay Today.",
         "appointment-description": "BOOK AN APPOINTMENT"
+    },
+    "section": {
+        "specialist": "Specialist",
+        "branches": "Branches",
+        "doctors": "Outstanding doctors",
+        "handbooks": "Handbooks"
     }
 }

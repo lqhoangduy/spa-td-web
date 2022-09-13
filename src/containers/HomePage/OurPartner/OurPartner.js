@@ -91,16 +91,14 @@ function OurPartner() {
 			<section
 				style={{ backgroundImage: `url('/images/bg-our-partner.jpeg')` }}>
 				<div className={`${styles.ourPartnerWrap} container`}>
-					<div>
-						<div className={styles.ourPartner}>
-							<Slider {...settings}>
-								{partners.map((partner) => (
-									<div key={partner.key} className={styles.ourPartnerItem}>
-										<img src={partner.image} alt='partner' />
-									</div>
-								))}
-							</Slider>
-						</div>
+					<div className={styles.ourPartner}>
+						<Slider {...settings}>
+							{partners.map((partner) => (
+								<div key={partner.key} className={styles.ourPartnerItem}>
+									<img src={partner.image} alt='partner' />
+								</div>
+							))}
+						</Slider>
 					</div>
 				</div>
 			</section>

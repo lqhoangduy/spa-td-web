@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Header from "./Header/Header";
 import Slider from "./Slider/Slider";
 import Category from "./Category/Category";
+import Section from "./Section/Section";
 import MeetTheTeam from "./MeetTheTeam/MeetTheTeam";
 import OurPartner from "./OurPartner/OurPartner";
 import Footer from "./Footer/Footer";
@@ -14,6 +15,7 @@ const HomePage = () => {
 			<Header />
 			<Slider />
 			<Category />
+			<Section />
 			<MeetTheTeam />
 			<OurPartner />
 			<Footer />
