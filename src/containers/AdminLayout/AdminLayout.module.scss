@@ -1,15 +1,27 @@
+@import "../../styles/common.scss";
+
 .adminLayout {
+  .logo {
+    height: 32px;
+    margin: 16px;
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    padding: 0 10px;
+    
+    span {
+      color: #fff;
+      margin: auto;
+      @include ellipsis(1);
+    }
+  }
+
   :global {
     .ant-menu-title-content {
       a {
         text-decoration: none;
       }
-    }
-    
-    .logo {
-      height: 32px;
-      margin: 16px;
-      background: rgba(255, 255, 255, 0.3);
     }
   }
 }

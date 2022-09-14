@@ -53,6 +53,20 @@
             "system-parameter": {
                 "header": "System-parameter"
             }
+        },
+        "admin": {
+            "user": "User",
+            "user-manage": "User manage",
+            "doctor-manage": "Doctor manage",
+            "admin-manage": "Admin manage",
+            "crud-user": "Edit user",
+            "crud-redux": "Edit redux",
+            "clinic": "Clinic",
+            "clinic-manage": "Clinic manage",
+            "specialty": "Specialty",
+            "specialty-manage": "Specialty manage",
+            "handbook": "Handbook",
+            "handbook-manage": "Handbook manage"
         }
     },
     "system": {

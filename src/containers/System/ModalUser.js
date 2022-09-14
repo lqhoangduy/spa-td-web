@@ -17,8 +17,6 @@ const ModalUser = ({
 	const [form] = Form.useForm();
 	const [isLoading, setIsLoading] = useState(false);
 
-	console.log(isEdit, userEdit);
-
 	useEffect(() => {
 		if (isEdit && userEdit) {
 			setValuesForm(userEdit);

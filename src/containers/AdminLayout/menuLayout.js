@@ -1,9 +1,13 @@
 import {
-	DesktopOutlined,
+	FileSearchOutlined,
 	UserOutlined,
 	TeamOutlined,
-	FileOutlined,
+	HomeOutlined,
 	LogoutOutlined,
+	CustomerServiceOutlined,
+	BulbOutlined,
+	SolutionOutlined,
+	EditOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
@@ -18,31 +22,82 @@ function getItem(label, key, icon, children) {
 }
 
 export const itemsMenuLayout = [
+	getItem(<FormattedMessage id='menu.admin.user' />, "user", <TeamOutlined />, [
+		getItem(
+			<Link to='/system/user-manage'>
+				<FormattedMessage id='menu.admin.user-manage' />
+			</Link>,
+			"user-manage",
+			<UserOutlined />
+		),
+		getItem(
+			<Link to='/system/user-manage'>
+				<FormattedMessage id='menu.admin.doctor-manage' />
+			</Link>,
+			"doctor-manage",
+			<CustomerServiceOutlined />
+		),
+		getItem(
+			<Link to='/system/admin-manage'>
+				<FormattedMessage id='menu.admin.admin-manage' />
+			</Link>,
+			"admin-manage",
+			<UserOutlined />
+		),
+		getItem(
+			<Link to='/system/edit-user'>
+				<FormattedMessage id='menu.admin.crud-user' />
+			</Link>,
+			"crud-user",
+			<SolutionOutlined />
+		),
+		getItem(
+			<Link to='/system/edit-redux'>
+				<FormattedMessage id='menu.admin.crud-redux' />
+			</Link>,
+			"crud-redux",
+			<EditOutlined />
+		),
+	]),
 	getItem(
-		<FormattedMessage id='menu.system.system-administrator.header' />,
-		"1",
-		<DesktopOutlined />,
+		<FormattedMessage id='menu.admin.clinic' />,
+		"clinic",
+		<HomeOutlined />,
 		[
 			getItem(
-				<Link to='/system/user-manage'>
-					<FormattedMessage id='menu.system.system-administrator.user-manage' />
+				<Link to='/system/clinic-manage'>
+					<FormattedMessage id='menu.admin.clinic-manage' />
 				</Link>,
-				"user-manage",
-				<UserOutlined />
+				"clinic-manage",
+				<HomeOutlined />
 			),
+		]
+	),
+	getItem(
+		<FormattedMessage id='menu.admin.specialty' />,
+		"specialty",
+		<BulbOutlined />,
+		[
 			getItem(
-				<Link to='/system/product-manage'>
-					<FormattedMessage id='menu.system.system-administrator.product-manage' />
+				<Link to='/system/specialty-manage'>
+					<FormattedMessage id='menu.admin.specialty-manage' />
 				</Link>,
-				"product-manage",
-				<TeamOutlined />
+				"specialty-manage",
+				<BulbOutlined />
 			),
+		]
+	),
+	getItem(
+		<FormattedMessage id='menu.admin.handbook' />,
+		"handbook",
+		<FileSearchOutlined />,
+		[
 			getItem(
-				<Link to='/system/register-package-group-or-account'>
-					<FormattedMessage id='menu.system.system-administrator.register-package-group-or-account' />
+				<Link to='/system/handbook-manage'>
+					<FormattedMessage id='menu.admin.handbook-manage' />
 				</Link>,
-				"register-package-group-or-account",
-				<FileOutlined />
+				"handbook-manage",
+				<FileSearchOutlined />
 			),
 		]
 	),

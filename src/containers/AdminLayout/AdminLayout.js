@@ -23,22 +23,25 @@ class AdminLayout extends Component {
 	};
 
 	render() {
+		const { userInfo } = this.props;
 		return (
 			<Layout
 				style={{
 					minHeight: "100vh",
 				}}
-				className={styles.AdminLayout}>
+				className={styles.adminLayout}>
 				<Sider
 					collapsible
 					collapsed={this.state.collapsed}
 					onCollapse={(value) => this.setState({ collapsed: value })}>
-					<div className='logo' />
+					<div className={styles.logo}>
+						<span>{userInfo?.firstName ? userInfo.firstName : ""}</span>
+					</div>
 					<Menu
 						onClick={this.handleClickMenu}
 						theme='dark'
-						defaultSelectedKeys={["1"]}
-						defaultOpenKeys={["1"]}
+						defaultSelectedKeys={["manage-user"]}
+						defaultOpenKeys={["manage-user"]}
 						mode='inline'
 						items={itemsMenuLayout}
 					/>
@@ -52,6 +55,7 @@ class AdminLayout extends Component {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.user.isLoggedIn,
+		userInfo: state.user.userInfo,
 	};
 };
 

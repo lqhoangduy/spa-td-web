@@ -53,6 +53,20 @@
             "system-parameter": {
                 "header": "Tham số hệ thống"
             }
+        },
+        "admin": {
+            "user": "Người dùng",
+            "user-manage": "Quản lý người dùng",
+            "doctor-manage": "Quản lý bác sĩ",
+            "admin-manage": "Quản lý Admin",
+            "crud-user": "Chỉnh sửa người dùng",
+            "crud-redux": "Chỉnh sửa redux",
+            "clinic": "Phòng khám",
+            "clinic-manage": "Quản lý phòng khám",
+            "specialty": "Chuyên khoa",
+            "specialty-manage": "Quản lý chuyên khoa",
+            "handbook": "Cẩm nang",
+            "handbook-manage": "Quản lý cẩm nang"
         }
     },
     "system": {
