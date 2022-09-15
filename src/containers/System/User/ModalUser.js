@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Form, Input, Row, Col, Select, Button } from "antd";
 import { FormattedMessage } from "react-intl";
+import { connect } from "react-redux";
 import styles from "./ModalUser.module.scss";
-import CommonUtils from "./../../utils/CommonUtils";
+import CommonUtils from "./../../../utils/CommonUtils";
+import { userService } from "../../../services";
+import { languages } from "../../../utils/constant";
 
 const { Option } = Select;
 
@@ -13,15 +16,38 @@ const ModalUser = ({
 	onClose,
 	onCreateUser,
 	onEditUser,
+	language,
 }) => {
 	const [form] = Form.useForm();
 	const [isLoading, setIsLoading] = useState(false);
+	const [genders, setGenders] = useState(null);
+	const [roles, setRoles] = useState(null);
+	const [positions, setPositions] = useState(null);
+
+	useEffect(() => {
+		loadData();
+	}, []);
 
 	useEffect(() => {
 		if (isEdit && userEdit) {
 			setValuesForm(userEdit);
 		}
 	}, [isEdit, userEdit]);
+
+	const loadData = async () => {
+		const resultGender = await userService.getAllCode("GENDER");
+		if (resultGender.errorCode === 0) {
+			setGenders(resultGender.data);
+		}
+		const resultRole = await userService.getAllCode("ROLE");
+		if (resultRole.errorCode === 0) {
+			setRoles(resultRole.data);
+		}
+		const resultPosition = await userService.getAllCode("POSITION");
+		if (resultPosition.errorCode === 0) {
+			setPositions(resultPosition.data);
+		}
+	};
 
 	const setValuesForm = (user) => {
 		form.setFieldsValue(user);
@@ -30,10 +56,14 @@ const ModalUser = ({
 	const handleSubmitUser = async () => {
 		setIsLoading(true);
 		form.validateFields().then((values) => {
+			let result = false;
 			if (isEdit) {
-				onEditUser(values);
+				result = onEditUser(values);
 			} else {
-				onCreateUser(values);
+				result = onCreateUser(values);
+			}
+			if (result) {
+				form.resetFields();
 			}
 		});
 		setIsLoading(false);
@@ -78,10 +108,9 @@ const ModalUser = ({
 				name='create-user-form'
 				labelCol={{ span: 24 }}
 				wrapperCol={{ span: 24 }}
-				initialValues={{ remember: true }}
 				autoComplete='off'>
 				<Row gutter={[16, 16]}>
-					<Col xs={isEdit ? 24 : 12}>
+					<Col xs={24} md={isEdit ? 24 : 12}>
 						<Form.Item
 							label={<FormattedMessage id='system.user-manage.email' />}
 							name='email'
@@ -103,7 +132,7 @@ const ModalUser = ({
 						</Form.Item>
 					</Col>
 					{!isEdit && (
-						<Col xs={12}>
+						<Col xs={24} md={12}>
 							<Form.Item
 								label={<FormattedMessage id='system.user-manage.password' />}
 								name='password'
@@ -121,7 +150,7 @@ const ModalUser = ({
 					)}
 				</Row>
 				<Row gutter={[16, 16]}>
-					<Col xs={12}>
+					<Col xs={24} md={12}>
 						<Form.Item
 							label={<FormattedMessage id='system.user-manage.first-name' />}
 							name='firstName'
@@ -136,7 +165,7 @@ const ModalUser = ({
 							<Input />
 						</Form.Item>
 					</Col>
-					<Col xs={12}>
+					<Col xs={24} md={12}>
 						<Form.Item
 							label={<FormattedMessage id='system.user-manage.last-name' />}
 							name='lastName'
@@ -153,24 +182,7 @@ const ModalUser = ({
 					</Col>
 				</Row>
 				<Row gutter={[16, 16]}>
-					<Col xs={24}>
-						<Form.Item
-							label={<FormattedMessage id='system.user-manage.address' />}
-							name='address'
-							rules={[
-								{
-									required: true,
-									message: (
-										<FormattedMessage id='system.user-manage.address-required' />
-									),
-								},
-							]}>
-							<Input />
-						</Form.Item>
-					</Col>
-				</Row>
-				<Row gutter={[16, 16]}>
-					<Col xs={12}>
+					<Col xs={24} md={12}>
 						<Form.Item
 							label={<FormattedMessage id='system.user-manage.mobile' />}
 							name='phoneNumber'
@@ -199,7 +211,24 @@ const ModalUser = ({
 							<Input />
 						</Form.Item>
 					</Col>
-					<Col xs={6}>
+					<Col xs={24} md={12}>
+						<Form.Item
+							label={<FormattedMessage id='system.user-manage.address' />}
+							name='address'
+							rules={[
+								{
+									required: true,
+									message: (
+										<FormattedMessage id='system.user-manage.address-required' />
+									),
+								},
+							]}>
+							<Input />
+						</Form.Item>
+					</Col>
+				</Row>
+				<Row gutter={[16, 16]}>
+					<Col xs={24} md={8}>
 						<Form.Item
 							label={<FormattedMessage id='system.user-manage.gender' />}
 							name='gender'
@@ -216,16 +245,18 @@ const ModalUser = ({
 								placeholder={
 									<FormattedMessage id='system.user-manage.gender-placeholder' />
 								}>
-								<Option value='1'>
-									<FormattedMessage id='common.male' />
-								</Option>
-								<Option value='2'>
-									<FormattedMessage id='common.female' />
-								</Option>
+								{genders?.length &&
+									genders.map((gender) => (
+										<Option value={gender.key} key={gender.key}>
+											{language === languages.VI
+												? gender.valueVi
+												: gender.valueEn}
+										</Option>
+									))}
 							</Select>
 						</Form.Item>
 					</Col>
-					<Col xs={6}>
+					<Col xs={24} md={8}>
 						<Form.Item
 							label={<FormattedMessage id='system.user-manage.role' />}
 							name='roleId'
@@ -243,15 +274,41 @@ const ModalUser = ({
 									<FormattedMessage id='system.user-manage.role-placeholder' />
 								}
 								disabled={isEdit}>
-								<Option value='1'>
-									<FormattedMessage id='common.admin' />
-								</Option>
-								<Option value='2'>
-									<FormattedMessage id='common.doctor' />
-								</Option>
-								<Option value='3'>
-									<FormattedMessage id='common.patient' />
-								</Option>
+								{roles?.length &&
+									roles.map((role) => (
+										<Option value={role.key} key={role.key}>
+											{language === languages.VI ? role.valueVi : role.valueEn}
+										</Option>
+									))}
+							</Select>
+						</Form.Item>
+					</Col>
+					<Col xs={24} md={8}>
+						<Form.Item
+							label={<FormattedMessage id='system.user-manage.position' />}
+							name='positionId'
+							hasFeedback
+							rules={[
+								{
+									required: true,
+									message: (
+										<FormattedMessage id='system.user-manage.position-required' />
+									),
+								},
+							]}>
+							<Select
+								placeholder={
+									<FormattedMessage id='system.user-manage.position-placeholder' />
+								}
+								disabled={isEdit}>
+								{positions?.length &&
+									positions.map((position) => (
+										<Option value={position.key} key={position.key}>
+											{language === languages.VI
+												? position.valueVi
+												: position.valueEn}
+										</Option>
+									))}
 							</Select>
 						</Form.Item>
 					</Col>
@@ -260,5 +317,14 @@ const ModalUser = ({
 		</Modal>
 	);
 };
+const mapStateToProps = (state) => {
+	return {
+		language: state.app.language,
+	};
+};
 
-export default ModalUser;
+const mapDispatchToProps = (dispatch) => {
+	return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);

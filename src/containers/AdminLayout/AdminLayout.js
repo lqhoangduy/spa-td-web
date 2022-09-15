@@ -33,7 +33,8 @@ class AdminLayout extends Component {
 				<Sider
 					collapsible
 					collapsed={this.state.collapsed}
-					onCollapse={(value) => this.setState({ collapsed: value })}>
+					onCollapse={(value) => this.setState({ collapsed: value })}
+					breakpoint='lg'>
 					<div className={styles.logo}>
 						<span>{userInfo?.firstName ? userInfo.firstName : ""}</span>
 					</div>

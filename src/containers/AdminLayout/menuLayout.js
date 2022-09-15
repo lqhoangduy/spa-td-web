@@ -7,10 +7,10 @@ import {
 	CustomerServiceOutlined,
 	BulbOutlined,
 	SolutionOutlined,
-	EditOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+import { Tooltip } from "antd";
 
 function getItem(label, key, icon, children) {
 	return {
@@ -24,39 +24,37 @@ function getItem(label, key, icon, children) {
 export const itemsMenuLayout = [
 	getItem(<FormattedMessage id='menu.admin.user' />, "user", <TeamOutlined />, [
 		getItem(
-			<Link to='/system/user-manage'>
-				<FormattedMessage id='menu.admin.user-manage' />
-			</Link>,
+			<Tooltip
+				placement='right'
+				title={<FormattedMessage id='menu.admin.user-manage' />}>
+				<Link to='/system/user-manage'>
+					<FormattedMessage id='menu.admin.user-manage' />
+				</Link>
+			</Tooltip>,
 			"user-manage",
-			<UserOutlined />
+			<SolutionOutlined />
 		),
 		getItem(
-			<Link to='/system/user-manage'>
-				<FormattedMessage id='menu.admin.doctor-manage' />
-			</Link>,
+			<Tooltip
+				placement='right'
+				title={<FormattedMessage id='menu.admin.doctor-manage' />}>
+				<Link to='/system/user-manage'>
+					<FormattedMessage id='menu.admin.doctor-manage' />
+				</Link>
+			</Tooltip>,
 			"doctor-manage",
 			<CustomerServiceOutlined />
 		),
 		getItem(
-			<Link to='/system/admin-manage'>
-				<FormattedMessage id='menu.admin.admin-manage' />
-			</Link>,
+			<Tooltip
+				placement='right'
+				title={<FormattedMessage id='menu.admin.admin-manage' />}>
+				<Link to='/system/admin-manage'>
+					<FormattedMessage id='menu.admin.admin-manage' />
+				</Link>
+			</Tooltip>,
 			"admin-manage",
 			<UserOutlined />
-		),
-		getItem(
-			<Link to='/system/edit-user'>
-				<FormattedMessage id='menu.admin.crud-user' />
-			</Link>,
-			"crud-user",
-			<SolutionOutlined />
-		),
-		getItem(
-			<Link to='/system/edit-redux'>
-				<FormattedMessage id='menu.admin.crud-redux' />
-			</Link>,
-			"crud-redux",
-			<EditOutlined />
 		),
 	]),
 	getItem(
@@ -65,9 +63,13 @@ export const itemsMenuLayout = [
 		<HomeOutlined />,
 		[
 			getItem(
-				<Link to='/system/clinic-manage'>
-					<FormattedMessage id='menu.admin.clinic-manage' />
-				</Link>,
+				<Tooltip
+					placement='right'
+					title={<FormattedMessage id='menu.admin.clinic-manage' />}>
+					<Link to='/system/clinic-manage'>
+						<FormattedMessage id='menu.admin.clinic-manage' />
+					</Link>
+				</Tooltip>,
 				"clinic-manage",
 				<HomeOutlined />
 			),
@@ -79,9 +81,13 @@ export const itemsMenuLayout = [
 		<BulbOutlined />,
 		[
 			getItem(
-				<Link to='/system/specialty-manage'>
-					<FormattedMessage id='menu.admin.specialty-manage' />
-				</Link>,
+				<Tooltip
+					placement='right'
+					title={<FormattedMessage id='menu.admin.specialty-manage' />}>
+					<Link to='/system/specialty-manage'>
+						<FormattedMessage id='menu.admin.specialty-manage' />
+					</Link>
+				</Tooltip>,
 				"specialty-manage",
 				<BulbOutlined />
 			),
@@ -93,9 +99,13 @@ export const itemsMenuLayout = [
 		<FileSearchOutlined />,
 		[
 			getItem(
-				<Link to='/system/handbook-manage'>
-					<FormattedMessage id='menu.admin.handbook-manage' />
-				</Link>,
+				<Tooltip
+					placement='right'
+					title={<FormattedMessage id='menu.admin.handbook-manage' />}>
+					<Link to='/system/handbook-manage'>
+						<FormattedMessage id='menu.admin.handbook-manage' />
+					</Link>
+				</Tooltip>,
 				"handbook-manage",
 				<FileSearchOutlined />
 			),

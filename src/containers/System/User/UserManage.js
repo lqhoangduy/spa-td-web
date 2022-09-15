@@ -1,9 +1,14 @@
 import { Table, Space, Button, Tooltip, message, Popconfirm } from "antd";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+	EditOutlined,
+	DeleteOutlined,
+	PlusOutlined,
+	SmileOutlined,
+} from "@ant-design/icons";
 import { FormattedMessage } from "react-intl";
-import { userService } from "../../services";
+import { userService } from "../../../services";
 import ModalUser from "./ModalUser";
 import styles from "./UserManage.module.scss";
 class UserManage extends Component {
@@ -48,8 +53,10 @@ class UserManage extends Component {
 				message.success(response.message);
 				this.getAllUsers();
 				this.handleCloseModal();
+				return true;
 			} else {
 				message.error(response.message);
+				return false;
 			}
 		} catch (error) {
 			if (error.response && error.response.data) {
@@ -66,8 +73,10 @@ class UserManage extends Component {
 				message.success(response.message);
 				this.getAllUsers();
 				this.handleCloseModal();
+				return true;
 			} else {
 				message.error(response.message);
+				return false;
 			}
 		} catch (error) {
 			if (error.response && error.response.data) {
@@ -76,7 +85,11 @@ class UserManage extends Component {
 		}
 	};
 
-	handleDeleteUser = async (id) => {
+	handleDeleteUser = async (id, email) => {
+		if (email === this.props.currentUser.email) {
+			message.error("Deleted user fail!");
+			return;
+		}
 		try {
 			const response = await userService.deleteUser(id);
 			if (response?.errorCode === 0) {
@@ -94,7 +107,6 @@ class UserManage extends Component {
 
 	handleOpenModalEdit = (id) => {
 		const user = this.state.users.find((user) => user.id === id);
-		console.log(user);
 		this.setState({
 			userEdit: user,
 			isModeEdit: true,
@@ -111,6 +123,8 @@ class UserManage extends Component {
 	};
 
 	render() {
+		const { currentUser } = this.props;
+
 		const columns = [
 			{
 				title: <FormattedMessage id='system.user-manage.email' />,
@@ -142,23 +156,31 @@ class UserManage extends Component {
 								onClick={() => this.handleOpenModalEdit(record.key)}
 							/>
 						</Tooltip>
-						<Popconfirm
-							title={
-								<FormattedMessage id='system.user-manage.sure-delete-user' />
-							}
-							onConfirm={() => this.handleDeleteUser(record.key)}
-							okText={<FormattedMessage id='common.yes' />}
-							cancelText={<FormattedMessage id='common.no' />}>
-							<Tooltip
-								placement='bottom'
-								title={<FormattedMessage id='common.delete' />}>
-								<Button
-									type='link'
-									icon={<DeleteOutlined />}
-									className='btn-delete'
-								/>
-							</Tooltip>
-						</Popconfirm>
+						{record.email !== currentUser?.email ? (
+							<Popconfirm
+								title={
+									<FormattedMessage id='system.user-manage.sure-delete-user' />
+								}
+								onConfirm={() =>
+									this.handleDeleteUser(record.key, record.email)
+								}
+								okText={<FormattedMessage id='common.yes' />}
+								cancelText={<FormattedMessage id='common.no' />}>
+								<Tooltip
+									placement='bottom'
+									title={<FormattedMessage id='common.delete' />}>
+									<Button
+										type='link'
+										icon={<DeleteOutlined />}
+										className='btn-delete'
+									/>
+								</Tooltip>
+							</Popconfirm>
+						) : (
+							<div className='current-user'>
+								<SmileOutlined />
+							</div>
+						)}
 					</Space>
 				),
 			},
@@ -204,7 +226,9 @@ class UserManage extends Component {
 }
 
 const mapStateToProps = (state) => {
-	return {};
+	return {
+		currentUser: state.user.userInfo,
+	};
 };
 
 const mapDispatchToProps = (dispatch) => {
