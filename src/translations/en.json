@@ -28,7 +28,9 @@
         "admin": "Admin",
         "doctor": "Doctor",
         "patient": "Patient",
-        "search": "Search"
+        "search": "Search",
+        "image-wrong": "Please choose a picture in jpeg or png format",
+        "upload-image": "Upload image"
     },
     "login": {
         "login": "Login",
@@ -114,7 +116,8 @@
             "role-required": "Please selected role!",
             "position": "Position",
             "position-placeholder": "Select position",
-            "position-required": "Please selected position!"
+            "position-required": "Please selected position!",
+            "image": "Avatar"
         }
     },
     "header": {

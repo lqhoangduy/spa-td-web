@@ -25,3 +25,5 @@ export const YesNoObj = {
 	YES: "Y",
 	NO: "N",
 };
+
+export const validImageTypes = ["image/jpeg", "image/png"];

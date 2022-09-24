@@ -28,7 +28,9 @@
         "admin": "Quản trị viên",
         "doctor": "Bác sĩ",
         "patient": "Bệnh nhân",
-        "search": "Tìm kiếm"
+        "search": "Tìm kiếm",
+        "image-wrong": "Vui lòng chọn ảnh định dạng jpeg hoặc png",
+        "upload-image": "Tải ảnh"
     },
     "login": {
         "login": "Đăng nhập",
@@ -114,7 +116,8 @@
             "role-required": "Vui lòng chọn vai trò!",
             "position": "Chức danh",
             "position-placeholder": "Chọn chức danh",
-            "position-required": "Vui lòng chọn chức danh!"
+            "position-required": "Vui lòng chọn chức danh!",
+            "image": "Ảnh đại diện"
         }
     },
     "header": {

@@ -11,6 +11,7 @@ import { FormattedMessage } from "react-intl";
 import { userService } from "../../../services";
 import ModalUser from "./ModalUser";
 import styles from "./UserManage.module.scss";
+import * as actions from "../../../store/actions";
 class UserManage extends Component {
 	constructor(props) {
 		super(props);
@@ -24,6 +25,9 @@ class UserManage extends Component {
 	}
 
 	async componentDidMount() {
+		this.props.getGenderStart();
+		this.props.getRoleStart();
+		this.props.getPositionStart();
 		await this.getAllUsers();
 	}
 
@@ -232,7 +236,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-	return {};
+	return {
+		getGenderStart: () => dispatch(actions.fetchGenderStart()),
+		getRoleStart: () => dispatch(actions.fetchRoleStart()),
+		getPositionStart: () => dispatch(actions.fetchPositionStart()),
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserManage);

@@ -7,6 +7,15 @@ class CommonUtils {
 	static validatePhoneNumber = (phone) => {
 		return /(84|0[3|5|7|8|9])+([0-9]{8})\b/g.test(phone.toLowerCase());
 	};
+
+	static getBase64 = (file) => {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = (error) => reject(error);
+		});
+	};
 }
 
 export default CommonUtils;
