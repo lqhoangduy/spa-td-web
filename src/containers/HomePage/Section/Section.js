@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import Slider from "react-slick";
+import { userService } from "../../../services";
 import styles from "./Section.module.scss";
 
 const specialties = [
@@ -27,7 +28,8 @@ const specialties = [
 	},
 ];
 
-const Section = () => {
+const Section = ({ language }) => {
+	const [topDoctors, setTopDoctors] = useState(null);
 	const setting1 = {
 		dots: false,
 		infinite: true,
@@ -37,6 +39,17 @@ const Section = () => {
 		centerMode: true,
 		speed: 500,
 		slidesToScroll: 1,
+	};
+
+	useEffect(() => {
+		loadData();
+	}, []);
+
+	const loadData = async () => {
+		const resultDoctor = await userService.getTopDoctorHome(10);
+		if (resultDoctor.errorCode === 0) {
+			setTopDoctors(resultDoctor.data);
+		}
 	};
 
 	const setting2 = {
@@ -71,19 +84,26 @@ const Section = () => {
 					))}
 				</Slider>
 			</div>
-			<div className={styles.sectionWrap}>
-				<h3 className={styles.sectionTitle}>
-					<FormattedMessage id='section.doctors' />
-				</h3>
-				<Slider {...setting1}>
-					{specialties.map((specialty) => (
-						<div key={specialty.key} className={styles.sectionItem}>
-							<img src={specialty.url} alt='partner' />
-							<span>{specialty.title}</span>
-						</div>
-					))}
-				</Slider>
-			</div>
+			{topDoctors?.length && (
+				<div className={styles.sectionWrap}>
+					<h3 className={styles.sectionTitle}>
+						<FormattedMessage id='section.doctors' />
+					</h3>
+					<Slider {...setting1}>
+						{topDoctors.map((doctor, index) => (
+							<div key={index} className={styles.sectionItem}>
+								<img src={doctor.image?.url} alt='doctor' />
+								<span>
+									{language === "vi"
+										? doctor.positionData?.valueVi
+										: doctor.positionData?.valueEn}
+									. {doctor.firstName} {doctor.lastName}
+								</span>
+							</div>
+						))}
+					</Slider>
+				</div>
+			)}
 			<div className={styles.sectionWrap}>
 				<h3 className={styles.sectionTitle}>
 					<FormattedMessage id='section.handbooks' />
@@ -102,7 +122,9 @@ const Section = () => {
 };
 
 const mapStateToProps = (state) => {
-	return {};
+	return {
+		language: state.app.language,
+	};
 };
 
 const mapDispatchToProps = (dispatch) => {

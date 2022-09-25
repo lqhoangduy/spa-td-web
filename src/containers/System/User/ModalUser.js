@@ -293,7 +293,7 @@ const ModalUser = ({
 									}>
 									{genders?.length &&
 										genders.map((gender) => (
-											<Option value={gender.key} key={gender.key}>
+											<Option value={gender.keyMap} key={gender.keyMap}>
 												{language === languages.VI
 													? gender.valueVi
 													: gender.valueEn}
@@ -321,7 +321,7 @@ const ModalUser = ({
 									}>
 									{roles?.length &&
 										roles.map((role) => (
-											<Option value={role.key} key={role.key}>
+											<Option value={role.keyMap} key={role.keyMap}>
 												{language === languages.VI
 													? role.valueVi
 													: role.valueEn}
@@ -349,7 +349,7 @@ const ModalUser = ({
 									}>
 									{positions?.length &&
 										positions.map((position) => (
-											<Option value={position.key} key={position.key}>
+											<Option value={position.keyMap} key={position.keyMap}>
 												{language === languages.VI
 													? position.valueVi
 													: position.valueEn}
