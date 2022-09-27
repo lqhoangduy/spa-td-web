@@ -22,6 +22,9 @@ const userService = {
 	getTopDoctorHome(limit) {
 		return axios.get(`/api/top-doctor-home?limit=${limit}`);
 	},
+	getAllDoctors() {
+		return axios.get("/api/get-all-doctors");
+	},
 };
 
 export default userService;

@@ -1,0 +1,45 @@
+@import "../../../styles/common.scss";
+
+.doctorManage {
+  .doctorManageTitle {
+    color: $primary-brown;
+    font-size: 32px;
+    padding: 16px 0;
+    font-weight: bold;
+  }
+
+  .moreInfo {
+    padding-bottom: 24px;
+  }
+
+  .chooseDoctor, .introInfo {
+    width: 100%;
+
+    label {
+      margin-bottom: 12px;
+    }
+
+    :global {
+      .ant-select{
+        width: 100% !important;
+      }
+    }
+  }
+
+  .doctorManageEditor {
+    label {
+      margin-bottom: 12px;
+    }
+  }
+
+  .saveWrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+
+    .doctorManageSaveBtn {
+      min-width: 140px;
+    }
+  }
+}

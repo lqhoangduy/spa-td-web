@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import UserManage from "../containers/System/User/UserManage";
 import ProductManage from "../containers/System/ProductManage";
+import DoctorManage from "../containers/System/Admin/DoctorManage";
 import RegisterPackageGroupOrAcc from "../containers/System/RegisterPackageGroupOrAcc";
 
 class System extends Component {
@@ -13,6 +14,7 @@ class System extends Component {
 				<div className='system-list'>
 					<Switch>
 						<Route path='/system/user-manage' component={UserManage} />
+						<Route path='/system/doctor-manage' component={DoctorManage} />
 						<Route path='/system/product-manage' component={ProductManage} />
 						<Route
 							path='/system/register-package-group-or-account'

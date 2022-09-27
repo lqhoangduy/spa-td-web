@@ -118,6 +118,12 @@
             "position-placeholder": "Select position",
             "position-required": "Please selected position!",
             "image": "Avatar"
+        },
+        "doctor-manage": {
+            "title": "Create more information Doctor",
+            "choose-doctor": "Select doctor: ",
+            "description": "Introduction information: ",
+            "content": "Content: "
         }
     },
     "header": {

@@ -10,6 +10,7 @@ import {
 import { FormattedMessage } from "react-intl";
 import { userService } from "../../../services";
 import ModalUser from "./ModalUser";
+import { clsx } from "clsx";
 import styles from "./UserManage.module.scss";
 import * as actions from "../../../store/actions";
 class UserManage extends Component {
@@ -192,10 +193,10 @@ class UserManage extends Component {
 
 		return (
 			<>
-				<div className={`${styles.userContainer} container`}>
-					<div className='title text-center'>
+				<div className={clsx("container", styles.userContainer)}>
+					<h1 className={clsx("title text-center", styles.userManageTitle)}>
 						<FormattedMessage id='menu.system.system-administrator.user-manage' />
-					</div>
+					</h1>
 					<Button
 						onClick={() => {
 							this.setState({

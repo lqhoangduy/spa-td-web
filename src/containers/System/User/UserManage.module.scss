@@ -1,6 +1,13 @@
 @import "../../../styles/common.scss";
 
 .userContainer {
+  .userManageTitle {
+    font-size: 32px;
+    color: $primary-brown;
+    padding: 16px 0;
+    font-weight: bold;
+  }
+
   :global {
     .btn-delete {
       color: $common-red;

@@ -118,6 +118,12 @@
             "position-placeholder": "Chọn chức danh",
             "position-required": "Vui lòng chọn chức danh!",
             "image": "Ảnh đại diện"
+        },
+        "doctor-manage": {
+            "title": "Tạo thêm thông tin Bác sĩ",
+            "choose-doctor": "Chọn bác sĩ: ",
+            "description": "Thông tin giới thiệu: ",
+            "content": "Nội dung: "
         }
     },
     "header": {

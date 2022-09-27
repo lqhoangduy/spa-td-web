@@ -38,7 +38,7 @@ export const itemsMenuLayout = [
 			<Tooltip
 				placement='right'
 				title={<FormattedMessage id='menu.admin.doctor-manage' />}>
-				<Link to='/system/user-manage'>
+				<Link to='/system/doctor-manage'>
 					<FormattedMessage id='menu.admin.doctor-manage' />
 				</Link>
 			</Tooltip>,
