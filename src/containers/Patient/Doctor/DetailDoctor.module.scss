@@ -1,0 +1,47 @@
+@import "../../../styles/common.scss";
+
+.detailDoctor {
+  .introDoctor {
+    display: flex;
+    align-items: center;
+    padding: 40px 0;
+  }
+
+  @include maxMd {
+    .introDoctor {
+      padding: 20px 0;
+    }
+  }
+
+  .introInformation {
+    padding: 0 24px;
+
+    .doctorName {
+      font-size: 24px;
+      color: $primary-brown;
+    }
+
+    .doctorDescription {
+      font-size: 16px;
+      color: $neutral-60;
+      white-space: pre-wrap;
+    }
+  }
+
+  .sectionTitle {
+    color: $primary-orange;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .commentDoctor {
+    padding-bottom: 40px;
+  }
+
+  .dateComment {
+    color: $common-btn-confirm;
+    .date {
+      margin-left: 4px;
+    }
+  }
+}

@@ -89,7 +89,8 @@ function OurPartner() {
 	return (
 		<>
 			<section
-				style={{ backgroundImage: `url('/images/bg-our-partner.jpeg')` }}>
+				style={{ backgroundImage: `url('/images/bg-our-partner.jpeg')` }}
+				className={styles.ourPartnerBg}>
 				<div className={`${styles.ourPartnerWrap} container`}>
 					<div className={styles.ourPartner}>
 						<Slider {...settings}>

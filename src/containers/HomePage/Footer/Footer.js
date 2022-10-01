@@ -17,13 +17,28 @@ function Footer() {
 					</div>
 					<div className={styles.footerSocial}>
 						<div className={styles.footerSocialItem}>
-							<FacebookOutlined />
+							<a
+								href='https://www.facebook.com/lqhoangduy'
+								target='_blank'
+								rel='noreferrer'>
+								<FacebookOutlined />
+							</a>
 						</div>
 						<div className={styles.footerSocialItem}>
-							<LinkedinOutlined />
+							<a
+								href='https://www.linkedin.com/in/hoangduylq'
+								target='_blank'
+								rel='noreferrer'>
+								<LinkedinOutlined />
+							</a>
 						</div>
 						<div className={styles.footerSocialItem}>
-							<InstagramOutlined />
+							<a
+								href='https://www.instagram.com/hoangduy.lq'
+								target='_blank'
+								rel='noreferrer'>
+								<InstagramOutlined />
+							</a>
 						</div>
 					</div>
 					<div className={styles.footerContact}>

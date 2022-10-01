@@ -38,6 +38,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        a {
+          text-decoration: none;
+          color: $primary-white;
+        }
+
         &:hover{
           opacity: 0.8;
           cursor: pointer;

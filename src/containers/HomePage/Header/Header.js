@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Drawer, Button, Divider } from "antd";
 import { FormattedMessage } from "react-intl";
 import { QuestionCircleOutlined, MenuOutlined } from "@ant-design/icons";
+import { useHistory } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { languages } from "../../../utils/constant";
 import * as actions from "../../../store/actions";
@@ -31,6 +32,7 @@ const navbars = [
 ];
 
 const Header = ({ language, changeLanguage }) => {
+	const history = useHistory();
 	const [showDrawer, setShowDrawer] = useState(false);
 
 	const handleChangeLang = (lang) => {
@@ -42,7 +44,9 @@ const Header = ({ language, changeLanguage }) => {
 			<section className={`${styles.header} shadow-primary`}>
 				<div className={`container ${styles.headerWrap}`}>
 					<div className={styles.leftContainer}>
-						<div className={styles.logo}>Rejuvenate</div>
+						<div className={styles.logo} onClick={() => history.push("/home")}>
+							Rejuvenate
+						</div>
 						<div className={styles.nav}>
 							{navbars.map((nav) => {
 								return (

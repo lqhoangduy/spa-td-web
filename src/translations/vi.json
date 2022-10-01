@@ -30,7 +30,9 @@
         "patient": "Bệnh nhân",
         "search": "Tìm kiếm",
         "image-wrong": "Vui lòng chọn ảnh định dạng jpeg hoặc png",
-        "upload-image": "Tải ảnh"
+        "upload-image": "Tải ảnh",
+        "404": "404: Trang không tồn tại",
+        "backHome": "Quay về Trang chủ"
     },
     "login": {
         "login": "Đăng nhập",
@@ -163,5 +165,10 @@
         "branches": "Các chi nhánh",
         "doctors": "Các bác sĩ nổi bật",
         "handbooks": "Cẩm nang"
+    },
+    "doctor": {
+        "detail-information": "Thông tin chi tiết",
+        "patient-feedback": "Phản hồi của bệnh nhân",
+        "date-of-visit": "Đã khám ngày "
     }
 }

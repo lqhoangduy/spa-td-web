@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import Slider from "react-slick";
@@ -29,7 +30,9 @@ const specialties = [
 ];
 
 const Section = ({ language }) => {
+	const history = useHistory();
 	const [topDoctors, setTopDoctors] = useState(null);
+
 	const setting1 = {
 		dots: false,
 		infinite: true,
@@ -39,6 +42,11 @@ const Section = ({ language }) => {
 		centerMode: true,
 		speed: 500,
 		slidesToScroll: 1,
+	};
+
+	const setting2 = {
+		...setting1,
+		rtl: true,
 	};
 
 	useEffect(() => {
@@ -52,10 +60,10 @@ const Section = ({ language }) => {
 		}
 	};
 
-	const setting2 = {
-		...setting1,
-		rtl: true,
+	const handleDetailDoctor = (id) => {
+		history.push(`/doctor/${id}`);
 	};
+
 	return (
 		<section className='container'>
 			<div className={styles.sectionWrap}>
@@ -91,7 +99,10 @@ const Section = ({ language }) => {
 					</h3>
 					<Slider {...setting1}>
 						{topDoctors.map((doctor, index) => (
-							<div key={index} className={styles.sectionItem}>
+							<div
+								key={index}
+								className={styles.sectionItem}
+								onClick={() => handleDetailDoctor(doctor.id)}>
 								<img src={doctor.image?.url} alt='doctor' />
 								<span>
 									{language === "vi"

@@ -28,6 +28,7 @@
       font-size: 28px;
       color: $primary-white;
       margin-right: 60px;
+      cursor: pointer;
     }
 
     .nav {
@@ -65,6 +66,7 @@
       .help {
         display: flex;
         align-items: center;
+
         .icon {
           color: $primary-light;
           margin-right: 4px;
@@ -97,7 +99,7 @@
         :global {
           .ant-divider {
             height: 18px;
-            border-left: 1px solid $primary-light; 
+            border-left: 1px solid $primary-light;
           }
         }
       }

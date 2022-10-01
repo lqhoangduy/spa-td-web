@@ -1,0 +1,30 @@
+@import "../../styles/common.scss";
+
+.notFound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+
+  .description {
+    padding: 0 0 20px;
+    font-size: 40px;
+  }
+
+  img {
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .button {
+    color: $neutral-100;
+    border: 1px solid $neutral-100;
+  }
+
+  .button:hover {
+    color: $neutral-100;
+    border: 1px solid $neutral-100;
+  }
+}

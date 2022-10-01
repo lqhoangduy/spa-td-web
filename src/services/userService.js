@@ -25,6 +25,9 @@ const userService = {
 	getAllDoctors() {
 		return axios.get("/api/get-all-doctors");
 	},
+	getDetailDoctor(id) {
+		return axios.get(`/api/get-detail-doctor-by-id?id=${id}`);
+	},
 };
 
 export default userService;

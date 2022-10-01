@@ -6,6 +6,7 @@ import { history } from "../redux";
 import { ToastContainer } from "react-toastify";
 import CustomScrollbars from "./../components/CustomScrollbars";
 import HomePage from "../containers/HomePage/HomePage";
+import NotFound from "../components/NotFound/NotFound";
 
 import {
 	userIsAuthenticated,
@@ -21,6 +22,7 @@ import System from "../routes/System";
 import AdminLayout from "./AdminLayout/AdminLayout";
 
 import { CustomToastCloseButton } from "../components/CustomToast";
+import DetailDoctor from "./Patient/Doctor/DetailDoctor";
 
 const MapLayout = ({ isLoggedIn, children }) => {
 	return isLoggedIn ? <AdminLayout>{children}</AdminLayout> : <>{children}</>;
@@ -64,6 +66,8 @@ class App extends Component {
 											component={userIsAuthenticated(System)}
 										/>
 										<Route path={path.HOMEPAGE} component={HomePage} />
+										<Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+										<Route path='*' component={NotFound} />
 									</Switch>
 								</CustomScrollbars>
 							</div>

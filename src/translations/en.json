@@ -30,7 +30,9 @@
         "patient": "Patient",
         "search": "Search",
         "image-wrong": "Please choose a picture in jpeg or png format",
-        "upload-image": "Upload image"
+        "upload-image": "Upload image",
+        "404": "404: Page Not Found",
+        "backHome": "Back to Home"
     },
     "login": {
         "login": "Login",
@@ -163,5 +165,10 @@
         "branches": "Branches",
         "doctors": "Outstanding doctors",
         "handbooks": "Handbooks"
+    },
+    "doctor": {
+        "detail-information": "Detail information",
+        "patient-feedback": "Patient feedback",
+        "date-of-visit": "Date of visit "
     }
 }
