@@ -1,40 +1,60 @@
-import React, { Component } from "react";
+import React, { useMemo } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import UserManage from "../containers/System/User/UserManage";
-import ProductManage from "../containers/System/ProductManage";
+import ScheduleManage from "../containers/System/Doctor/ScheduleManage";
 import DoctorManage from "../containers/System/Admin/DoctorManage";
-import RegisterPackageGroupOrAcc from "../containers/System/RegisterPackageGroupOrAcc";
+import { userIsAdmin, userIsAdminOrDoctor } from "../hoc/authentication";
+import { USER_ROLE } from "../utils";
 
-class System extends Component {
-	render() {
-		const { systemMenuPath } = this.props;
-		return (
-			<div className='system-container'>
-				<div className='system-list'>
-					<Switch>
-						<Route path='/system/user-manage' component={UserManage} />
-						<Route path='/system/doctor-manage' component={DoctorManage} />
-						<Route path='/system/product-manage' component={ProductManage} />
-						<Route
-							path='/system/register-package-group-or-account'
-							component={RegisterPackageGroupOrAcc}
-						/>
+function System({ currentUser }) {
+	const systemPath = useMemo(() => {
+		switch (currentUser?.roleId) {
+			case USER_ROLE.ADMIN: {
+				return "/system/user-manage";
+			}
+			case USER_ROLE.DOCTOR: {
+				return "/system/schedule-manage";
+			}
+			case USER_ROLE.PATIENT:
+			default:
+				return "/home";
+		}
+	}, [currentUser]);
+
+	return (
+		<div className='system-container'>
+			<div className='system-list'>
+				<Switch>
+					<Route
+						path='/system/user-manage'
+						component={userIsAdmin(UserManage)}
+					/>
+					<Route
+						path='/system/doctor-manage'
+						component={userIsAdminOrDoctor(DoctorManage)}
+					/>
+					<Route
+						path='/system/schedule-manage'
+						component={userIsAdminOrDoctor(ScheduleManage)}
+					/>
+
+					{systemPath && (
 						<Route
 							component={() => {
-								return <Redirect to={systemMenuPath} />;
+								return <Redirect to={systemPath} />;
 							}}
 						/>
-					</Switch>
-				</div>
+					)}
+				</Switch>
 			</div>
-		);
-	}
+		</div>
+	);
 }
 
 const mapStateToProps = (state) => {
 	return {
-		systemMenuPath: state.app.systemMenuPath,
+		currentUser: state.user.userInfo,
 	};
 };
 

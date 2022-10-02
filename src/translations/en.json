@@ -32,7 +32,9 @@
         "image-wrong": "Please choose a picture in jpeg or png format",
         "upload-image": "Upload image",
         "404": "404: Page Not Found",
-        "backHome": "Back to Home"
+        "backHome": "Back to Home",
+        "home": "Home",
+        "search_placeholder": "Search to Select"
     },
     "login": {
         "login": "Login",
@@ -71,6 +73,9 @@
             "specialty-manage": "Specialty manage",
             "handbook": "Handbook",
             "handbook-manage": "Handbook manage"
+        },
+        "doctor": {
+            "schedule-manage": "Doctor's schedule manage"
         }
     },
     "system": {
@@ -126,6 +131,11 @@
             "choose-doctor": "Select doctor: ",
             "description": "Introduction information: ",
             "content": "Content: "
+        },
+        "schedule-manage": {
+            "title": "Doctor's schedule manage",
+            "choose-date": "Choose date: ",
+            "choose-time": "Choose a time period: "
         }
     },
     "header": {
@@ -169,6 +179,8 @@
     "doctor": {
         "detail-information": "Detail information",
         "patient-feedback": "Patient feedback",
-        "date-of-visit": "Date of visit "
+        "date-of-visit": "Date of visit ",
+        "doctor-info": "Doctor's information",
+        "book-appointment": "Book a medical appointment"
     }
 }

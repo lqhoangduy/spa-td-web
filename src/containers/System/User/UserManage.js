@@ -198,6 +198,7 @@ class UserManage extends Component {
 						<FormattedMessage id='menu.system.system-administrator.user-manage' />
 					</h1>
 					<Button
+						size='large'
 						onClick={() => {
 							this.setState({
 								isModalVisible: true,
@@ -212,7 +213,7 @@ class UserManage extends Component {
 						<Table
 							columns={columns}
 							dataSource={this.state.usersTable}
-							size='middle'
+							size='large'
 							bordered
 						/>
 					</div>

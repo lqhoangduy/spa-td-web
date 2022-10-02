@@ -15,9 +15,15 @@
 }
 
 .text-red {
-    color: $common-red !important;
+    color: $common-red  !important;
 }
 
 .shadow-primary {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.ant-breadcrumb {
+    padding: 24px 0;
+    margin-bottom: 0;
+    color: $primary-brown;
 }

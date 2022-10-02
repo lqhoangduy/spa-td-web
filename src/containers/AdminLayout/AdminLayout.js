@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
 import { Layout, Menu } from "antd";
-import { itemsMenuLayout } from "./menuLayout";
+import { menuAdmin, menuDoctor, menuPatient } from "./menuLayout";
+import { USER_ROLE } from "../../utils/constant";
 import styles from "./AdminLayout.module.scss";
+import _ from "lodash";
 
 const { Sider } = Layout;
 
@@ -13,6 +15,7 @@ class AdminLayout extends Component {
 		super(props);
 		this.state = {
 			collapsed: false,
+			menu: null,
 		};
 	}
 
@@ -21,6 +24,31 @@ class AdminLayout extends Component {
 			this.props.processLogout();
 		}
 	};
+
+	componentDidMount() {
+		const { userInfo } = this.props;
+		if (userInfo && !_.isEmpty(userInfo)) {
+			const role = userInfo.roleId;
+			switch (role) {
+				case USER_ROLE.ADMIN:
+					this.setState({
+						menu: menuAdmin,
+					});
+					break;
+				case USER_ROLE.DOCTOR:
+					this.setState({
+						menu: menuDoctor,
+					});
+					break;
+				case USER_ROLE.PATIENT:
+				default:
+					this.setState({
+						menu: menuPatient,
+					});
+					break;
+			}
+		}
+	}
 
 	render() {
 		const { userInfo } = this.props;
@@ -38,14 +66,14 @@ class AdminLayout extends Component {
 					<div className={styles.logo}>
 						<span>{userInfo?.firstName ? userInfo.firstName : ""}</span>
 					</div>
-					<Menu
-						onClick={this.handleClickMenu}
-						theme='dark'
-						defaultSelectedKeys={["manage-user"]}
-						defaultOpenKeys={["manage-user"]}
-						mode='inline'
-						items={itemsMenuLayout}
-					/>
+					{this.state.menu && (
+						<Menu
+							onClick={this.handleClickMenu}
+							theme='dark'
+							mode='inline'
+							items={this.state.menu}
+						/>
+					)}
 				</Sider>
 				<Layout className='site-layout'>{this.props.children}</Layout>
 			</Layout>

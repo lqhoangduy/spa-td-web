@@ -107,6 +107,7 @@ function DoctorManage({ language }) {
 										<FormattedMessage id='system.doctor-manage.choose-doctor' />
 									</label>
 									<Select
+										size='large'
 										showSearch
 										style={{
 											width: 200,
@@ -121,6 +122,7 @@ function DoctorManage({ language }) {
 												.toLowerCase()
 												.localeCompare(optionB.children.toLowerCase())
 										}
+										value={currentDoctorId}
 										onChange={handleChangeDoctor}>
 										{doctors?.length &&
 											doctors.map((doctor) => (
@@ -139,6 +141,7 @@ function DoctorManage({ language }) {
 										<FormattedMessage id='system.doctor-manage.description' />
 									</label>
 									<TextArea
+										size='large'
 										rows={4}
 										value={description}
 										onChange={(e) => {
@@ -163,6 +166,7 @@ function DoctorManage({ language }) {
 					</div>
 					<div className={styles.saveWrap}>
 						<Button
+							size='large'
 							type='primary'
 							icon={<PlusOutlined />}
 							className={styles.doctorManageSaveBtn}

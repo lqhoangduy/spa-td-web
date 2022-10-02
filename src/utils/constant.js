@@ -28,3 +28,9 @@ export const YesNoObj = {
 };
 
 export const validImageTypes = ["image/jpeg", "image/png"];
+
+export const USER_ROLE = {
+	ADMIN: "R1",
+	DOCTOR: "R2",
+	PATIENT: "R3",
+};

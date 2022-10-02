@@ -4,9 +4,11 @@ const initialState = {
 	isLoadingGender: false,
 	isLoadingRole: false,
 	isLoadingPosition: false,
+	isLoadingTime: false,
 	genders: [],
 	roles: [],
 	positions: [],
+	times: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -59,6 +61,23 @@ const adminReducer = (state = initialState, action) => {
 		case actionTypes.FETCH_POSITION_FAILED:
 			state.positions = [];
 			state.isLoadingPosition = false;
+			return {
+				...state,
+			};
+		case actionTypes.FETCH_TIME_START:
+			state.isLoadingTime = true;
+			return {
+				...state,
+			};
+		case actionTypes.FETCH_TIME_SUCCESS:
+			state.times = action.data;
+			state.isLoadingTime = false;
+			return {
+				...state,
+			};
+		case actionTypes.FETCH_TIME_FAILED:
+			state.times = [];
+			state.isLoadingTime = false;
 			return {
 				...state,
 			};

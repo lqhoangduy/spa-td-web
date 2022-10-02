@@ -84,3 +84,31 @@ export const fetchPositionSuccess = (roleData) => ({
 export const fetchPositionFailed = () => ({
 	type: actionTypes.FETCH_POSITION_FAILED,
 });
+
+export const fetchTimeStart = () => {
+	return async (dispatch, getState) => {
+		try {
+			dispatch({
+				type: actionTypes.FETCH_TIME_START,
+			});
+			let response = await userService.getAllCode("TIME");
+			if (response && response.errorCode === 0) {
+				dispatch(fetchTimeSuccess(response.data));
+			} else {
+				dispatch(fetchTimeFailed());
+			}
+		} catch (error) {
+			dispatch(fetchTimeFailed());
+			console.error("fetch time fail", error);
+		}
+	};
+};
+
+export const fetchTimeSuccess = (timeData) => ({
+	type: actionTypes.FETCH_TIME_SUCCESS,
+	data: timeData,
+});
+
+export const fetchTimeFailed = () => ({
+	type: actionTypes.FETCH_TIME_FAILED,
+});

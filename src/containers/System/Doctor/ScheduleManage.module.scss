@@ -1,0 +1,58 @@
+@import "../../../styles/common.scss";
+
+.doctorScheduleManage {
+
+  .doctorScheduleManageTitle {
+    color: $primary-brown;
+    font-size: 32px;
+    padding: 16px 0;
+    font-weight: bold;
+  }
+
+  .blockTop {
+    padding-bottom: 24px;
+  }
+
+  .chooseDoctor,
+  .dateInfo {
+    width: 100%;
+
+    label {
+      margin-bottom: 12px;
+    }
+
+    :global {
+
+      .ant-picker,
+      .ant-select {
+        width: 100% !important;
+      }
+    }
+  }
+
+  .listTime {
+
+    label {
+      margin-bottom: 12px;
+    }
+
+    .btnTime {
+      width: 100%;
+    }
+  }
+
+  .tableData {
+    margin-top: 16px;
+  }
+
+  .saveWrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+
+    .saveBtn {
+      min-width: 140px;
+    }
+  }
+}

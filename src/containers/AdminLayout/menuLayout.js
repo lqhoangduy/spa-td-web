@@ -7,6 +7,7 @@ import {
 	CustomerServiceOutlined,
 	BulbOutlined,
 	SolutionOutlined,
+	CalendarOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
@@ -21,7 +22,14 @@ function getItem(label, key, icon, children) {
 	};
 }
 
-export const itemsMenuLayout = [
+export const menuAdmin = [
+	getItem(
+		<Link to='/home'>
+			<FormattedMessage id='common.home' />
+		</Link>,
+		"home",
+		<HomeOutlined />
+	),
 	getItem(<FormattedMessage id='menu.admin.user' />, "user", <TeamOutlined />, [
 		getItem(
 			<Tooltip
@@ -55,6 +63,17 @@ export const itemsMenuLayout = [
 			</Tooltip>,
 			"admin-manage",
 			<UserOutlined />
+		),
+		getItem(
+			<Tooltip
+				placement='right'
+				title={<FormattedMessage id='menu.doctor.schedule-manage' />}>
+				<Link to='/system/schedule-manage'>
+					<FormattedMessage id='menu.doctor.schedule-manage' />
+				</Link>
+			</Tooltip>,
+			"schedule-manage",
+			<CalendarOutlined />
 		),
 	]),
 	getItem(
@@ -111,6 +130,53 @@ export const itemsMenuLayout = [
 			),
 		]
 	),
+	getItem(
+		<FormattedMessage id='common.logout' />,
+		"logout",
+		<LogoutOutlined />
+	),
+];
+
+export const menuDoctor = [
+	getItem(
+		<Link to='/home'>
+			<FormattedMessage id='common.home' />
+		</Link>,
+		"home",
+		<HomeOutlined />
+	),
+	getItem(<FormattedMessage id='menu.admin.user' />, "user", <TeamOutlined />, [
+		getItem(
+			<Tooltip
+				placement='right'
+				title={<FormattedMessage id='menu.admin.doctor-manage' />}>
+				<Link to='/system/doctor-manage'>
+					<FormattedMessage id='menu.admin.doctor-manage' />
+				</Link>
+			</Tooltip>,
+			"doctor-manage",
+			<CustomerServiceOutlined />
+		),
+		getItem(
+			<Tooltip
+				placement='right'
+				title={<FormattedMessage id='menu.doctor.schedule-manage' />}>
+				<Link to='/system/schedule-manage'>
+					<FormattedMessage id='menu.doctor.schedule-manage' />
+				</Link>
+			</Tooltip>,
+			"schedule-manage",
+			<CalendarOutlined />
+		),
+	]),
+	getItem(
+		<FormattedMessage id='common.logout' />,
+		"logout",
+		<LogoutOutlined />
+	),
+];
+
+export const menuPatient = [
 	getItem(
 		<FormattedMessage id='common.logout' />,
 		"logout",

@@ -80,7 +80,7 @@
       }
 
       .languageWrap {
-        margin: 0 24px;
+        margin-left: 24px;
         display: flex;
         align-items: center;
 
@@ -102,11 +102,20 @@
             border-left: 1px solid $primary-light;
           }
         }
+
+        @include maxLg {
+          margin: 0 16px;
+        }
       }
 
       .btnMenu {
         color: $primary-light;
         font-size: 20px;
+        display: none;
+
+        @include maxLg {
+          display: block;
+        }
       }
     }
 

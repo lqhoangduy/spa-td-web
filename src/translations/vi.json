@@ -32,7 +32,9 @@
         "image-wrong": "Vui lòng chọn ảnh định dạng jpeg hoặc png",
         "upload-image": "Tải ảnh",
         "404": "404: Trang không tồn tại",
-        "backHome": "Quay về Trang chủ"
+        "backHome": "Quay về Trang chủ",
+        "home": "Trang chủ",
+        "search_placeholder": "Nhập để tìm kiếm"
     },
     "login": {
         "login": "Đăng nhập",
@@ -71,6 +73,9 @@
             "specialty-manage": "Quản lý chuyên khoa",
             "handbook": "Cẩm nang",
             "handbook-manage": "Quản lý cẩm nang"
+        },
+        "doctor": {
+            "schedule-manage": "Quản lý kế hoạch khám bệnh"
         }
     },
     "system": {
@@ -126,6 +131,11 @@
             "choose-doctor": "Chọn bác sĩ: ",
             "description": "Thông tin giới thiệu: ",
             "content": "Nội dung: "
+        },
+        "schedule-manage": {
+            "title": "Quản lý lịch khám bệnh của Bác sĩ",
+            "choose-date": "Chọn ngày: ",
+            "choose-time": "Chọn khoảng thời gian: "
         }
     },
     "header": {
@@ -169,6 +179,8 @@
     "doctor": {
         "detail-information": "Thông tin chi tiết",
         "patient-feedback": "Phản hồi của bệnh nhân",
-        "date-of-visit": "Đã khám ngày "
+        "date-of-visit": "Đã khám ngày ",
+        "doctor-info": "Thông tin bác sĩ",
+        "book-appointment": "Đặt lịch khám bệnh"
     }
 }

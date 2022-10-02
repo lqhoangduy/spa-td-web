@@ -1,8 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
-import { Spin, Avatar, Divider, List, Comment, message } from "antd";
-import { UserOutlined, CheckOutlined } from "@ant-design/icons";
+import {
+	Spin,
+	Avatar,
+	Divider,
+	List,
+	Comment,
+	message,
+	Breadcrumb,
+	Card,
+} from "antd";
+import { UserOutlined, CheckOutlined, HomeOutlined } from "@ant-design/icons";
 import { userService } from "../../../services";
 import Header from "../../HomePage/Header/Header";
 import Footer from "../../HomePage/Footer/Footer";
@@ -110,75 +119,120 @@ function DetailDoctor({ language }) {
 		<Spin spinning={loading}>
 			<section className={styles.detailDoctor}>
 				<Header />
-				<div className={clsx("container", styles.introDoctor)}>
-					<div className={styles.avatar}>
-						<Avatar
-							size={{ xs: 80, sm: 100, md: 120, lg: 140, xl: 160, xxl: 180 }}
-							src={doctor?.image?.url}
-							icon={<UserOutlined />}
-						/>
-					</div>
-					<div className={styles.introInformation}>
-						<h4 className={styles.doctorName}>
-							{language === "en" ? nameEn : nameVi}
-						</h4>
-						<span className={styles.doctorDescription}>
-							{doctor?.Markdown?.description ?? ""}
-						</span>
-					</div>
+				<div className='container'>
+					<Breadcrumb>
+						<Breadcrumb.Item href='/home'>
+							<HomeOutlined />
+							<span>
+								<FormattedMessage id='common.home' />
+							</span>
+						</Breadcrumb.Item>
+						<Breadcrumb.Item>
+							<UserOutlined />
+							<span>
+								<FormattedMessage id='doctor.doctor-info' />
+							</span>
+						</Breadcrumb.Item>
+					</Breadcrumb>
 				</div>
 				<div className='container'>
-					<Divider />
-				</div>
-
-				<div className={clsx("container", styles.scheduleDoctor)}></div>
-				<div className='container'>
-					<Divider />
-				</div>
-
-				<div className={clsx("container", styles.detailInfoDoctor)}>
-					<h4 className={styles.sectionTitle}>
-						<FormattedMessage id='doctor.detail-information' />
-					</h4>
-					<div
-						dangerouslySetInnerHTML={{
-							__html: doctor?.Markdown?.contentHTML ?? "",
-						}}
-					/>
-				</div>
-				<div className='container'>
-					<Divider />
-				</div>
-
-				<div className={clsx("container", styles.commentDoctor)}>
-					<h4 className={styles.sectionTitle}>
-						<FormattedMessage id='doctor.patient-feedback' />
-					</h4>
-					<List
-						className='comment-list'
-						itemLayout='horizontal'
-						dataSource={fakeListComment}
-						renderItem={(item) => (
-							<li>
-								<Comment
-									actions={item.actions}
-									author={item.author}
-									avatar={item.avatar}
-									content={item.content}
-									datetime={
-										<div className={styles.dateComment}>
-											<CheckOutlined />
-											<span className={styles.date}>
-												<FormattedMessage id='doctor.date-of-visit' />
-												{item.datetime}
-											</span>
-										</div>
-									}
+					<Card>
+						<div className={styles.introDoctor}>
+							<div className={styles.avatar}>
+								<Avatar
+									size={{
+										xs: 80,
+										sm: 100,
+										md: 120,
+										lg: 140,
+										xl: 160,
+										xxl: 180,
+									}}
+									src={doctor?.image?.url}
+									icon={<UserOutlined />}
 								/>
-							</li>
-						)}
-					/>
+							</div>
+							<div className={styles.introInformation}>
+								<h4 className={styles.doctorName}>
+									{language === "en" ? nameEn : nameVi}
+								</h4>
+								<span className={styles.doctorDescription}>
+									{doctor?.Markdown?.description ?? ""}
+								</span>
+							</div>
+						</div>
+					</Card>
 				</div>
+
+				<div className='container'>
+					<Divider />
+				</div>
+
+				<div className='container'>
+					<div className={styles.scheduleDoctor}>
+						<h4 className={styles.sectionTitle}>
+							<FormattedMessage id='doctor.book-appointment' />
+						</h4>
+						<Card></Card>
+					</div>
+				</div>
+				<div className='container'>
+					<Divider />
+				</div>
+
+				<div className='container'>
+					<div className={styles.detailInfoDoctor}>
+						<h4 className={styles.sectionTitle}>
+							<FormattedMessage id='doctor.detail-information' />
+						</h4>
+						<Card>
+							<div
+								dangerouslySetInnerHTML={{
+									__html: doctor?.Markdown?.contentHTML ?? "",
+								}}
+							/>
+						</Card>
+					</div>
+				</div>
+
+				<div className='container'>
+					<Divider />
+				</div>
+
+				<div className='container'>
+					<div className={styles.commentDoctor}>
+						<h4 className={styles.sectionTitle}>
+							<FormattedMessage id='doctor.patient-feedback' />
+						</h4>
+						<Card>
+							<List
+								className='comment-list'
+								itemLayout='horizontal'
+								dataSource={fakeListComment}
+								renderItem={(item) => (
+									<li>
+										<Comment
+											actions={item.actions}
+											author={item.author}
+											avatar={item.avatar}
+											content={item.content}
+											datetime={
+												<div className={styles.dateComment}>
+													<CheckOutlined />
+													<span className={styles.date}>
+														<FormattedMessage id='doctor.date-of-visit' />
+														{item.datetime}
+													</span>
+												</div>
+											}
+										/>
+									</li>
+								)}
+							/>
+						</Card>
+					</div>
+				</div>
+
 				<Footer />
 			</section>
 		</Spin>
