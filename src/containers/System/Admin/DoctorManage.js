@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
@@ -92,6 +92,10 @@ function DoctorManage({ language }) {
 		setCurrentDoctorId(id);
 	};
 
+	const enableSubmit = useMemo(() => {
+		return currentDoctorId && contentHtml && contentMarkdown;
+	}, [contentHtml, contentMarkdown, currentDoctorId]);
+
 	return (
 		<div className='container'>
 			<Spin spinning={loading}>
@@ -170,7 +174,8 @@ function DoctorManage({ language }) {
 							type='primary'
 							icon={<PlusOutlined />}
 							className={styles.doctorManageSaveBtn}
-							onClick={handleSaveMarkdown}>
+							onClick={handleSaveMarkdown}
+							disabled={!enableSubmit}>
 							<FormattedMessage id='common.save' />
 						</Button>
 					</div>

@@ -28,6 +28,18 @@ const userService = {
 	getDetailDoctor(id) {
 		return axios.get(`/api/get-detail-doctor-by-id?id=${id}`);
 	},
+	createDoctorSchedules(doctorId, data) {
+		return axios.post("/api/create-schedules", {
+			doctorId,
+			schedules: data,
+		});
+	},
+	getDoctorSchedules(id) {
+		return axios.get(`/api/get-schedules?id=${id}`);
+	},
+	deleteDoctorSchedules(id) {
+		return axios.delete(`/api/delete-schedules?id=${id}`);
+	},
 };
 
 export default userService;

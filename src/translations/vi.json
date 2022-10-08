@@ -135,7 +135,9 @@
         "schedule-manage": {
             "title": "Quản lý lịch khám bệnh của Bác sĩ",
             "choose-date": "Chọn ngày: ",
-            "choose-time": "Chọn khoảng thời gian: "
+            "choose-time": "Chọn khoảng thời gian: ",
+            "confirm-delete": "Bạn có chắc chắn muốn xóa kế hoạch này?",
+            "confirm-delete-all": "Bạn có chắc chắn muốn xoá hết kế hoạch của bác sĩ này?"
         }
     },
     "header": {

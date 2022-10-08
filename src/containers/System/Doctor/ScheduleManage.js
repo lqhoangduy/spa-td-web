@@ -13,10 +13,9 @@ import {
 	Card,
 	Table,
 	message,
-	Popconfirm,
-	Tooltip,
+	Modal,
 } from "antd";
-import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
+import { PlusOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { FormattedMessage } from "react-intl";
 
 import * as actions from "../../../store/actions";
@@ -24,9 +23,9 @@ import { userService } from "../../../services";
 import styles from "./ScheduleManage.module.scss";
 import en_US from "antd/lib/locale/en_US";
 import vi_VN from "antd/lib/locale/vi_VN";
-import { createImportSpecifier } from "typescript";
 
 const { Option } = Select;
+const { confirm } = Modal;
 
 function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 	const [loading, setLoading] = useState(false);
@@ -37,9 +36,36 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 
 	useEffect(() => {
 		loadData();
-
-		return () => {};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	useEffect(() => {
+		loadSchedules();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentDoctorId]);
+
+	const loadSchedules = async () => {
+		if (!currentDoctorId) return;
+		setLoading(true);
+
+		const result = await userService.getDoctorSchedules(currentDoctorId);
+
+		if (result.errorCode === 0) {
+			if (result.data?.length) {
+				const listTime = result.data.map((item) => {
+					return {
+						time: item.timeType,
+						date: moment(item.date).toDate(),
+					};
+				});
+
+				setListCurrentTime(listTime);
+			}
+		} else {
+			message.error("Get schedules fail!!!");
+		}
+		setLoading(false);
+	};
 
 	const loadData = async () => {
 		setLoading(true);
@@ -57,7 +83,8 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 	};
 
 	const onChangeDate = (date, dateString) => {
-		setCurrentDate(dateString);
+		const formatDate = moment(date).startOf("day").toDate();
+		setCurrentDate(formatDate);
 	};
 
 	const handleChangeTime = (timeKey) => {
@@ -71,14 +98,24 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 		}
 
 		const existed = listCurrentTime.find((item) => {
-			return item.time === timeKey && item.date === currentDate;
+			return (
+				item.time === timeKey &&
+				new Date(item.date).getTime() === new Date(currentDate).getTime()
+			);
 		});
 		if (existed) {
-			setListCurrentTime(
-				listCurrentTime.filter((item) => {
-					return item.time !== timeKey || item.date !== currentDate;
-				})
-			);
+			if (listCurrentTime.length === 1) {
+				showDeleteConfirm();
+			} else {
+				setListCurrentTime(
+					listCurrentTime.filter((item) => {
+						return (
+							item.time !== timeKey ||
+							new Date(item.date).getTime() !== new Date(currentDate).getTime()
+						);
+					})
+				);
+			}
 		} else {
 			setListCurrentTime([
 				...listCurrentTime,
@@ -93,7 +130,10 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 	const checkEnableTime = useCallback(
 		(timeKey) => {
 			const existed = listCurrentTime.find((item) => {
-				return item.time === timeKey && item.date === currentDate;
+				return (
+					item.time === timeKey &&
+					new Date(item.date).getTime() === new Date(currentDate).getTime()
+				);
 			});
 			return !!existed;
 		},
@@ -103,14 +143,33 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 	const handleDeleteTime = (record) => {
 		if (!record) return;
 		const keyMap = record.key.split("-")[0];
-		setListCurrentTime(
-			listCurrentTime.filter((item) => {
-				return item.time !== keyMap || item.date !== record.date;
-			})
-		);
+		if (listCurrentTime?.length === 1) {
+			showDeleteConfirm();
+		} else {
+			setListCurrentTime(
+				listCurrentTime.filter((item) => {
+					return (
+						item.time !== keyMap ||
+						new Date(item.date).getTime() !== new Date(record.date).getTime()
+					);
+				})
+			);
+		}
 	};
 
-	console.log(listCurrentTime);
+	const handleDeleteAllTime = async () => {
+		if (!currentDoctorId) return;
+		setLoading(true);
+		const result = await userService.deleteDoctorSchedules(currentDoctorId);
+
+		if (result.errorCode === 0) {
+			message.success(result.message);
+			setListCurrentTime([]);
+		} else {
+			message.error("Deleted schedules fail!!!");
+		}
+		setLoading(false);
+	};
 
 	const columns = [
 		{
@@ -122,6 +181,9 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 			title: "Date",
 			dataIndex: "date",
 			key: "date",
+			render: (_, record) => {
+				return <span>{moment(record.date).format("DD/MM/YYYY")}</span>;
+			},
 		},
 		{
 			title: "Time",
@@ -132,21 +194,12 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 			title: "Action",
 			key: "action",
 			render: (_, record) => (
-				<Popconfirm
-					title={<FormattedMessage id='system.user-manage.sure-delete-user' />}
-					onConfirm={() => handleDeleteTime(record)}
-					okText={<FormattedMessage id='common.yes' />}
-					cancelText={<FormattedMessage id='common.no' />}>
-					<Tooltip
-						placement='bottom'
-						title={<FormattedMessage id='common.delete' />}>
-						<Button
-							type='link'
-							icon={<DeleteOutlined />}
-							className='btn-delete'
-						/>
-					</Tooltip>
-				</Popconfirm>
+				<Button
+					type='link'
+					className={styles.btnDelete}
+					onClick={() => handleDeleteTime(record)}>
+					<FormattedMessage id='common.delete' />
+				</Button>
 			),
 		},
 	];
@@ -174,27 +227,52 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 		});
 
 		return dateTable.sort((a, b) => {
-			return new Date(a.date).getTime() - new Date(b.date).getTime();
+			return new Date(b.date).getTime() - new Date(a.date).getTime();
 		});
 	}, [currentDoctorId, doctors, language, listCurrentTime, times]);
 
-	const handleSave = useCallback(() => {
+	const handleSave = useCallback(async () => {
+		setLoading(true);
+
 		if (!currentDoctorId || !currentDate || !listCurrentTime?.length) {
 			message.error("Missing params");
 		}
 		const list = listCurrentTime.map((item) => {
 			return {
-				...item,
 				doctorId: currentDoctorId,
+				date: new Date(item.date).getTime(),
+				timeType: item.time,
 			};
 		});
 
-		console.log(list);
+		const result = await userService.createDoctorSchedules(
+			currentDoctorId,
+			list
+		);
+		if (result?.errorCode === 0) {
+			message.success(result?.message);
+		} else {
+			message.error(result?.message);
+		}
+		setLoading(false);
 	}, [currentDate, currentDoctorId, listCurrentTime]);
 
 	const enableSubmit = useMemo(() => {
 		return currentDoctorId && currentDate && listCurrentTime?.length;
 	}, [currentDate, currentDoctorId, listCurrentTime?.length]);
+
+	const showDeleteConfirm = () => {
+		confirm({
+			title: "Are you sure to delete all doctor's schedule?",
+			icon: <ExclamationCircleOutlined />,
+			okText: "Yes",
+			okType: "danger",
+			cancelText: "No",
+			onOk() {
+				handleDeleteAllTime();
+			},
+		});
+	};
 
 	return (
 		<div className='container'>

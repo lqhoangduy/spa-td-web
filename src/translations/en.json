@@ -135,7 +135,9 @@
         "schedule-manage": {
             "title": "Doctor's schedule manage",
             "choose-date": "Choose date: ",
-            "choose-time": "Choose a time period: "
+            "choose-time": "Choose a time period: ",
+            "confirm-delete": "Are you sure to delete this schedule?",
+            "confirm-delete-all": "Are you sure to delete all doctor's schedule?"
         }
     },
     "header": {
