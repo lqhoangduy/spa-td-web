@@ -39,7 +39,9 @@
         "error-missing-param": "Missing parameter",
         "error-update": "Update info failed!!!",
         "error-required-doctor": "Please select doctor!!!",
-        "error-required-date": "Please select date!!!"
+        "error-required-date": "Please select date!!!",
+        "dashboard": "Dashboard",
+        "today": "Today"
     },
     "login": {
         "login": "Login",
@@ -191,7 +193,33 @@
         "book-appointment": "Book a medical appointment",
         "select-date": "Select date of examination",
         "examination-schedule": "Examination schedule",
-        "empty-schedule": "There are no empty appointments for this day"
+        "empty-schedule": "There are no empty appointments for this day",
+        "choose-and-book": "Select 👆 and book (free)"
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "user-title": "USER",
+        "btn-user": "See All Users",
+        "order-title": "ORDERS",
+        "btn-order": "See All Orders",
+        "earning-title": "EARNINGS",
+        "btn-earning": "View Earnings",
+        "ballance-title": "BALLANCE",
+        "btn-ballance": "See Details",
+        "total-revenue": "Total Revenue",
+        "total-sales": "Total Sales for today",
+        "total-sales-des": "Previous Transaction Processing, Last Payment may not be inclided",
+        "target": "target",
+        "last-week": "Last week",
+        "last-month": "Last month",
+        "chart-title": "Last 6 Months Revenue",
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July"
     },
     "error": {
         "delete-schedules-fail": "Deleted schedule fail!!!",

@@ -9,7 +9,8 @@ import { FormattedMessage } from "react-intl";
 import styles from "./DoctorManage.module.scss";
 import "react-markdown-editor-lite/lib/index.css";
 import clsx from "clsx";
-import { LanguageUtils } from "../../../utils";
+import * as actions from "../../../store/actions";
+import { languages, LanguageUtils } from "../../../utils";
 
 import { userService, markdownService } from "../../../services";
 
@@ -17,7 +18,18 @@ const mdParser = new MarkdownIt(/* Markdown-it options */);
 const { TextArea } = Input;
 const { Option } = Select;
 
-function DoctorManage({ language }) {
+function DoctorManage({
+	language,
+	prices,
+	isLoadingPrice,
+	payments,
+	isLoadingPayment,
+	provinces,
+	isLoadingProvince,
+	getPriceStart,
+	getPaymentStart,
+	getProvinceStart,
+}) {
 	const [contentMarkdown, setContentMarkdown] = useState("");
 	const [contentHtml, setContentHtml] = useState("");
 	const [description, setDescription] = useState("");
@@ -27,6 +39,9 @@ function DoctorManage({ language }) {
 
 	useEffect(() => {
 		loadData();
+		getPriceStart();
+		getPaymentStart();
+		getProvinceStart();
 
 		return () => {};
 	}, []);
@@ -163,6 +178,69 @@ function DoctorManage({ language }) {
 									/>
 								</div>
 							</Col>
+							<Col xs={24} md={8}>
+								<div className={styles.introInfo}>
+									<label>Chọn giá</label>
+									<Select size='large' loading={isLoadingPrice}>
+										{prices?.length &&
+											prices.map((gender) => (
+												<Option value={gender.keyMap} key={gender.keyMap}>
+													{language === languages.VI
+														? gender.valueVi
+														: gender.valueEn}
+												</Option>
+											))}
+									</Select>
+								</div>
+							</Col>
+							<Col xs={24} md={8}>
+								<div className={styles.introInfo}>
+									<label>Chọn phương thức thanh toán</label>
+									<Select size='large' loading={isLoadingPayment}>
+										{payments?.length &&
+											payments.map((gender) => (
+												<Option value={gender.keyMap} key={gender.keyMap}>
+													{language === languages.VI
+														? gender.valueVi
+														: gender.valueEn}
+												</Option>
+											))}
+									</Select>
+								</div>
+							</Col>
+							<Col xs={24} md={8}>
+								<div className={styles.introInfo}>
+									<label>Chọn tỉnh thành</label>
+									<Select size='large' loading={isLoadingProvince}>
+										{provinces?.length &&
+											provinces.map((gender) => (
+												<Option value={gender.keyMap} key={gender.keyMap}>
+													{language === languages.VI
+														? gender.valueVi
+														: gender.valueEn}
+												</Option>
+											))}
+									</Select>
+								</div>
+							</Col>
+							<Col xs={24} md={8}>
+								<div className={styles.introInfo}>
+									<label>Tên cơ sở</label>
+									<Input size='large' />
+								</div>
+							</Col>
+							<Col xs={24} md={8}>
+								<div className={styles.introInfo}>
+									<label>Địa chỉ cơ sở</label>
+									<Input size='large' />
+								</div>
+							</Col>
+							<Col xs={24} md={8}>
+								<div className={styles.introInfo}>
+									<label>Ghi chú</label>
+									<Input size='large' />
+								</div>
+							</Col>
 						</Row>
 					</div>
 					<div className={styles.doctorManageEditor}>
@@ -196,11 +274,21 @@ function DoctorManage({ language }) {
 const mapStateToProps = (state) => {
 	return {
 		language: state.app.language,
+		prices: state.admin.prices,
+		isLoadingPrice: state.admin.isLoadingPrice,
+		payments: state.admin.payments,
+		isLoadingPayment: state.admin.isLoadingPayment,
+		provinces: state.admin.provinces,
+		isLoadingProvince: state.admin.isLoadingProvince,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
-	return {};
+	return {
+		getPriceStart: () => dispatch(actions.fetchPriceStart()),
+		getPaymentStart: () => dispatch(actions.fetchPaymentStart()),
+		getProvinceStart: () => dispatch(actions.fetchProvinceStart()),
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DoctorManage);

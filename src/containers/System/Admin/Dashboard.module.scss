@@ -1,0 +1,18 @@
+@import "../../../styles/common.scss";
+
+.dashboard {
+  padding: 40px 20px;
+  height: 100%;
+
+  .dashboardTitle {
+    color: $primary-brown;
+    font-size: 32px;
+    padding: 16px 0;
+    font-weight: bold;
+  }
+
+  .charts {
+    margin-top: 32px;
+    height: 100%;
+  }
+}

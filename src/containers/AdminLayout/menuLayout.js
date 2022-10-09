@@ -8,6 +8,7 @@ import {
 	BulbOutlined,
 	SolutionOutlined,
 	CalendarOutlined,
+	AreaChartOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
@@ -23,6 +24,13 @@ function getItem(label, key, icon, children) {
 }
 
 export const menuAdmin = [
+	getItem(
+		<Link to='/system/dashboard'>
+			<FormattedMessage id='common.dashboard' />
+		</Link>,
+		"dashboard",
+		<AreaChartOutlined />
+	),
 	getItem(
 		<Link to='/home'>
 			<FormattedMessage id='common.home' />

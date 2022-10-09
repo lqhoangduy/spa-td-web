@@ -39,7 +39,9 @@
         "error-missing-param": "Vui lòng điền đầy đủ thông tin",
         "error-update": "Cập nhật thông tin thất bại",
         "error-required-doctor": "Vui lòng chọn bác sĩ",
-        "error-required-date": "Vui lòng chọn ngày"
+        "error-required-date": "Vui lòng chọn ngày",
+        "dashboard": "Dashboard",
+        "today": "Hôm nay"
     },
     "login": {
         "login": "Đăng nhập",
@@ -191,7 +193,33 @@
         "book-appointment": "Đặt lịch khám bệnh",
         "select-date": "Chọn ngày khám",
         "examination-schedule": "Lịch khám",
-        "empty-schedule": "Không có lịch khám trống trong ngày này, vui lòng chọn ngày khác"
+        "empty-schedule": "Không có lịch khám trống trong ngày này, vui lòng chọn ngày khác",
+        "choose-and-book": "Chọn 👆 và đặt (miễn phí)"
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "user-title": "NGƯỞI DÙNG",
+        "btn-user": "Xem tất cả người dùng",
+        "order-title": "ĐƠN",
+        "btn-order": "Xem tất cả đơn hàng",
+        "earning-title": "Doanh thu",
+        "btn-earning": "Xem doanh thu",
+        "ballance-title": "Số dư",
+        "btn-ballance": "Xem chi tiết",
+        "total-revenue": "Tổng doanh thu",
+        "total-sales": "Tổng doanh số cho ngày hôm nay",
+        "total-sales-des": "Xử lý giao dịch trước đó, thanh toán cuối cùng có thể không được bao gồm",
+        "target": "Mục tiêu",
+        "last-week": "Tuần trước",
+        "last-month": "Tháng trước",
+        "chart-title": "Doanh thu 6 tháng qua",
+        "january": "Tháng 1",
+        "february": "Tháng 2",
+        "march": "Tháng 3",
+        "april": "Tháng 4",
+        "may": "Tháng 5",
+        "june": "Tháng 6",
+        "july": "Tháng 7"
     },
     "error": {
         "delete-schedules-fail": "Xoá lịch thất bại!!!",

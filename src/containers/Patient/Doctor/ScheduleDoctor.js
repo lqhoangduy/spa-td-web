@@ -13,6 +13,7 @@ import styles from "./ScheduleDoctor.module.scss";
 import * as actions from "../../../store/actions";
 import { FormattedMessage } from "react-intl";
 import CommonUtils from "../../../utils/CommonUtils";
+import { LanguageUtils } from "../../../utils";
 
 const { Option } = Select;
 
@@ -33,9 +34,34 @@ function ScheduleDoctor({ language }) {
 						: moment().locale("en").add(i, "days").format("dddd - DD/MM"),
 				value: moment().add(i, "days").startOf("day").valueOf(),
 			};
+
+			if (i === 0) {
+				// Today
+				const newDate = moment().format("DD/MM");
+				const label = `${LanguageUtils.getMessageByKey(
+					"common.today",
+					language
+				)} - ${newDate}`;
+				dayOfWeek.label = label;
+			} else {
+				if (language === languages.VI) {
+					// Language VI
+					dayOfWeek.label = moment().add(i, "days").format("dddd - DD/MM");
+				} else {
+					// Language EN
+					dayOfWeek.label = moment()
+						.locale("en")
+						.add(i, "days")
+						.format("dddd - DD/MM");
+				}
+			}
+
+			dayOfWeek.value = moment().add(i, "days").startOf("day").valueOf();
+
 			arrayDate.push(dayOfWeek);
 		}
 		setAllDays(arrayDate);
+		setCurrentDate(arrayDate[0].value);
 	}, [language]);
 
 	useEffect(() => {
@@ -85,7 +111,7 @@ function ScheduleDoctor({ language }) {
 				</div>
 				{!!schedules?.length ? (
 					<Spin spinning={loadingSchedule}>
-						<Row gutter={[16, 16]}>
+						<Row gutter={[16, 16]} className={styles.listTime}>
 							{schedules.map((schedule) => (
 								<Col key={schedule.id} xs={24} md={12} lg={6}>
 									<Button
@@ -99,11 +125,15 @@ function ScheduleDoctor({ language }) {
 								</Col>
 							))}
 						</Row>
+						<span className={styles.noteTime}>
+							<FormattedMessage id='doctor.choose-and-book' />
+						</span>
 					</Spin>
 				) : (
 					<Empty
 						description={<FormattedMessage id='doctor.empty-schedule' />}
 						image={Empty.PRESENTED_IMAGE_SIMPLE}
+						className={styles.emptySchedule}
 					/>
 				)}
 			</div>
