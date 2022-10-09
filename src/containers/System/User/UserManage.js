@@ -13,6 +13,7 @@ import ModalUser from "./ModalUser";
 import { clsx } from "clsx";
 import styles from "./UserManage.module.scss";
 import * as actions from "../../../store/actions";
+import { LanguageUtils } from "../../../utils";
 class UserManage extends Component {
 	constructor(props) {
 		super(props);
@@ -92,7 +93,12 @@ class UserManage extends Component {
 
 	handleDeleteUser = async (id, email) => {
 		if (email === this.props.currentUser.email) {
-			message.error("Deleted user fail!");
+			message.error(
+				LanguageUtils.getMessageByKey(
+					"error.delete-user-fail",
+					this.props.language
+				)
+			);
 			return;
 		}
 		try {
@@ -234,6 +240,7 @@ class UserManage extends Component {
 const mapStateToProps = (state) => {
 	return {
 		currentUser: state.user.userInfo,
+		language: state.app.language,
 	};
 };
 

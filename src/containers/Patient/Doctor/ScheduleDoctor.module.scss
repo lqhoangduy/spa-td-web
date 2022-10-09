@@ -1,0 +1,66 @@
+@import "../../../styles/common.scss";
+
+.doctorSchedule {
+  .selectSchedule {
+    min-width: 120px;
+
+    :global {
+      .ant-select-selector {
+        padding: 0;
+        border-bottom: 1px solid $common-btn-confirm !important;
+      }
+
+      .ant-select-selection-item,
+      .ant-select-selection-placeholder {
+        color: $common-btn-confirm;
+        font-weight: bold;
+      }
+
+      .ant-select-arrow {
+        color: $common-btn-confirm;
+        right: 0;
+      }
+    }
+  }
+
+  .allAvailableTime {
+    padding: 24px 0;
+  }
+
+  .timeTitleWrap {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    margin-top: 8px;
+  }
+
+  .timeTitleIcon {
+    font-size: 16px;
+    margin-right: 6px;
+    color: $primary-brown;
+  }
+
+  .timeTitle {
+    margin: 0;
+    font-size: 16px;
+    color: $primary-brown;
+  }
+
+  .btnTime {
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: $primary-light;
+    color: $color-text;
+    border: none;
+
+    &:hover {
+      background-color: $colorsub;
+      color: $color-text;
+    }
+
+    &>span {
+      @include ellipsis(1);
+    }
+  }
+}

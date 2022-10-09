@@ -10,16 +10,20 @@ import {
 	message,
 	Breadcrumb,
 	Card,
+	Row,
+	Col,
 } from "antd";
 import { UserOutlined, CheckOutlined, HomeOutlined } from "@ant-design/icons";
 import { userService } from "../../../services";
 import Header from "../../HomePage/Header/Header";
 import Footer from "../../HomePage/Footer/Footer";
+import { LanguageUtils } from "../../../utils";
 
 import styles from "./DetailDoctor.module.scss";
 import clsx from "clsx";
 import { FormattedMessage } from "react-intl";
 import NotFound from "../../../components/NotFound/NotFound";
+import ScheduleDoctor from "./ScheduleDoctor";
 
 const fakeListComment = [
 	{
@@ -97,7 +101,9 @@ function DetailDoctor({ language }) {
 			if (result?.errorCode === 0) {
 				setDoctor(result.data);
 			} else {
-				message.error("Get info fail!");
+				message.error(
+					LanguageUtils.getMessageByKey("common.error-get-info-fail", language)
+				);
 			}
 			setLoading(false);
 		}
@@ -173,7 +179,16 @@ function DetailDoctor({ language }) {
 						<h4 className={styles.sectionTitle}>
 							<FormattedMessage id='doctor.book-appointment' />
 						</h4>
-						<Card></Card>
+						<Card>
+							<Row gutter={[16, 16]}>
+								<Col xs={24} md={14}>
+									<ScheduleDoctor />
+								</Col>
+								<Col xs={24} md={10}>
+									Time
+								</Col>
+							</Row>
+						</Card>
 					</div>
 				</div>
 				<div className='container'>

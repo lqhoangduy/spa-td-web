@@ -34,7 +34,12 @@
         "404": "404: Trang không tồn tại",
         "backHome": "Quay về Trang chủ",
         "home": "Trang chủ",
-        "search_placeholder": "Nhập để tìm kiếm"
+        "search_placeholder": "Nhập để tìm kiếm",
+        "error-get-info-fail": "Lấy thông tin thất bại",
+        "error-missing-param": "Vui lòng điền đầy đủ thông tin",
+        "error-update": "Cập nhật thông tin thất bại",
+        "error-required-doctor": "Vui lòng chọn bác sĩ",
+        "error-required-date": "Vui lòng chọn ngày"
     },
     "login": {
         "login": "Đăng nhập",
@@ -183,6 +188,16 @@
         "patient-feedback": "Phản hồi của bệnh nhân",
         "date-of-visit": "Đã khám ngày ",
         "doctor-info": "Thông tin bác sĩ",
-        "book-appointment": "Đặt lịch khám bệnh"
+        "book-appointment": "Đặt lịch khám bệnh",
+        "select-date": "Chọn ngày khám",
+        "examination-schedule": "Lịch khám",
+        "empty-schedule": "Không có lịch khám trống trong ngày này, vui lòng chọn ngày khác"
+    },
+    "error": {
+        "delete-schedules-fail": "Xoá lịch thất bại!!!",
+        "image-not-exist": "Ảnh không tồn tại!",
+        "size-too-large": "Kích thước quá lớn!",
+        "image-format": "Định dạng ảnh không đúng!",
+        "delete-user-fail": "Xoá người dùng thất bại!!!!"
     }
 }

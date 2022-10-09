@@ -21,6 +21,7 @@ import { FormattedMessage } from "react-intl";
 import * as actions from "../../../store/actions";
 import { userService } from "../../../services";
 import styles from "./ScheduleManage.module.scss";
+import { LanguageUtils } from "../../../utils/";
 import en_US from "antd/lib/locale/en_US";
 import vi_VN from "antd/lib/locale/vi_VN";
 
@@ -62,7 +63,9 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 				setListCurrentTime(listTime);
 			}
 		} else {
-			message.error("Get schedules fail!!!");
+			message.error(
+				LanguageUtils.getMessageByKey("common.error-get-info-fail", language)
+			);
 		}
 		setLoading(false);
 	};
@@ -89,11 +92,16 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 
 	const handleChangeTime = (timeKey) => {
 		if (!currentDoctorId) {
-			message.error("Please select doctor!!!");
+			message.error(
+				LanguageUtils.getMessageByKey("common.error-required-doctor", language)
+			);
+
 			return;
 		}
 		if (!currentDate) {
-			message.error("Please select date!!!");
+			message.error(
+				LanguageUtils.getMessageByKey("common.error-required-date", language)
+			);
 			return;
 		}
 
@@ -166,7 +174,9 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 			message.success(result.message);
 			setListCurrentTime([]);
 		} else {
-			message.error("Deleted schedules fail!!!");
+			message.error(
+				LanguageUtils.getMessageByKey("error.delete-schedules-fail", language)
+			);
 		}
 		setLoading(false);
 	};
@@ -235,7 +245,9 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 		setLoading(true);
 
 		if (!currentDoctorId || !currentDate || !listCurrentTime?.length) {
-			message.error("Missing params");
+			message.error(
+				LanguageUtils.getMessageByKey("common.error-missing-param", language)
+			);
 		}
 		const list = listCurrentTime.map((item) => {
 			return {

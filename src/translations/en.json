@@ -34,7 +34,12 @@
         "404": "404: Page Not Found",
         "backHome": "Back to Home",
         "home": "Home",
-        "search_placeholder": "Search to Select"
+        "search_placeholder": "Search to Select",
+        "error-get-info-fail": "Get info fail!!!",
+        "error-missing-param": "Missing parameter",
+        "error-update": "Update info failed!!!",
+        "error-required-doctor": "Please select doctor!!!",
+        "error-required-date": "Please select date!!!"
     },
     "login": {
         "login": "Login",
@@ -183,6 +188,16 @@
         "patient-feedback": "Patient feedback",
         "date-of-visit": "Date of visit ",
         "doctor-info": "Doctor's information",
-        "book-appointment": "Book a medical appointment"
+        "book-appointment": "Book a medical appointment",
+        "select-date": "Select date of examination",
+        "examination-schedule": "Examination schedule",
+        "empty-schedule": "There are no empty appointments for this day"
+    },
+    "error": {
+        "delete-schedules-fail": "Deleted schedule fail!!!",
+        "image-not-exist": "Image does not exist!",
+        "size-too-large": "Size to large!",
+        "image-format": "Image format is not suitable!",
+        "delete-user-fail": "Delete user fail!!!"
     }
 }

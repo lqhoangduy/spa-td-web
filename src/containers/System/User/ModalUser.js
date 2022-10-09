@@ -19,6 +19,7 @@ import CommonUtils from "./../../../utils/CommonUtils";
 import { languages } from "../../../utils/constant";
 import { uploadService } from "../../../services";
 import "react-image-lightbox/style.css";
+import { LanguageUtils } from "../../../utils";
 
 const { Option } = Select;
 
@@ -85,14 +86,21 @@ const ModalUser = ({
 		try {
 			const file = e.target.files[0];
 
-			if (!file) return message.error("Image does not exist!");
+			if (!file)
+				return message.error(
+					LanguageUtils.getMessageByKey("error.image-not-exist", language)
+				);
 
 			if (file.size > 1024 * 1024)
 				//1mb
-				return message.error("Size to large!");
+				return message.error(
+					LanguageUtils.getMessageByKey("error.size-too-large", language)
+				);
 
 			if (file.type !== "image/jpeg" && file.type !== "image/png")
-				return message.error("Image format is not suitable!");
+				return message.error(
+					LanguageUtils.getMessageByKey("error.image-format", language)
+				);
 
 			setIsLoadingImg(true);
 			const res = await uploadService.upload(file);

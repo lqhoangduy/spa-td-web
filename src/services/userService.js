@@ -40,6 +40,11 @@ const userService = {
 	deleteDoctorSchedules(id) {
 		return axios.delete(`/api/delete-schedules?id=${id}`);
 	},
+	getSchedulesByDate(doctorId, date) {
+		return axios.get(
+			`/api/get-schedules-by-date?doctorId=${doctorId}&date=${date}`
+		);
+	},
 };
 
 export default userService;

@@ -9,6 +9,7 @@ import { FormattedMessage } from "react-intl";
 import styles from "./DoctorManage.module.scss";
 import "react-markdown-editor-lite/lib/index.css";
 import clsx from "clsx";
+import { LanguageUtils } from "../../../utils";
 
 import { userService, markdownService } from "../../../services";
 
@@ -55,7 +56,9 @@ function DoctorManage({ language }) {
 				setContentHtml(result?.data?.contentHTML ?? "");
 				setDescription(result?.data?.description ?? "");
 			} else {
-				message.error("Get info failed!");
+				message.error(
+					LanguageUtils.getMessageByKey("common.error-get-info-fail", language)
+				);
 			}
 			setLoading(false);
 		}
@@ -75,7 +78,9 @@ function DoctorManage({ language }) {
 		};
 
 		if (!body.contentHTML || !body.contentMarkdown || !body.doctorId) {
-			message.error("Missing params!");
+			message.error(
+				LanguageUtils.getMessageByKey("common.error-missing-param", language)
+			);
 		} else {
 			setLoading(true);
 			const result = await markdownService.saveInfoDoctor(body);
@@ -83,7 +88,10 @@ function DoctorManage({ language }) {
 			if (result?.errorCode === 0) {
 				message.success(result?.message);
 			} else {
-				message.error(result?.message ?? "Update info failed!");
+				message.error(
+					result?.message ??
+						LanguageUtils.getMessageByKey("common.error-update", language)
+				);
 			}
 		}
 	};
