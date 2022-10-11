@@ -30,9 +30,15 @@ function DoctorManage({
 	getPaymentStart,
 	getProvinceStart,
 }) {
-	const [contentMarkdown, setContentMarkdown] = useState("");
-	const [contentHtml, setContentHtml] = useState("");
-	const [description, setDescription] = useState("");
+	const [contentMarkdown, setContentMarkdown] = useState(null);
+	const [contentHtml, setContentHtml] = useState(null);
+	const [description, setDescription] = useState(null);
+	const [priceId, setPriceId] = useState(null);
+	const [provinceId, setProvinceId] = useState(null);
+	const [paymentId, setPaymentId] = useState(null);
+	const [addressClinic, setAddressClinic] = useState(null);
+	const [nameClinic, setNameClinic] = useState(null);
+	const [note, setNote] = useState(null);
 	const [currentDoctorId, setCurrentDoctorId] = useState(null);
 	const [doctors, setDoctors] = useState(null);
 	const [loading, setLoading] = useState(false);
@@ -67,9 +73,15 @@ function DoctorManage({
 			const result = await markdownService.getInfoDoctor(currentDoctorId);
 
 			if (result?.errorCode === 0) {
-				setContentMarkdown(result?.data?.contentMarkdown ?? "");
-				setContentHtml(result?.data?.contentHTML ?? "");
-				setDescription(result?.data?.description ?? "");
+				setContentMarkdown(result?.data?.contentMarkdown ?? null);
+				setContentHtml(result?.data?.contentHTML ?? null);
+				setDescription(result?.data?.description ?? null);
+				setPriceId(result?.data?.priceId ?? null);
+				setProvinceId(result?.data?.provinceId ?? null);
+				setPaymentId(result?.data?.paymentId ?? null);
+				setAddressClinic(result?.data?.addressClinic ?? null);
+				setNameClinic(result?.data?.nameClinic ?? null);
+				setNote(result?.data?.note ?? null);
 			} else {
 				message.error(
 					LanguageUtils.getMessageByKey("common.error-get-info-fail", language)
@@ -90,9 +102,24 @@ function DoctorManage({
 			contentMarkdown: contentMarkdown,
 			description: description,
 			doctorId: currentDoctorId,
+			priceId: priceId,
+			provinceId: provinceId,
+			paymentId: paymentId,
+			addressClinic: addressClinic,
+			nameClinic: nameClinic,
+			note: note,
 		};
 
-		if (!body.contentHTML || !body.contentMarkdown || !body.doctorId) {
+		if (
+			!body.contentHTML ||
+			!body.contentMarkdown ||
+			!body.doctorId ||
+			!body.priceId ||
+			!body.provinceId ||
+			!body.paymentId ||
+			!body.addressClinic ||
+			!body.nameClinic
+		) {
 			message.error(
 				LanguageUtils.getMessageByKey("common.error-missing-param", language)
 			);
@@ -172,7 +199,6 @@ function DoctorManage({
 										rows={4}
 										value={description}
 										onChange={(e) => {
-											console.log(e.target.value);
 											setDescription(e.target.value);
 										}}
 									/>
@@ -180,8 +206,16 @@ function DoctorManage({
 							</Col>
 							<Col xs={24} md={8}>
 								<div className={styles.introInfo}>
-									<label>Chọn giá</label>
-									<Select size='large' loading={isLoadingPrice}>
+									<label>
+										<FormattedMessage id='system.doctor-manage.price' />
+									</label>
+									<Select
+										size='large'
+										loading={isLoadingPrice}
+										value={priceId}
+										onChange={(id) => {
+											setPriceId(id);
+										}}>
 										{prices?.length &&
 											prices.map((gender) => (
 												<Option value={gender.keyMap} key={gender.keyMap}>
@@ -195,8 +229,16 @@ function DoctorManage({
 							</Col>
 							<Col xs={24} md={8}>
 								<div className={styles.introInfo}>
-									<label>Chọn phương thức thanh toán</label>
-									<Select size='large' loading={isLoadingPayment}>
+									<label>
+										<FormattedMessage id='system.doctor-manage.payment' />
+									</label>
+									<Select
+										size='large'
+										loading={isLoadingPayment}
+										value={paymentId}
+										onChange={(id) => {
+											setPaymentId(id);
+										}}>
 										{payments?.length &&
 											payments.map((gender) => (
 												<Option value={gender.keyMap} key={gender.keyMap}>
@@ -210,8 +252,16 @@ function DoctorManage({
 							</Col>
 							<Col xs={24} md={8}>
 								<div className={styles.introInfo}>
-									<label>Chọn tỉnh thành</label>
-									<Select size='large' loading={isLoadingProvince}>
+									<label>
+										<FormattedMessage id='system.doctor-manage.province' />
+									</label>
+									<Select
+										size='large'
+										loading={isLoadingProvince}
+										value={provinceId}
+										onChange={(id) => {
+											setProvinceId(id);
+										}}>
 										{provinces?.length &&
 											provinces.map((gender) => (
 												<Option value={gender.keyMap} key={gender.keyMap}>
@@ -225,20 +275,44 @@ function DoctorManage({
 							</Col>
 							<Col xs={24} md={8}>
 								<div className={styles.introInfo}>
-									<label>Tên cơ sở</label>
-									<Input size='large' />
+									<label>
+										<FormattedMessage id='system.doctor-manage.branch-name' />
+									</label>
+									<Input
+										size='large'
+										value={nameClinic}
+										onChange={(e) => {
+											setNameClinic(e.target.value);
+										}}
+									/>
 								</div>
 							</Col>
 							<Col xs={24} md={8}>
 								<div className={styles.introInfo}>
-									<label>Địa chỉ cơ sở</label>
-									<Input size='large' />
+									<label>
+										<FormattedMessage id='system.doctor-manage.branch-address' />
+									</label>
+									<Input
+										size='large'
+										value={addressClinic}
+										onChange={(e) => {
+											setAddressClinic(e.target.value);
+										}}
+									/>
 								</div>
 							</Col>
 							<Col xs={24} md={8}>
 								<div className={styles.introInfo}>
-									<label>Ghi chú</label>
-									<Input size='large' />
+									<label>
+										<FormattedMessage id='system.doctor-manage.note' />
+									</label>
+									<Input
+										size='large'
+										value={note}
+										onChange={(e) => {
+											setNote(e.target.value);
+										}}
+									/>
 								</div>
 							</Col>
 						</Row>

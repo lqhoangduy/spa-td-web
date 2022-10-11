@@ -135,9 +135,15 @@
         },
         "doctor-manage": {
             "title": "Create more information Doctor",
-            "choose-doctor": "Select doctor: ",
+            "choose-doctor": "Select doctor *: ",
             "description": "Introduction information: ",
-            "content": "Content: "
+            "content": "Content *: ",
+            "price": "Choose price *: ",
+            "payment": "Choose payment *: ",
+            "province": "Choose province *: ",
+            "branch-name": "Branch name *: ",
+            "branch-address": "Branch address *: ",
+            "note": "Note: "
         },
         "schedule-manage": {
             "title": "Doctor's schedule manage",

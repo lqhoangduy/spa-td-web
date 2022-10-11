@@ -26,7 +26,6 @@ const messages = {
 
 export default class LanguageUtils {
 	static getMessageByKey(key, lang) {
-		console.log("messages", messages);
 		return messages[lang][key];
 	}
 
