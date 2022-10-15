@@ -45,6 +45,9 @@ const userService = {
 			`/api/get-schedules-by-date?doctorId=${doctorId}&date=${date}`
 		);
 	},
+	getExtraInfoDoctor(id) {
+		return axios.get(`/api/get-extra-info-doctor?id=${id}`);
+	},
 };
 
 export default userService;

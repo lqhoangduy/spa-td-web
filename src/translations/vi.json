@@ -41,7 +41,9 @@
         "error-required-doctor": "Vui lòng chọn bác sĩ",
         "error-required-date": "Vui lòng chọn ngày",
         "dashboard": "Dashboard",
-        "today": "Hôm nay"
+        "today": "Hôm nay",
+        "view-detail": "Xem chi tiết",
+        "collapse": "Thu gọn"
     },
     "login": {
         "login": "Đăng nhập",
@@ -200,7 +202,14 @@
         "select-date": "Chọn ngày khám",
         "examination-schedule": "Lịch khám",
         "empty-schedule": "Không có lịch khám trống trong ngày này, vui lòng chọn ngày khác",
-        "choose-and-book": "Chọn 👆 và đặt (miễn phí)"
+        "choose-and-book": "Chọn 👆 và đặt (miễn phí)",
+        "address": "Địa chỉ khám",
+        "price": "Giá khám: ",
+        "payment-note": "Người bệnh có thể thảnh toán bằng hình thức: ",
+        "note": "Ghi chú: ",
+        "name": "Họ và tên",
+        "phone": "Số điện thoại",
+        "add-comment": "Thêm bình luận"
     },
     "dashboard": {
         "title": "Dashboard",

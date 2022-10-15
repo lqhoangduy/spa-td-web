@@ -1,0 +1,88 @@
+@import "../../../styles/common.scss";
+
+.extraDoctorInfo {
+  .addressTitle {
+    margin: 0;
+    font-size: 16px;
+    color: $primary-brown;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    margin-top: 8px;
+  }
+
+  .nameClinic {
+    font-size: 16px;
+    color: $neutral-100;
+    display: block;
+  }
+
+  .addressClinic {
+    color: $neutral-80;
+    font-size: 14px;
+  }
+
+  .priceBlock {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .priceTitle {
+      margin: 0;
+      font-size: 16px;
+      color: $primary-brown;
+      text-transform: uppercase;
+      margin-right: 4px;
+      line-height: 20px;
+    }
+
+    .price {
+      font-size: 16px;
+      color: $colormain;
+      font-weight: bold;
+    }
+
+    .btnViewPrice {
+      padding: 4px 8px;
+      height: 32px;
+    }
+  }
+
+  .expandedPrice {
+    padding: 8px;
+    background-color: $neutral-5;
+    font-size: 14px;
+    color: $neutral-60;
+
+    .priceWrap {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .priceTitle {
+        font-size: 14px;
+        color: $neutral-80;
+      }
+
+      .price {
+        font-size: 14px;
+        color: $colormain;
+      }
+    }
+
+    .priceContent {
+      margin-top: 8px;
+    }
+  }
+
+  .btnWrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .btnCollapse {
+      padding: 4px 0;
+    }
+  }
+}

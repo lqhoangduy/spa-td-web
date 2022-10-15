@@ -41,7 +41,9 @@
         "error-required-doctor": "Please select doctor!!!",
         "error-required-date": "Please select date!!!",
         "dashboard": "Dashboard",
-        "today": "Today"
+        "today": "Today",
+        "view-detail": "Detail",
+        "collapse": "Collapse"
     },
     "login": {
         "login": "Login",
@@ -200,7 +202,14 @@
         "select-date": "Select date of examination",
         "examination-schedule": "Examination schedule",
         "empty-schedule": "There are no empty appointments for this day",
-        "choose-and-book": "Select 👆 and book (free)"
+        "choose-and-book": "Select 👆 and book (free)",
+        "address": "Address",
+        "price": "Price: ",
+        "payment-note": "The patient can pay in the form: ",
+        "note": "Note: ",
+        "name": "Full name",
+        "phone": "Phone number",
+        "add-comment": "Add comment"
     },
     "dashboard": {
         "title": "Dashboard",

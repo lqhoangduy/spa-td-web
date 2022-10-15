@@ -12,6 +12,9 @@ import {
 	Card,
 	Row,
 	Col,
+	Input,
+	Form,
+	Button,
 } from "antd";
 import { UserOutlined, CheckOutlined, HomeOutlined } from "@ant-design/icons";
 import { userService } from "../../../services";
@@ -20,10 +23,11 @@ import Footer from "../../HomePage/Footer/Footer";
 import { LanguageUtils } from "../../../utils";
 
 import styles from "./DetailDoctor.module.scss";
-import clsx from "clsx";
 import { FormattedMessage } from "react-intl";
 import NotFound from "../../../components/NotFound/NotFound";
 import ScheduleDoctor from "./ScheduleDoctor";
+import ExtraDoctorInfo from "./ExtraDoctorInfo";
+import moment from "moment";
 
 const fakeListComment = [
 	{
@@ -79,10 +83,61 @@ const fakeListComment = [
 	},
 ];
 
+const { TextArea } = Input;
+
+const Editor = ({ onChange, onSubmit, submitting, value }) => (
+	<>
+		<Form.Item>
+			<Input rows={4} onChange={onChange} value={value} />
+		</Form.Item>
+		<Form.Item>
+			<TextArea rows={4} onChange={onChange} value={value} />
+		</Form.Item>
+		<Form.Item>
+			<Button
+				htmlType='submit'
+				loading={submitting}
+				onClick={onSubmit}
+				type='primary'>
+				Add Comment
+			</Button>
+		</Form.Item>
+	</>
+);
+
 function DetailDoctor({ language }) {
 	const { id } = useParams();
 	const [doctor, setDoctor] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [comments, setComments] = useState(fakeListComment);
+	const [submitting, setSubmitting] = useState(false);
+	const [value, setValue] = useState("");
+	const [name, setName] = useState("");
+	const [phone, setPhone] = useState("");
+	const handleSubmit = () => {
+		if (!value || !name) return;
+		setSubmitting(true);
+		setTimeout(() => {
+			setSubmitting(false);
+			setValue("");
+			setName("");
+			setPhone("");
+			setComments([
+				...comments,
+				{
+					id: comments[comments.length - 1].id + 1,
+					author: name,
+					avatar: "https://joeschmoe.io/api/v1/random",
+					content: <p>{value}</p>,
+					datetime: moment().format("DD/MM/YYYY"),
+				},
+			]);
+		}, 1000);
+	};
+
+	const enableSubmit = useMemo(() => {
+		return !!name?.length && !!value?.length && !!phone?.length;
+	}, [name, value]);
 
 	useEffect(() => {
 		if (window) {
@@ -185,7 +240,7 @@ function DetailDoctor({ language }) {
 									<ScheduleDoctor />
 								</Col>
 								<Col xs={24} md={10}>
-									Time
+									<ExtraDoctorInfo id={id} />
 								</Col>
 							</Row>
 						</Card>
@@ -223,7 +278,7 @@ function DetailDoctor({ language }) {
 							<List
 								className='comment-list'
 								itemLayout='horizontal'
-								dataSource={fakeListComment}
+								dataSource={comments}
 								renderItem={(item) => (
 									<li>
 										<Comment
@@ -243,6 +298,59 @@ function DetailDoctor({ language }) {
 										/>
 									</li>
 								)}
+							/>
+							<Comment
+								avatar={
+									<Avatar
+										src='https://joeschmoe.io/api/v1/random'
+										alt='Han Solo'
+									/>
+								}
+								content={
+									<>
+										<Row gutter={[16, 16]}>
+											<Col xs={24} md={12}>
+												<Form.Item required>
+													<label>
+														<FormattedMessage id='doctor.name' />
+													</label>
+													<Input
+														onChange={(e) => setName(e.target.value)}
+														value={name}
+													/>
+												</Form.Item>
+											</Col>
+											<Col xs={24} md={12}>
+												<Form.Item required>
+													<label>
+														<FormattedMessage id='doctor.phone' />
+													</label>
+													<Input
+														onChange={(e) => setPhone(e.target.value)}
+														value={phone}
+													/>
+												</Form.Item>
+											</Col>
+										</Row>
+										<Form.Item>
+											<TextArea
+												rows={4}
+												onChange={(e) => setValue(e.target.value)}
+												value={value}
+											/>
+										</Form.Item>
+										<Form.Item>
+											<Button
+												disabled={!enableSubmit}
+												htmlType='submit'
+												loading={submitting}
+												onClick={handleSubmit}
+												type='primary'>
+												<FormattedMessage id='doctor.add-comment' />
+											</Button>
+										</Form.Item>
+									</>
+								}
 							/>
 						</Card>
 					</div>
