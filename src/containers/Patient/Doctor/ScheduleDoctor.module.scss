@@ -55,7 +55,8 @@
     color: $color-text;
     border: none;
 
-    &:hover {
+    &:hover,
+    &.active {
       background-color: $colorsub;
       color: $color-text;
     }

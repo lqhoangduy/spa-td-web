@@ -21,7 +21,7 @@ import { FormattedMessage } from "react-intl";
 import * as actions from "../../../store/actions";
 import { userService } from "../../../services";
 import styles from "./ScheduleManage.module.scss";
-import { LanguageUtils } from "../../../utils/";
+import { languages, LanguageUtils } from "../../../utils/";
 import en_US from "antd/lib/locale/en_US";
 import vi_VN from "antd/lib/locale/vi_VN";
 
@@ -336,7 +336,8 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 									<label>
 										<FormattedMessage id='system.schedule-manage.choose-date' />
 									</label>
-									<ConfigProvider locale={language === "en" ? en_US : vi_VN}>
+									<ConfigProvider
+										locale={language === languages.EN ? en_US : vi_VN}>
 										<DatePicker
 											size='large'
 											onChange={onChangeDate}

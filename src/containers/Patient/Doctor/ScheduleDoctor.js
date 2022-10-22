@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Select, Spin, Row, Col, Button, Empty } from "antd";
+import { Select, Spin, Row, Col, Button, Empty, message } from "antd";
 import { CalendarOutlined } from "@ant-design/icons";
 import moment from "moment";
 // eslint-disable-next-line no-unused-vars
@@ -14,17 +14,34 @@ import * as actions from "../../../store/actions";
 import { FormattedMessage } from "react-intl";
 import CommonUtils from "../../../utils/CommonUtils";
 import { LanguageUtils } from "../../../utils";
+import BookingModal from "./BookingModal";
+import clsx from "clsx";
 
 const { Option } = Select;
 
-function ScheduleDoctor({ language }) {
+function ScheduleDoctor({ language, getGenderStart, doctor }) {
 	const { id } = useParams();
 	const [allDays, setAllDays] = useState([]);
 	const [currentDate, setCurrentDate] = useState(null);
 	const [loadingSchedule, setLoadingSchedule] = useState(false);
 	const [schedules, setSchedules] = useState([]);
+	const [openBookingModal, setOpenBookingModal] = useState(false);
+	const [currentTime, setCurrentTime] = useState({});
 
 	useEffect(() => {
+		getGenderStart();
+	}, []);
+
+	useEffect(() => {
+		handleChangeLangDate();
+	}, [language]);
+
+	useEffect(() => {
+		loadSchedules();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentDate, id]);
+
+	const handleChangeLangDate = () => {
 		const arrayDate = [];
 		for (let i = 0; i < 7; i++) {
 			const dayOfWeek = {
@@ -62,12 +79,7 @@ function ScheduleDoctor({ language }) {
 		}
 		setAllDays(arrayDate);
 		setCurrentDate(arrayDate[0].value);
-	}, [language]);
-
-	useEffect(() => {
-		loadSchedules();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currentDate, id]);
+	};
 
 	const loadSchedules = async () => {
 		if (id && currentDate) {
@@ -85,59 +97,111 @@ function ScheduleDoctor({ language }) {
 		setCurrentDate(value);
 	};
 
+	const handleChangeChooseTime = (timeType, timeTypeData) => {
+		setCurrentTime({
+			timeType: timeType,
+			timeTypeData: timeTypeData,
+		});
+		setOpenBookingModal(true);
+	};
+
+	const handleSubmitBooking = async (data) => {
+		console.log(data);
+		const result = await userService.bookingAppointment(data);
+		if (result?.errorCode === 0) {
+			message.success(
+				LanguageUtils.getMessageByKey("doctor.booking-success", language)
+			);
+			return true;
+		} else {
+			message.error(
+				LanguageUtils.getMessageByKey("doctor.booking-error", language)
+			);
+			return false;
+		}
+	};
+
+	const handleCancelBooking = () => {
+		setCurrentTime({});
+		setOpenBookingModal(false);
+	};
+
+	const dateLabel = useMemo(() => {
+		return allDays?.find((item) => item.value === currentDate)?.label;
+	}, [allDays, currentDate]);
+
 	return (
-		<section className={styles.doctorSchedule}>
-			<div className={styles.allSchedule}>
-				<Select
-					onChange={handleChangeDate}
-					className={styles.selectSchedule}
-					placeholder={<FormattedMessage id='doctor.select-date' />}
-					bordered={false}
-					value={currentDate}>
-					{allDays?.length &&
-						allDays.map((day) => (
-							<Option value={day.value} key={day.value}>
-								{CommonUtils.capitalize(day.label)}
-							</Option>
-						))}
-				</Select>
-			</div>
-			<div className={styles.allAvailableTime}>
-				<div className={styles.timeTitleWrap}>
-					<CalendarOutlined className={styles.timeTitleIcon} />
-					<h3 className={styles.timeTitle}>
-						<FormattedMessage id='doctor.examination-schedule' />
-					</h3>
-				</div>
-				{!!schedules?.length ? (
-					<Spin spinning={loadingSchedule}>
-						<Row gutter={[16, 16]} className={styles.listTime}>
-							{schedules.map((schedule) => (
-								<Col key={schedule.id} xs={24} md={12} lg={6}>
-									<Button
-										value={schedule.timeType}
-										size='large'
-										className={styles.btnTime}>
-										{language === languages.EN
-											? schedule.timeTypeData?.valueEn
-											: schedule.timeTypeData?.valueVi}
-									</Button>
-								</Col>
+		<>
+			<section className={styles.doctorSchedule}>
+				<div className={styles.allSchedule}>
+					<Select
+						onChange={handleChangeDate}
+						className={styles.selectSchedule}
+						placeholder={<FormattedMessage id='doctor.select-date' />}
+						bordered={false}
+						value={currentDate}>
+						{allDays?.length &&
+							allDays.map((day) => (
+								<Option value={day.value} key={day.value}>
+									{CommonUtils.capitalize(day.label)}
+								</Option>
 							))}
-						</Row>
-						<span className={styles.noteTime}>
-							<FormattedMessage id='doctor.choose-and-book' />
-						</span>
-					</Spin>
-				) : (
-					<Empty
-						description={<FormattedMessage id='doctor.empty-schedule' />}
-						image={Empty.PRESENTED_IMAGE_SIMPLE}
-						className={styles.emptySchedule}
-					/>
-				)}
-			</div>
-		</section>
+					</Select>
+				</div>
+				<div className={styles.allAvailableTime}>
+					<div className={styles.timeTitleWrap}>
+						<CalendarOutlined className={styles.timeTitleIcon} />
+						<h3 className={styles.timeTitle}>
+							<FormattedMessage id='doctor.examination-schedule' />
+						</h3>
+					</div>
+					{!!schedules?.length ? (
+						<Spin spinning={loadingSchedule}>
+							<Row gutter={[16, 16]} className={styles.listTime}>
+								{schedules.map((schedule) => (
+									<Col key={schedule.id} xs={24} md={12} lg={6}>
+										<Button
+											onClick={() =>
+												handleChangeChooseTime(
+													schedule.timeType,
+													schedule.timeTypeData
+												)
+											}
+											size='large'
+											className={clsx(styles.btnTime, {
+												[styles.active]:
+													currentTime?.timeType === schedule.timeType,
+											})}>
+											{language === languages.EN
+												? schedule.timeTypeData?.valueEn
+												: schedule.timeTypeData?.valueVi}
+										</Button>
+									</Col>
+								))}
+							</Row>
+							<span className={styles.noteTime}>
+								<FormattedMessage id='doctor.choose-and-book' />
+							</span>
+						</Spin>
+					) : (
+						<Empty
+							description={<FormattedMessage id='doctor.empty-schedule' />}
+							image={Empty.PRESENTED_IMAGE_SIMPLE}
+							className={styles.emptySchedule}
+						/>
+					)}
+				</div>
+			</section>
+			{openBookingModal && (
+				<BookingModal
+					timeData={currentTime}
+					onCancel={handleCancelBooking}
+					onSubmit={handleSubmitBooking}
+					doctor={doctor}
+					date={dateLabel}
+				/>
+			)}
+		</>
 	);
 }
 
@@ -151,6 +215,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		getTimeStart: () => dispatch(actions.fetchTimeStart()),
+		getGenderStart: () => dispatch(actions.fetchGenderStart()),
 	};
 };
 

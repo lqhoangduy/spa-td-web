@@ -209,7 +209,15 @@
         "note": "Note: ",
         "name": "Full name",
         "phone": "Phone number",
-        "add-comment": "Add comment"
+        "add-comment": "Add comment",
+        "name-required": "Please enter full name",
+        "address-contact": "Contact address",
+        "address-contact-required": "Please enter contact address",
+        "reason": "reason",
+        "reason-required": "Please enter reason",
+        "birthday": "Birthday",
+        "birthday-required": "Please enter birthday",
+        "booking-title": "Information to book a appointment"
     },
     "dashboard": {
         "title": "Dashboard",

@@ -1,0 +1,38 @@
+@import "../../../styles/common.scss";
+
+.modalBooking {
+  width: 800px !important;
+  max-width: 100%;
+
+  :global {
+    .ant-form-item {
+      margin-bottom: 16px;
+    }
+
+    .ant-form-item-label {
+      padding-bottom: 0;
+
+      &>label {
+        color: $neutral-60;
+      }
+    }
+
+    .ant-picker {
+      width: 100%;
+    }
+  }
+
+  .infoBlock {
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .timeBlock,
+    .priceBlock {
+      color: $neutral-80;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+  }
+}

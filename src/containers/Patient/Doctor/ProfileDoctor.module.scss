@@ -1,0 +1,29 @@
+@import "../../../styles/common.scss";
+
+.profileDoctor {
+  .introDoctor {
+    display: flex;
+    align-items: center;
+  }
+
+  @include maxMd {
+    .introDoctor {
+      padding: 20px 0;
+    }
+  }
+
+  .introInformation {
+    padding: 0 24px;
+
+    .doctorName {
+      font-size: 24px;
+      color: $primary-brown;
+    }
+
+    .doctorDescription {
+      font-size: 16px;
+      color: $neutral-60;
+      white-space: pre-wrap;
+    }
+  }
+}

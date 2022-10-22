@@ -48,6 +48,9 @@ const userService = {
 	getExtraInfoDoctor(id) {
 		return axios.get(`/api/get-extra-info-doctor?id=${id}`);
 	},
+	bookingAppointment(data) {
+		return axios.post("/api/book-appointment", data);
+	},
 };
 
 export default userService;

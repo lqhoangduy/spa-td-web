@@ -28,6 +28,7 @@ import NotFound from "../../../components/NotFound/NotFound";
 import ScheduleDoctor from "./ScheduleDoctor";
 import ExtraDoctorInfo from "./ExtraDoctorInfo";
 import moment from "moment";
+import ProfileDoctor from "./ProfileDoctor";
 
 const fakeListComment = [
 	{
@@ -164,14 +165,6 @@ function DetailDoctor({ language }) {
 		}
 	};
 
-	const nameVi = useMemo(() => {
-		return `${doctor?.positionData?.valueVi} - ${doctor?.lastName} ${doctor?.firstName}`;
-	}, [doctor]);
-
-	const nameEn = useMemo(() => {
-		return `${doctor?.positionData?.valueEn} - ${doctor?.firstName} ${doctor?.lastName}`;
-	}, [doctor]);
-
 	if (!doctor && !loading) {
 		return <NotFound />;
 	}
@@ -197,32 +190,7 @@ function DetailDoctor({ language }) {
 					</Breadcrumb>
 				</div>
 				<div className='container'>
-					<Card>
-						<div className={styles.introDoctor}>
-							<div className={styles.avatar}>
-								<Avatar
-									size={{
-										xs: 80,
-										sm: 100,
-										md: 120,
-										lg: 140,
-										xl: 160,
-										xxl: 180,
-									}}
-									src={doctor?.image?.url}
-									icon={<UserOutlined />}
-								/>
-							</div>
-							<div className={styles.introInformation}>
-								<h4 className={styles.doctorName}>
-									{language === "en" ? nameEn : nameVi}
-								</h4>
-								<span className={styles.doctorDescription}>
-									{doctor?.Markdown?.description ?? ""}
-								</span>
-							</div>
-						</div>
-					</Card>
+					<ProfileDoctor doctor={doctor} />
 				</div>
 
 				<div className='container'>
@@ -237,7 +205,7 @@ function DetailDoctor({ language }) {
 						<Card>
 							<Row gutter={[16, 16]}>
 								<Col xs={24} md={14}>
-									<ScheduleDoctor />
+									<ScheduleDoctor doctor={doctor} />
 								</Col>
 								<Col xs={24} md={10}>
 									<ExtraDoctorInfo id={id} />

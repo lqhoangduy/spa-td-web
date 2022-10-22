@@ -208,8 +208,18 @@
         "payment-note": "Người bệnh có thể thảnh toán bằng hình thức: ",
         "note": "Ghi chú: ",
         "name": "Họ và tên",
+        "name-required": "Vui lòng nhập họ và tên",
         "phone": "Số điện thoại",
-        "add-comment": "Thêm bình luận"
+        "address-contact": "Địa chỉ liên hệ",
+        "address-contact-required": "Vui lòng nhập địa chỉ",
+        "reason": "Lý do khám",
+        "reason-required": "Vui lòng nhập lý do",
+        "birthday": "Ngày sinh",
+        "birthday-required": "Vui lòng chọn ngày sinh",
+        "add-comment": "Thêm bình luận",
+        "booking-title": "Thông tin đặt lịch khám bệnh",
+        "booking-success": "Đã đặt lịch hẹn thành công!",
+        "booking-error": "Đặt lịch hẹn thất bại, vui lòng thử lại!"
     },
     "dashboard": {
         "title": "Dashboard",
