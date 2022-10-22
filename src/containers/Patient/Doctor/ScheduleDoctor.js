@@ -47,14 +47,14 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 			const dayOfWeek = {
 				label:
 					language === languages.VI
-						? moment().add(i, "days").format("dddd - DD/MM")
-						: moment().locale("en").add(i, "days").format("dddd - DD/MM"),
+						? moment().add(i, "days").format("dddd - DD/MM/YYYY")
+						: moment().locale("en").add(i, "days").format("dddd - DD/MM/YYYY"),
 				value: moment().add(i, "days").startOf("day").valueOf(),
 			};
 
 			if (i === 0) {
 				// Today
-				const newDate = moment().format("DD/MM");
+				const newDate = moment().format("DD/MM/YYYY");
 				const label = `${LanguageUtils.getMessageByKey(
 					"common.today",
 					language
@@ -63,13 +63,13 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 			} else {
 				if (language === languages.VI) {
 					// Language VI
-					dayOfWeek.label = moment().add(i, "days").format("dddd - DD/MM");
+					dayOfWeek.label = moment().add(i, "days").format("dddd - DD/MM/YYYY");
 				} else {
 					// Language EN
 					dayOfWeek.label = moment()
 						.locale("en")
 						.add(i, "days")
-						.format("dddd - DD/MM");
+						.format("dddd - DD/MM/YYYY");
 				}
 			}
 
@@ -126,8 +126,8 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 		setOpenBookingModal(false);
 	};
 
-	const dateLabel = useMemo(() => {
-		return allDays?.find((item) => item.value === currentDate)?.label;
+	const currentDateData = useMemo(() => {
+		return allDays?.find((item) => item.value === currentDate);
 	}, [allDays, currentDate]);
 
 	return (
@@ -198,7 +198,7 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 					onCancel={handleCancelBooking}
 					onSubmit={handleSubmitBooking}
 					doctor={doctor}
-					date={dateLabel}
+					dateData={currentDateData}
 				/>
 			)}
 		</>

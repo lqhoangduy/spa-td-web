@@ -29,7 +29,7 @@ function BookingModal({
 	genders,
 	doctor,
 	timeData,
-	date,
+	dateData,
 }) {
 	const [form] = Form.useForm();
 	const [loading, setLoading] = useState(false);
@@ -41,13 +41,25 @@ function BookingModal({
 	const handleSubmit = async () => {
 		form.validateFields().then(async (values) => {
 			setLoading(true);
-			const formatDate = moment(date, "DD/MM/YYYY");
-			console.log("formatDate", formatDate.toDate());
+			const timeString =
+				language === languages.EN
+					? `${timeData.timeTypeData?.valueEn}, ${dateData.label}`
+					: `${timeData.timeTypeData?.valueVi}, ${dateData.label}`;
+
+			const doctorName =
+				language === languages.EN
+					? `${doctor?.firstName} ${doctor?.lastName}`
+					: `${doctor?.lastName} ${doctor?.firstName}`;
+
 			const data = {
 				...values,
+				birthday: moment(values.birthday).toDate(),
 				doctorId: doctor.id,
 				timeType: timeData.timeType,
-				date: formatDate.toDate(),
+				date: moment(new Date(dateData.value)).toDate(),
+				language: language,
+				timeString: timeString,
+				doctorName: doctorName,
 			};
 			const result = await onSubmit(data);
 			if (result) {
@@ -82,7 +94,7 @@ function BookingModal({
 					{language === languages.EN
 						? timeData.timeTypeData?.valueEn
 						: timeData.timeTypeData?.valueVi}
-					, {date ? CommonUtils.capitalize(date) : "--"}
+					, {dateData ? CommonUtils.capitalize(dateData.label) : "--"}
 				</div>
 				<div className={styles.priceBlock}>
 					<FormattedMessage id='doctor.price' />
