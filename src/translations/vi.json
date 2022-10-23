@@ -153,6 +153,22 @@
             "choose-time": "Chọn khoảng thời gian: ",
             "confirm-delete": "Bạn có chắc chắn muốn xóa kế hoạch này?",
             "confirm-delete-all": "Bạn có chắc chắn muốn xoá hết kế hoạch của bác sĩ này?"
+        },
+        "specialty-manage": {
+            "title": "Quản lý chuyên khoa",
+            "add-specialty": "Thêm chuyên khoa",
+            "sure-delete-specialty": "Bạn có chắc chắn muốn xoá chuyên khoa này",
+            "name": "Tên chuyên khoa",
+            "image": "Ảnh chuyên khoa",
+            "info": "Thông tin chuyên khoa",
+            "edit-specialty": "Chỉnh sửa chuyên khoa",
+            "create-success": "Tạo chuyên khoa thành công",
+            "create-fail": "Tạo chuyên khoa thất bại, vui lòng thử lại",
+            "update-success": "Cập nhật chuyên khoa thành công",
+            "update-fail": "Cập nhật chuyên khoa thất bại, vui lòng thử lại",
+            "delete-success": "Xoá chuyên khoa thành công",
+            "delete-fail": "Xoá chuyên khoa thất bại, vui lòng thử lại",
+            "missing-field": "Vui lòng điền đầy đủ thông tin"
         }
     },
     "header": {

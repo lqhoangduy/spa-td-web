@@ -54,6 +54,18 @@ const userService = {
 	verifyBookingAppointment(data) {
 		return axios.post("/api/verify-book-appointment", data);
 	},
+	createSpecialty(data) {
+		return axios.post("/api/create-specialty", data);
+	},
+	getSpecialties() {
+		return axios.get("/api/get-specialties");
+	},
+	editSpecialty(data) {
+		return axios.put("/api/edit-specialty", data);
+	},
+	deleteSpecialty(id) {
+		return axios.delete(`/api/delete-specialty?id=${id}`);
+	},
 };
 
 export default userService;

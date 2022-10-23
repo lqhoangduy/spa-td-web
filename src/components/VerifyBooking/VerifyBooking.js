@@ -84,7 +84,8 @@ function VerifyBooking({ language }) {
 							<Button
 								onClick={() => history.push("/home")}
 								size='large'
-								className={styles.button}>
+								className={styles.button}
+								key='button-back'>
 								<FormattedMessage id='common.backHome' />
 							</Button>,
 						]}

@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import { userService } from "../../../services";
 import styles from "./Section.module.scss";
 
-const specialties = [
+const specialtiesMock = [
 	{
 		key: 1,
 		url: "/images/banner-slider-1.jpeg",
@@ -32,6 +32,7 @@ const specialties = [
 const Section = ({ language }) => {
 	const history = useHistory();
 	const [topDoctors, setTopDoctors] = useState(null);
+	const [specialties, setSpecialties] = useState(null);
 
 	const setting1 = {
 		dots: false,
@@ -58,6 +59,11 @@ const Section = ({ language }) => {
 		if (resultDoctor.errorCode === 0) {
 			setTopDoctors(resultDoctor.data);
 		}
+
+		const resultSpecialty = await userService.getSpecialties();
+		if (resultDoctor.errorCode === 0) {
+			setSpecialties(resultSpecialty.data);
+		}
 	};
 
 	const handleDetailDoctor = (id) => {
@@ -66,25 +72,27 @@ const Section = ({ language }) => {
 
 	return (
 		<section className='container'>
-			<div className={styles.sectionWrap}>
-				<h3 className={styles.sectionTitle}>
-					<FormattedMessage id='section.specialist' />
-				</h3>
-				<Slider {...setting1}>
-					{specialties.map((specialty) => (
-						<div key={specialty.key} className={styles.sectionItem}>
-							<img src={specialty.url} alt='partner' />
-							<span>{specialty.title}</span>
-						</div>
-					))}
-				</Slider>
-			</div>
+			{specialties?.length && (
+				<div className={styles.sectionWrap}>
+					<h3 className={styles.sectionTitle}>
+						<FormattedMessage id='section.specialist' />
+					</h3>
+					<Slider {...setting1}>
+						{specialties.map((specialty, index) => (
+							<div key={index} className={styles.sectionItem}>
+								<img src={specialty.image?.url} alt='doctor' />
+								<span>{specialty.name}</span>
+							</div>
+						))}
+					</Slider>
+				</div>
+			)}
 			<div className={styles.sectionWrap}>
 				<h3 className={styles.sectionTitle}>
 					<FormattedMessage id='section.branches' />
 				</h3>
 				<Slider {...setting2}>
-					{specialties.map((specialty) => (
+					{specialtiesMock.map((specialty) => (
 						<div key={specialty.key} className={styles.sectionItem}>
 							<img src={specialty.url} alt='partner' />
 							<span>{specialty.title}</span>
@@ -120,7 +128,7 @@ const Section = ({ language }) => {
 					<FormattedMessage id='section.handbooks' />
 				</h3>
 				<Slider {...setting2}>
-					{specialties.map((specialty) => (
+					{specialtiesMock.map((specialty) => (
 						<div key={specialty.key} className={styles.sectionItem}>
 							<img src={specialty.url} alt='partner' />
 							<span>{specialty.title}</span>

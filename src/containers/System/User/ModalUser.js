@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
 	Modal,
 	Form,
@@ -40,6 +40,7 @@ const ModalUser = ({
 	const [isLoadingImg, setIsLoadingImg] = useState(false);
 	const [openLightBox, setOpenLightBox] = useState(false);
 	const [avatar, setAvatar] = useState(null);
+	const fileRef = useRef();
 
 	useEffect(() => {
 		if (isEdit && userEdit) {
@@ -77,6 +78,7 @@ const ModalUser = ({
 
 	const handleCancel = () => {
 		setAvatar(null);
+		clearInputFile();
 		form.resetFields();
 		onClose();
 	};
@@ -113,6 +115,7 @@ const ModalUser = ({
 
 	const handleDestroy = async (e) => {
 		e.stopPropagation();
+		clearInputFile();
 		try {
 			setIsLoadingImg(true);
 			const res = await uploadService.destroy(avatar.public_id);
@@ -124,6 +127,25 @@ const ModalUser = ({
 			setIsLoadingImg(false);
 		} catch (err) {
 			alert(err.response.data.msg);
+		}
+	};
+
+	const clearInputFile = () => {
+		const f = fileRef.current;
+
+		if (f.value) {
+			try {
+				f.value = ""; //for IE11, latest Chrome/Firefox/Opera...
+			} catch (err) {}
+			if (f.value) {
+				//for IE5 ~ IE10
+				var form = document.createElement("form"),
+					parentNode = f.parentNode,
+					ref = f.nextSibling;
+				form.appendChild(f);
+				form.reset();
+				parentNode.insertBefore(f, ref);
+			}
 		}
 	};
 

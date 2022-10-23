@@ -153,6 +153,22 @@
             "choose-time": "Choose a time period: ",
             "confirm-delete": "Are you sure to delete this schedule?",
             "confirm-delete-all": "Are you sure to delete all doctor's schedule?"
+        },
+        "specialty-manage": {
+            "title": "Specialty manage",
+            "add-specialty": "Add specialty",
+            "sure-delete-specialty": "Are you sure to delete this specialty",
+            "name": "Name",
+            "image": "Image",
+            "info": "Specialty information",
+            "edit-specialty": "Edit specialty",
+            "create-success": "Create specialty successfully",
+            "create-fail": "Create specialty fail. Please try again!",
+            "update-success": "Update specialty successfully",
+            "update-fail": "Update specialty fail. Please try again!",
+            "delete-success": "Deleted specialty successfully",
+            "delete-fail": "Deleted specialty fail. Please try again!",
+            "missing-field": "Please complete all information"
         }
     },
     "header": {

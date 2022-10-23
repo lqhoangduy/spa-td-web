@@ -14,12 +14,12 @@ const Feature = () => {
 				<div className='featureChart'>
 					<Progress type='circle' percent={75} />
 				</div>
-				<p className='title'><FormattedMessage id="dashboard.total-sales"/></p>
-				<p className='amount'>$1,000,000</p>
-				<p className='desc'>
+				<div className='title'><FormattedMessage id="dashboard.total-sales"/></div>
+				<div className='amount'>$1,000,000</div>
+				<div className='desc'>
         <FormattedMessage id="dashboard.total-sales-des"/>
-				</p>
-				<p className='summary'>
+				</div>
+				<div className='summary'>
 					<div className='item'>
 						<div className='itemTitle'><FormattedMessage id="dashboard.target"/></div>
 						<div className='itemResult negative'>
@@ -41,7 +41,7 @@ const Feature = () => {
 							<div className='resultAmount'>$22.2k</div>
 						</div>
 					</div>
-				</p>
+				</div>
 			</div>
 		</div>
 	);

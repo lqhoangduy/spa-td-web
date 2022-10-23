@@ -7,6 +7,7 @@ import DoctorManage from "../containers/System/Admin/DoctorManage";
 import { userIsAdmin, userIsAdminOrDoctor } from "../hoc/authentication";
 import { USER_ROLE } from "../utils";
 import Dashboard from "../containers/System/Admin/Dashboard";
+import SpecialtyManage from "../containers/System/Specialty/SpecialtyManage";
 
 function System({ currentUser }) {
 	const systemPath = useMemo(() => {
@@ -39,6 +40,10 @@ function System({ currentUser }) {
 					<Route
 						path='/system/schedule-manage'
 						component={userIsAdminOrDoctor(ScheduleManage)}
+					/>
+					<Route
+						path='/system/specialty-manage'
+						component={userIsAdminOrDoctor(SpecialtyManage)}
 					/>
 
 					{systemPath && (
