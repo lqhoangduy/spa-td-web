@@ -137,11 +137,11 @@ const ModalSpecialty = ({
 	const clearInputFile = () => {
 		const f = fileRef.current;
 
-		if (f.value) {
+		if (f?.value) {
 			try {
 				f.value = ""; //for IE11, latest Chrome/Firefox/Opera...
 			} catch (err) {}
-			if (f.value) {
+			if (f?.value) {
 				//for IE5 ~ IE10
 				var form = document.createElement("form"),
 					parentNode = f.parentNode,
