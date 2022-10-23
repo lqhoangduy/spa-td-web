@@ -22,6 +22,7 @@ import AdminLayout from "./AdminLayout/AdminLayout";
 
 import { CustomToastCloseButton } from "../components/CustomToast";
 import DetailDoctor from "./Patient/Doctor/DetailDoctor";
+import VerifyBooking from "../components/VerifyBooking/VerifyBooking";
 
 const MapLayout = ({ isLoggedIn, children }) => {
 	return isLoggedIn ? <AdminLayout>{children}</AdminLayout> : <>{children}</>;
@@ -66,6 +67,10 @@ class App extends Component {
 										/>
 										<Route path={path.HOMEPAGE} component={HomePage} />
 										<Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+										<Route
+											path={path.VERIFY_BOOKING}
+											component={VerifyBooking}
+										/>
 										<Route path='*' component={NotFound} />
 									</Switch>
 								</CustomScrollbars>

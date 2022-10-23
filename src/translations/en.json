@@ -217,7 +217,12 @@
         "reason-required": "Please enter reason",
         "birthday": "Birthday",
         "birthday-required": "Please enter birthday",
-        "booking-title": "Information to book a appointment"
+        "booking-title": "Information to book a appointment",
+        "booking-success": "Appointment has been successfully booked, please check your email to confirm!",
+        "booking-error": "Appointment failed, please try again!",
+        "confirm-success": "Confirmation of booking information successful!",
+        "confirm-not-found": "No booking information or confirmed booking information found!!!",
+        "confirm-out-of-date": "It's over time to confirm booking information!!!"
     },
     "dashboard": {
         "title": "Dashboard",

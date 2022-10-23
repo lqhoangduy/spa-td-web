@@ -218,8 +218,11 @@
         "birthday-required": "Vui lòng chọn ngày sinh",
         "add-comment": "Thêm bình luận",
         "booking-title": "Thông tin đặt lịch khám bệnh",
-        "booking-success": "Đã đặt lịch hẹn thành công!",
-        "booking-error": "Đặt lịch hẹn thất bại, vui lòng thử lại!"
+        "booking-success": "Đã đặt lịch hẹn thành công, vui lòng kiểm tra email để xác nhận!",
+        "booking-error": "Đặt lịch hẹn thất bại, vui lòng thử lại!",
+        "confirm-success": "Xác nhận lịch hẹn thành công!",
+        "confirm-not-found": "Không tìm thấy thông tin lịch hẹn hoặc lịch hẹn đã được xác nhận",
+        "confirm-out-of-date": "Đã quá thời gian xác nhận lịch hẹn!!!"
     },
     "dashboard": {
         "title": "Dashboard",
