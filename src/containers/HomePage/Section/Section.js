@@ -70,6 +70,10 @@ const Section = ({ language }) => {
 		history.push(`/doctor/${id}`);
 	};
 
+	const handleDetailSpecialty = (id) => {
+		history.push(`/specialty/${id}`);
+	};
+
 	return (
 		<section className='container'>
 			{specialties?.length && (
@@ -79,7 +83,10 @@ const Section = ({ language }) => {
 					</h3>
 					<Slider {...setting1}>
 						{specialties.map((specialty, index) => (
-							<div key={index} className={styles.sectionItem}>
+							<div
+								key={index}
+								className={styles.sectionItem}
+								onClick={() => handleDetailSpecialty(specialty.id)}>
 								<img src={specialty.image?.url} alt='doctor' />
 								<span>{specialty.name}</span>
 							</div>

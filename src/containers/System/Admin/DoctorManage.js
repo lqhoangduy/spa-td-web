@@ -30,8 +30,8 @@ function DoctorManage({
 	getPaymentStart,
 	getProvinceStart,
 }) {
-	const [contentMarkdown, setContentMarkdown] = useState(null);
-	const [contentHtml, setContentHtml] = useState(null);
+	const [contentMarkdown, setContentMarkdown] = useState("");
+	const [contentHtml, setContentHtml] = useState("");
 	const [description, setDescription] = useState(null);
 	const [priceId, setPriceId] = useState(null);
 	const [provinceId, setProvinceId] = useState(null);
@@ -42,6 +42,10 @@ function DoctorManage({
 	const [currentDoctorId, setCurrentDoctorId] = useState(null);
 	const [doctors, setDoctors] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [specialties, setSpecialties] = useState(null);
+	const [currentSpecialty, setCurrentSpecialty] = useState(null);
+	const [clinics, setClinics] = useState(null);
+	const [currentClinic, setCurrentClinic] = useState(null);
 
 	useEffect(() => {
 		loadData();
@@ -64,6 +68,16 @@ function DoctorManage({
 		if (resultDoctor.errorCode === 0) {
 			setDoctors(resultDoctor.data);
 		}
+
+		const resultSpecialty = await userService.getSpecialties();
+		if (resultSpecialty.errorCode === 0) {
+			setSpecialties(resultSpecialty.data);
+		}
+
+		// const resultClinic = await userService.getClinics();
+		// if (resultClinic.errorCode === 0) {
+		// 	setClinics(resultClinic.data);
+		// }
 		setLoading(false);
 	};
 
@@ -73,8 +87,8 @@ function DoctorManage({
 			const result = await markdownService.getInfoDoctor(currentDoctorId);
 
 			if (result?.errorCode === 0) {
-				setContentMarkdown(result?.data?.contentMarkdown ?? null);
-				setContentHtml(result?.data?.contentHTML ?? null);
+				setContentMarkdown(result?.data?.contentMarkdown ?? "");
+				setContentHtml(result?.data?.contentHTML ?? "");
 				setDescription(result?.data?.description ?? null);
 				setPriceId(result?.data?.priceId ?? null);
 				setProvinceId(result?.data?.provinceId ?? null);
@@ -82,6 +96,8 @@ function DoctorManage({
 				setAddressClinic(result?.data?.addressClinic ?? null);
 				setNameClinic(result?.data?.nameClinic ?? null);
 				setNote(result?.data?.note ?? null);
+				setCurrentSpecialty(result?.data?.specialtyId ?? null);
+				setCurrentClinic(result?.data?.clinicId ?? null);
 			} else {
 				message.error(
 					LanguageUtils.getMessageByKey("common.error-get-info-fail", language)
@@ -108,6 +124,8 @@ function DoctorManage({
 			addressClinic: addressClinic,
 			nameClinic: nameClinic,
 			note: note,
+			specialtyId: currentSpecialty,
+			clinicId: currentClinic,
 		};
 
 		if (
@@ -142,6 +160,14 @@ function DoctorManage({
 		setCurrentDoctorId(id);
 	};
 
+	const handleChangeSpecialty = (id) => {
+		setCurrentSpecialty(id);
+	};
+
+	const handleChangeClinic = (id) => {
+		setCurrentClinic(id);
+	};
+
 	const enableSubmit = useMemo(() => {
 		return currentDoctorId && contentHtml && contentMarkdown;
 	}, [contentHtml, contentMarkdown, currentDoctorId]);
@@ -163,10 +189,6 @@ function DoctorManage({
 									<Select
 										size='large'
 										showSearch
-										style={{
-											width: 200,
-										}}
-										placeholder='Search to Select'
 										optionFilterProp='children'
 										filterOption={(input, option) =>
 											option.children.includes(input)
@@ -313,6 +335,42 @@ function DoctorManage({
 											setNote(e.target.value);
 										}}
 									/>
+								</div>
+							</Col>
+							<Col xs={24} md={8}>
+								<div className={styles.chooseDoctor}>
+									<label>
+										<FormattedMessage id='system.doctor-manage.specialty' />
+									</label>
+									<Select
+										size='large'
+										value={currentSpecialty}
+										onChange={handleChangeSpecialty}>
+										{specialties?.length &&
+											specialties.map((specialty) => (
+												<Option value={specialty.id} key={specialty.id}>
+													{specialty.name}
+												</Option>
+											))}
+									</Select>
+								</div>
+							</Col>
+							<Col xs={24} md={8}>
+								<div className={styles.chooseDoctor}>
+									<label>
+										<FormattedMessage id='system.doctor-manage.clinic' />
+									</label>
+									<Select
+										size='large'
+										value={currentClinic}
+										onChange={handleChangeClinic}>
+										{clinics?.length &&
+											clinics.map((clinic) => (
+												<Option value={clinic.id} key={clinic.id}>
+													{clinic.name}
+												</Option>
+											))}
+									</Select>
 								</div>
 							</Col>
 						</Row>

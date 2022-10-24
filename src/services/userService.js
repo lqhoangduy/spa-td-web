@@ -66,6 +66,14 @@ const userService = {
 	deleteSpecialty(id) {
 		return axios.delete(`/api/delete-specialty?id=${id}`);
 	},
+	getSpecialty(id) {
+		return axios.get(`/api/get-specialty?id=${id}`);
+	},
+	getDoctorByIds(ids) {
+		return axios.post("/api/get-doctor-by-ids", {
+			ids: ids,
+		});
+	},
 };
 
 export default userService;
