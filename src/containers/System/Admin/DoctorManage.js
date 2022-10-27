@@ -285,11 +285,11 @@ function DoctorManage({
 											setProvinceId(id);
 										}}>
 										{provinces?.length &&
-											provinces.map((gender) => (
-												<Option value={gender.keyMap} key={gender.keyMap}>
+											provinces.map((province) => (
+												<Option value={province.keyMap} key={province.keyMap}>
 													{language === languages.VI
-														? gender.valueVi
-														: gender.valueEn}
+														? province.valueVi
+														: province.valueEn}
 												</Option>
 											))}
 									</Select>

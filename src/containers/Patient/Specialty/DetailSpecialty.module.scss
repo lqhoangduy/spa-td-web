@@ -1,0 +1,16 @@
+.detailSpecialty {
+  .specialtyWrap {
+    min-height: 600px;
+  }
+
+  .link {
+    text-decoration: none;
+  }
+
+  :global {
+    .ant-card {
+      background-repeat: no-repeat !important;
+      background-size: cover !important;
+    }
+  }
+}

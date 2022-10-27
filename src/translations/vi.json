@@ -43,7 +43,8 @@
         "dashboard": "Dashboard",
         "today": "Hôm nay",
         "view-detail": "Xem chi tiết",
-        "collapse": "Thu gọn"
+        "collapse": "Thu gọn",
+        "all": "Tất cả"
     },
     "login": {
         "login": "Đăng nhập",

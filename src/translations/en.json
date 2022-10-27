@@ -43,7 +43,8 @@
         "dashboard": "Dashboard",
         "today": "Today",
         "view-detail": "Detail",
-        "collapse": "Collapse"
+        "collapse": "Collapse",
+        "all": "All"
     },
     "login": {
         "login": "Login",

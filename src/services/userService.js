@@ -74,6 +74,11 @@ const userService = {
 			ids: ids,
 		});
 	},
+	getDoctorSpecialty(specialtyId, provinceId) {
+		return axios.get(
+			`/api/get-doctor-specialty?specialtyId=${specialtyId}&provinceId=${provinceId}`
+		);
+	},
 };
 
 export default userService;
