@@ -172,6 +172,23 @@
             "delete-success": "Xoá chuyên khoa thành công",
             "delete-fail": "Xoá chuyên khoa thất bại, vui lòng thử lại",
             "missing-field": "Vui lòng điền đầy đủ thông tin"
+        },
+        "clinic-manage": {
+            "title": "Quản lý phòng khám",
+            "add-clinic": "Thêm phòng khám",
+            "sure-delete-clinic": "Bạn có chắc chắn muốn xoá phòng khám này",
+            "name": "Tên phòng khám",
+            "address": "Địa chỉ phòng khám",
+            "image": "Ảnh phòng khám",
+            "info": "Thông tin phòng khám",
+            "edit-clinic": "Chỉnh sửa phòng khám",
+            "create-success": "Tạo phòng khám thành công",
+            "create-fail": "Tạo phòng khám thất bại, vui lòng thử lại",
+            "update-success": "Cập nhật phòng khám thành công",
+            "update-fail": "Cập nhật phòng khám thất bại, vui lòng thử lại",
+            "delete-success": "Xoá phòng khám thành công",
+            "delete-fail": "Xoá phòng khám thất bại, vui lòng thử lại",
+            "missing-field": "Vui lòng điền đầy đủ thông tin"
         }
     },
     "header": {
@@ -278,5 +295,9 @@
     "specialty": {
         "title": "Thông tin chuyên khoa",
         "empty-doctor": "Hiện tại chuyên khoa chưa có bác sĩ"
+    },
+    "clinic": {
+        "title": "Thông tin phòng khám",
+        "empty-doctor": "Hiện tại phòng khám chưa có bác sĩ"
     }
 }

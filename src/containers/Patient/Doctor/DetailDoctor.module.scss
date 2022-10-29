@@ -1,6 +1,13 @@
 @import "../../../styles/common.scss";
 
 .detailDoctor {
+  :global {
+    .ant-card {
+      border-radius: 5px;
+      overflow: hidden;
+    }
+  }
+
   .introDoctor {
     display: flex;
     align-items: center;
@@ -40,6 +47,7 @@
 
   .dateComment {
     color: $common-btn-confirm;
+
     .date {
       margin-left: 4px;
     }

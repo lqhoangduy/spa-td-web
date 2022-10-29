@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { languages } from "../../../utils";
 import styles from "./ProfileDoctor.module.scss";
 
-function ProfileDoctor({ language, doctor, isSecondStyle }) {
+function ProfileDoctor({ language, doctor, isSecondStyle = false }) {
 	const nameVi = useMemo(() => {
 		return `${doctor?.positionData?.valueVi} - ${doctor?.lastName} ${doctor?.firstName}`;
 	}, [doctor]);

@@ -32,10 +32,10 @@ function ExtraDoctorInfo({ language, id }) {
 					<FormattedMessage id='doctor.address' />
 				</h3>
 				<span className={styles.nameClinic}>
-					{doctorInfo?.nameClinic || "--"}
+					{doctorInfo?.clinicData?.name || "--"}
 				</span>
 				<span className={styles.addressClinic}>
-					{doctorInfo?.addressClinic || "--"}
+					{doctorInfo?.clinicData?.address || "--"}
 				</span>
 				<Divider />
 				<div className={styles.priceBlock}>

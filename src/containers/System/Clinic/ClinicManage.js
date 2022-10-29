@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
@@ -12,24 +13,22 @@ import {
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { FormattedMessage } from "react-intl";
 
-import styles from "./SpecialtyManage.module.scss";
-import "react-markdown-editor-lite/lib/index.css";
-import clsx from "clsx";
-
 import { userService } from "../../../services";
-import ModalSpecialty from "./ModalSpecialty";
 import { LanguageUtils } from "../../../utils";
+import ModalClinic from "./ModalClinic";
+import styles from "./ClinicManage.module.scss";
+import "react-markdown-editor-lite/lib/index.css";
 
-function SpecialtyManage({ language }) {
+function ClinicManage({ language }) {
 	const [loading, setLoading] = useState(false);
 	const [isModalVisible, setModalVisible] = useState(false);
 	const [isModeEdit, setIsModeEdit] = useState(false);
 	const [dataTable, setDataTable] = useState([]);
-	const [specialties, setSpecialties] = useState([]);
-	const [specialtyEdit, setSpecialtyEdit] = useState([]);
+	const [clinics, setClinics] = useState([]);
+	const [clinicEdit, setClinicEdit] = useState([]);
 
 	useEffect(() => {
-		getSpecialties();
+		getClinics();
 	}, []);
 
 	const handleCloseModal = () => {
@@ -37,23 +36,23 @@ function SpecialtyManage({ language }) {
 		setIsModeEdit(false);
 	};
 
-	const handleCreateSpecialty = async (data) => {
+	const handleCreateClinic = async (data) => {
 		try {
-			const response = await userService.createSpecialty(data);
+			const response = await userService.createClinic(data);
 			if (response?.errorCode === 0) {
 				message.success(
 					LanguageUtils.getMessageByKey(
-						"system.specialty-manage.create-success",
+						"system.clinic-manage.create-success",
 						language
 					)
 				);
-				getSpecialties();
+				getClinics();
 				handleCloseModal();
 				return true;
 			} else {
 				message.error(
 					LanguageUtils.getMessageByKey(
-						"system.specialty-manage.create-fail",
+						"system.clinic-manage.create-fail",
 						language
 					)
 				);
@@ -66,49 +65,50 @@ function SpecialtyManage({ language }) {
 		}
 	};
 
-	const getSpecialties = async () => {
+	const getClinics = async () => {
 		setLoading(true);
-		const response = await userService.getSpecialties();
+		const response = await userService.getClinics();
 		if (response?.errorCode === 0) {
-			const dataTable = (response.data || []).map((specialty) => {
+			const dataTable = (response.data || []).map((clinic) => {
 				return {
-					key: specialty.id,
-					name: specialty.name,
-					image: specialty.image?.url,
-					info: specialty.descriptionHTML,
+					key: clinic.id,
+					name: clinic.name,
+					address: clinic.address,
+					image: clinic.image?.url,
+					info: clinic.descriptionHTML,
 				};
 			});
-			setSpecialties(response.data);
+			setClinics(response.data);
 			setDataTable(dataTable);
 		}
 		setLoading(false);
 	};
 
 	const handleOpenModalEdit = (id) => {
-		const specialty = specialties.find((specialty) => specialty.id === id);
-		setSpecialtyEdit(specialty);
+		const clinic = clinics.find((clinic) => clinic.id === id);
+		setClinicEdit(clinic);
 		setIsModeEdit(true);
 		setModalVisible(true);
 	};
 
-	const handleEditSpecialty = async (data) => {
+	const handleEditClinic = async (data) => {
 		try {
-			const response = await userService.editSpecialty(data);
+			const response = await userService.editClinic(data);
 			if (response?.errorCode === 0) {
 				message.success(
 					LanguageUtils.getMessageByKey(
-						"system.specialty-manage.update-success",
+						"system.clinic-manage.update-success",
 						language
 					)
 				);
-				getSpecialties();
+				getClinics();
 				handleCloseModal();
 				setIsModeEdit(false);
 				return true;
 			} else {
 				message.error(
 					LanguageUtils.getMessageByKey(
-						"system.specialty-manage.update-fail",
+						"system.clinic-manage.update-fail",
 						language
 					)
 				);
@@ -121,21 +121,21 @@ function SpecialtyManage({ language }) {
 		}
 	};
 
-	const handleDeleteSpecialty = async (id) => {
+	const handleDeleteClinic = async (id) => {
 		try {
-			const response = await userService.deleteSpecialty(id);
+			const response = await userService.deleteClinic(id);
 			if (response?.errorCode === 0) {
 				message.success(
 					LanguageUtils.getMessageByKey(
-						"system.specialty-manage.delete-success",
+						"system.clinic-manage.delete-success",
 						language
 					)
 				);
-				getSpecialties();
+				getClinics();
 			} else {
 				message.error(
 					LanguageUtils.getMessageByKey(
-						"system.specialty-manage.delete-fail",
+						"system.clinic-manage.delete-fail",
 						language
 					)
 				);
@@ -149,11 +149,15 @@ function SpecialtyManage({ language }) {
 
 	const columns = [
 		{
-			title: <FormattedMessage id='system.specialty-manage.name' />,
+			title: <FormattedMessage id='system.clinic-manage.name' />,
 			dataIndex: "name",
 		},
 		{
-			title: <FormattedMessage id='system.specialty-manage.image' />,
+			title: <FormattedMessage id='system.clinic-manage.address' />,
+			dataIndex: "address",
+		},
+		{
+			title: <FormattedMessage id='system.clinic-manage.image' />,
 			dataIndex: "image",
 			render: (_, record) => {
 				if (record.image) {
@@ -162,7 +166,7 @@ function SpecialtyManage({ language }) {
 			},
 		},
 		{
-			title: <FormattedMessage id='system.specialty-manage.info' />,
+			title: <FormattedMessage id='system.clinic-manage.info' />,
 			dataIndex: "info",
 			render: (_, record) => (
 				<div
@@ -187,9 +191,9 @@ function SpecialtyManage({ language }) {
 					</Tooltip>
 					<Popconfirm
 						title={
-							<FormattedMessage id='system.specialty-manage.sure-delete-specialty' />
+							<FormattedMessage id='system.clinic-manage.sure-delete-clinic' />
 						}
-						onConfirm={() => handleDeleteSpecialty(record.key)}
+						onConfirm={() => handleDeleteClinic(record.key)}
 						okText={<FormattedMessage id='common.yes' />}
 						cancelText={<FormattedMessage id='common.no' />}>
 						<Tooltip
@@ -210,9 +214,9 @@ function SpecialtyManage({ language }) {
 	return (
 		<>
 			<div className='container'>
-				<section className={styles.specialtyManage}>
-					<h1 className={clsx("text-center", styles.specialtyManageTitle)}>
-						<FormattedMessage id='system.specialty-manage.title' />
+				<section className={styles.clinicManage}>
+					<h1 className={clsx("text-center", styles.clinicManageTitle)}>
+						<FormattedMessage id='system.clinic-manage.title' />
 					</h1>
 					<Button
 						size='large'
@@ -221,8 +225,8 @@ function SpecialtyManage({ language }) {
 						}}
 						type='primary'
 						icon={<PlusOutlined />}
-						className={styles.btnAddSpecialty}>
-						<FormattedMessage id='system.specialty-manage.add-specialty' />
+						className={styles.btnAddClinic}>
+						<FormattedMessage id='system.clinic-manage.add-clinic' />
 					</Button>
 					<div className='users-table mt-3'>
 						<Table
@@ -235,13 +239,13 @@ function SpecialtyManage({ language }) {
 					</div>
 				</section>
 			</div>
-			<ModalSpecialty
+			<ModalClinic
 				isShow={isModalVisible}
 				isEdit={isModeEdit}
 				onClose={handleCloseModal}
-				onCreate={handleCreateSpecialty}
-				onEdit={handleEditSpecialty}
-				specialtyEdit={specialtyEdit}
+				onCreate={handleCreateClinic}
+				onEdit={handleEditClinic}
+				clinicEdit={clinicEdit}
 			/>
 		</>
 	);
@@ -257,4 +261,4 @@ const mapDispatchToProps = (dispatch) => {
 	return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SpecialtyManage);
+export default connect(mapStateToProps, mapDispatchToProps)(ClinicManage);

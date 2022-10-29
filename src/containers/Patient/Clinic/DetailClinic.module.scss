@@ -1,8 +1,8 @@
 @import "../../../styles/common.scss";
 
 
-.detailSpecialty {
-  .specialtyWrap {
+.detailClinic {
+  .clinicWrap {
     min-height: 600px;
   }
 
@@ -10,7 +10,7 @@
     text-decoration: none;
   }
 
-  .infoSpecial {
+  .infoClinic {
     border-radius: 5px;
 
     h1 {
@@ -18,7 +18,7 @@
     }
   }
 
-  .infoSpecialBackground {
+  .infoClinicBackground {
     width: 100%;
     height: 300px;
     position: absolute;
@@ -29,7 +29,7 @@
     overflow: hidden;
   }
 
-  .infoSpecialBackground:after {
+  .infoClinicBackground:after {
     content: '';
     position: absolute;
     top: 0;

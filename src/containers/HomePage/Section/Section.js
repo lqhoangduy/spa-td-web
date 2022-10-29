@@ -33,6 +33,7 @@ const Section = ({ language }) => {
 	const history = useHistory();
 	const [topDoctors, setTopDoctors] = useState(null);
 	const [specialties, setSpecialties] = useState(null);
+	const [clinics, setClinics] = useState(null);
 
 	const setting1 = {
 		dots: false,
@@ -61,8 +62,13 @@ const Section = ({ language }) => {
 		}
 
 		const resultSpecialty = await userService.getSpecialties();
-		if (resultDoctor.errorCode === 0) {
+		if (resultSpecialty.errorCode === 0) {
 			setSpecialties(resultSpecialty.data);
+		}
+
+		const resultClinic = await userService.getClinics();
+		if (resultClinic.errorCode === 0) {
+			setClinics(resultClinic.data);
 		}
 	};
 
@@ -72,6 +78,10 @@ const Section = ({ language }) => {
 
 	const handleDetailSpecialty = (id) => {
 		history.push(`/specialty/${id}`);
+	};
+
+	const handleDetailClinic = (id) => {
+		history.push(`/clinic/${id}`);
 	};
 
 	return (
@@ -94,19 +104,24 @@ const Section = ({ language }) => {
 					</Slider>
 				</div>
 			)}
-			<div className={styles.sectionWrap}>
-				<h3 className={styles.sectionTitle}>
-					<FormattedMessage id='section.branches' />
-				</h3>
-				<Slider {...setting2}>
-					{specialtiesMock.map((specialty) => (
-						<div key={specialty.key} className={styles.sectionItem}>
-							<img src={specialty.url} alt='partner' />
-							<span>{specialty.title}</span>
-						</div>
-					))}
-				</Slider>
-			</div>
+			{clinics?.length && (
+				<div className={styles.sectionWrap}>
+					<h3 className={styles.sectionTitle}>
+						<FormattedMessage id='section.branches' />
+					</h3>
+					<Slider {...setting1}>
+						{clinics.map((clinic, index) => (
+							<div
+								key={index}
+								className={styles.sectionItem}
+								onClick={() => handleDetailClinic(clinic.id)}>
+								<img src={clinic.image?.url} alt='doctor' />
+								<span>{clinic.name}</span>
+							</div>
+						))}
+					</Slider>
+				</div>
+			)}
 			{topDoctors?.length && (
 				<div className={styles.sectionWrap}>
 					<h3 className={styles.sectionTitle}>

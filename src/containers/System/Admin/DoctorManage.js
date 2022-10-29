@@ -36,8 +36,6 @@ function DoctorManage({
 	const [priceId, setPriceId] = useState(null);
 	const [provinceId, setProvinceId] = useState(null);
 	const [paymentId, setPaymentId] = useState(null);
-	const [addressClinic, setAddressClinic] = useState(null);
-	const [nameClinic, setNameClinic] = useState(null);
 	const [note, setNote] = useState(null);
 	const [currentDoctorId, setCurrentDoctorId] = useState(null);
 	const [doctors, setDoctors] = useState(null);
@@ -74,10 +72,10 @@ function DoctorManage({
 			setSpecialties(resultSpecialty.data);
 		}
 
-		// const resultClinic = await userService.getClinics();
-		// if (resultClinic.errorCode === 0) {
-		// 	setClinics(resultClinic.data);
-		// }
+		const resultClinic = await userService.getClinics();
+		if (resultClinic.errorCode === 0) {
+			setClinics(resultClinic.data);
+		}
 		setLoading(false);
 	};
 
@@ -93,8 +91,6 @@ function DoctorManage({
 				setPriceId(result?.data?.priceId ?? null);
 				setProvinceId(result?.data?.provinceId ?? null);
 				setPaymentId(result?.data?.paymentId ?? null);
-				setAddressClinic(result?.data?.addressClinic ?? null);
-				setNameClinic(result?.data?.nameClinic ?? null);
 				setNote(result?.data?.note ?? null);
 				setCurrentSpecialty(result?.data?.specialtyId ?? null);
 				setCurrentClinic(result?.data?.clinicId ?? null);
@@ -121,8 +117,6 @@ function DoctorManage({
 			priceId: priceId,
 			provinceId: provinceId,
 			paymentId: paymentId,
-			addressClinic: addressClinic,
-			nameClinic: nameClinic,
 			note: note,
 			specialtyId: currentSpecialty,
 			clinicId: currentClinic,
@@ -134,9 +128,7 @@ function DoctorManage({
 			!body.doctorId ||
 			!body.priceId ||
 			!body.provinceId ||
-			!body.paymentId ||
-			!body.addressClinic ||
-			!body.nameClinic
+			!body.paymentId
 		) {
 			message.error(
 				LanguageUtils.getMessageByKey("common.error-missing-param", language)
@@ -296,48 +288,6 @@ function DoctorManage({
 								</div>
 							</Col>
 							<Col xs={24} md={8}>
-								<div className={styles.introInfo}>
-									<label>
-										<FormattedMessage id='system.doctor-manage.branch-name' />
-									</label>
-									<Input
-										size='large'
-										value={nameClinic}
-										onChange={(e) => {
-											setNameClinic(e.target.value);
-										}}
-									/>
-								</div>
-							</Col>
-							<Col xs={24} md={8}>
-								<div className={styles.introInfo}>
-									<label>
-										<FormattedMessage id='system.doctor-manage.branch-address' />
-									</label>
-									<Input
-										size='large'
-										value={addressClinic}
-										onChange={(e) => {
-											setAddressClinic(e.target.value);
-										}}
-									/>
-								</div>
-							</Col>
-							<Col xs={24} md={8}>
-								<div className={styles.introInfo}>
-									<label>
-										<FormattedMessage id='system.doctor-manage.note' />
-									</label>
-									<Input
-										size='large'
-										value={note}
-										onChange={(e) => {
-											setNote(e.target.value);
-										}}
-									/>
-								</div>
-							</Col>
-							<Col xs={24} md={8}>
 								<div className={styles.chooseDoctor}>
 									<label>
 										<FormattedMessage id='system.doctor-manage.specialty' />
@@ -371,6 +321,20 @@ function DoctorManage({
 												</Option>
 											))}
 									</Select>
+								</div>
+							</Col>
+							<Col xs={24} md={8}>
+								<div className={styles.introInfo}>
+									<label>
+										<FormattedMessage id='system.doctor-manage.note' />
+									</label>
+									<Input
+										size='large'
+										value={note}
+										onChange={(e) => {
+											setNote(e.target.value);
+										}}
+									/>
 								</div>
 							</Col>
 						</Row>

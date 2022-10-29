@@ -172,6 +172,23 @@
             "delete-success": "Deleted specialty successfully",
             "delete-fail": "Deleted specialty fail. Please try again!",
             "missing-field": "Please complete all information"
+        },
+        "clinic-manage": {
+            "title": "Clinic manage",
+            "add-clinic": "Add clinic",
+            "sure-delete-clinic": "Are you sure to delete this clinic",
+            "name": "Name",
+            "address": "Address",
+            "image": "Image",
+            "info": "Clinic information",
+            "edit-clinic": "Edit clinic",
+            "create-success": "Create clinic successfully",
+            "create-fail": "Create clinic fail. Please try again!",
+            "update-success": "Update clinic successfully",
+            "update-fail": "Update clinic fail. Please try again!",
+            "delete-success": "Deleted clinic successfully",
+            "delete-fail": "Deleted clinic fail. Please try again!",
+            "missing-field": "Please complete all information"
         }
     },
     "header": {
@@ -278,5 +295,9 @@
     "specialty": {
         "title": "Specialty information",
         "empty-doctor": "Currently there are no doctors in this specialty"
+    },
+    "clinic": {
+        "title": "Clinic information",
+        "empty-doctor": "Currently there are no doctors in this clinic"
     }
 }
