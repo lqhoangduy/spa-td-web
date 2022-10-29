@@ -44,7 +44,16 @@
         "today": "Hôm nay",
         "view-detail": "Xem chi tiết",
         "collapse": "Thu gọn",
-        "all": "Tất cả"
+        "all": "Tất cả",
+        "date": "Ngày",
+        "time": "Thời gian",
+        "name": "Họ và tên",
+        "address": "Địa chỉ",
+        "stt": "STT",
+        "gender": "Giới tính",
+        "phone": "Số điện thoại",
+        "email": "Email",
+        "send-bill": "Gửi hoá đơn"
     },
     "login": {
         "login": "Đăng nhập",
@@ -85,7 +94,8 @@
             "handbook-manage": "Quản lý cẩm nang"
         },
         "doctor": {
-            "schedule-manage": "Quản lý kế hoạch khám bệnh"
+            "schedule-manage": "Quản lý kế hoạch khám bệnh",
+            "patient-manage": "Quản lý bệnh nhân khám"
         }
     },
     "system": {
@@ -189,6 +199,10 @@
             "delete-success": "Xoá phòng khám thành công",
             "delete-fail": "Xoá phòng khám thất bại, vui lòng thử lại",
             "missing-field": "Vui lòng điền đầy đủ thông tin"
+        },
+        "patient-manage": {
+            "title": "Quản lý Bệnh nhân khám bệnh",
+            "choose-date": "Chọn ngày khám: "
         }
     },
     "header": {

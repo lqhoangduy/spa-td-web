@@ -43,6 +43,11 @@ const userService = {
 	getExtraInfoDoctor(id) {
 		return axios.get(`/api/get-extra-info-doctor?id=${id}`);
 	},
+	getPatientBooking(doctorId, date) {
+		return axios.get(
+			`/api/get-patient-booking?doctorId=${doctorId}&date=${date}`
+		);
+	},
 
 	// Schedules
 	createDoctorSchedules(doctorId, data) {

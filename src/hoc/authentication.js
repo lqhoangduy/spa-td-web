@@ -33,3 +33,10 @@ export const userIsAdminOrDoctor = connectedRouterRedirect({
 	wrapperDisplayName: "UserIsAuthenticated",
 	redirectPath: "/home",
 });
+
+export const userIsDoctor = connectedRouterRedirect({
+	authenticatedSelector: (state) =>
+		state.user?.userInfo?.roleId === USER_ROLE.DOCTOR,
+	wrapperDisplayName: "UserIsAuthenticated",
+	redirectPath: "/home",
+});

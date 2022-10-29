@@ -4,11 +4,17 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import UserManage from "../containers/System/User/UserManage";
 import ScheduleManage from "../containers/System/Doctor/ScheduleManage";
 import DoctorManage from "../containers/System/Admin/DoctorManage";
-import { userIsAdmin, userIsAdminOrDoctor } from "../hoc/authentication";
+import {
+	userIsAdmin,
+	userIsAdminOrDoctor,
+	userIsDoctor,
+} from "../hoc/authentication";
 import { USER_ROLE } from "../utils";
 import Dashboard from "../containers/System/Admin/Dashboard";
 import SpecialtyManage from "../containers/System/Specialty/SpecialtyManage";
 import ClinicManage from "../containers/System/Clinic/ClinicManage";
+import DoctorScheduleManage from "../containers/System/Doctor/DoctorScheduleManage";
+import DoctorPatientManage from "../containers/System/Doctor/DoctorPatientManage";
 
 function System({ currentUser }) {
 	const systemPath = useMemo(() => {
@@ -17,7 +23,7 @@ function System({ currentUser }) {
 				return "/system/user-manage";
 			}
 			case USER_ROLE.DOCTOR: {
-				return "/system/schedule-manage";
+				return "/doctor/schedule-manage";
 			}
 			case USER_ROLE.PATIENT:
 			default:
@@ -36,19 +42,27 @@ function System({ currentUser }) {
 					/>
 					<Route
 						path='/system/doctor-manage'
-						component={userIsAdminOrDoctor(DoctorManage)}
+						component={userIsAdmin(DoctorManage)}
 					/>
 					<Route
 						path='/system/schedule-manage'
-						component={userIsAdminOrDoctor(ScheduleManage)}
+						component={userIsAdmin(ScheduleManage)}
 					/>
 					<Route
 						path='/system/specialty-manage'
-						component={userIsAdminOrDoctor(SpecialtyManage)}
+						component={userIsAdmin(SpecialtyManage)}
 					/>
 					<Route
 						path='/system/clinic-manage'
-						component={userIsAdminOrDoctor(ClinicManage)}
+						component={userIsAdmin(ClinicManage)}
+					/>
+					<Route
+						path='/system/doctor/schedule-manage'
+						component={userIsDoctor(DoctorScheduleManage)}
+					/>
+					<Route
+						path='/system/doctor/patient-manage'
+						component={userIsDoctor(DoctorPatientManage)}
 					/>
 
 					{systemPath && (

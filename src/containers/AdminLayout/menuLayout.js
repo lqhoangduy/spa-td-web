@@ -153,30 +153,28 @@ export const menuDoctor = [
 		"home",
 		<HomeOutlined />
 	),
-	getItem(<FormattedMessage id='menu.admin.user' />, "user", <TeamOutlined />, [
-		getItem(
-			<Tooltip
-				placement='right'
-				title={<FormattedMessage id='menu.admin.doctor-manage' />}>
-				<Link to='/system/doctor-manage'>
-					<FormattedMessage id='menu.admin.doctor-manage' />
-				</Link>
-			</Tooltip>,
-			"doctor-manage",
-			<CustomerServiceOutlined />
-		),
-		getItem(
-			<Tooltip
-				placement='right'
-				title={<FormattedMessage id='menu.doctor.schedule-manage' />}>
-				<Link to='/system/schedule-manage'>
-					<FormattedMessage id='menu.doctor.schedule-manage' />
-				</Link>
-			</Tooltip>,
-			"schedule-manage",
-			<CalendarOutlined />
-		),
-	]),
+	getItem(
+		<Tooltip
+			placement='right'
+			title={<FormattedMessage id='menu.doctor.schedule-manage' />}>
+			<Link to='/system/doctor/schedule-manage'>
+				<FormattedMessage id='menu.doctor.schedule-manage' />
+			</Link>
+		</Tooltip>,
+		"schedule-manage",
+		<CalendarOutlined />
+	),
+	getItem(
+		<Tooltip
+			placement='right'
+			title={<FormattedMessage id='menu.doctor.patient-manage' />}>
+			<Link to='/system/doctor/patient-manage'>
+				<FormattedMessage id='menu.doctor.patient-manage' />
+			</Link>
+		</Tooltip>,
+		"patient-manage",
+		<CalendarOutlined />
+	),
 	getItem(
 		<FormattedMessage id='common.logout' />,
 		"logout",

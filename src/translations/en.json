@@ -44,7 +44,16 @@
         "today": "Today",
         "view-detail": "Detail",
         "collapse": "Collapse",
-        "all": "All"
+        "all": "All",
+        "date": "Date",
+        "time": "Time",
+        "name": "Full name",
+        "address": "Address",
+        "stt": "No",
+        "gender": "Gender",
+        "phone": "Phone number",
+        "email": "Email",
+        "send-bill": "Send bill"
     },
     "login": {
         "login": "Login",
@@ -85,7 +94,8 @@
             "handbook-manage": "Handbook manage"
         },
         "doctor": {
-            "schedule-manage": "Doctor's schedule manage"
+            "schedule-manage": "Doctor's schedule manage",
+            "patient-manage": "Manage doctor's examination patients"
         }
     },
     "system": {
@@ -189,6 +199,10 @@
             "delete-success": "Deleted clinic successfully",
             "delete-fail": "Deleted clinic fail. Please try again!",
             "missing-field": "Please complete all information"
+        },
+        "patient-manage": {
+            "title": "Manage doctor's examination patients",
+            "choose-date": "Choose date: "
         }
     },
     "header": {

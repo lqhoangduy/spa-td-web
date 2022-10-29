@@ -6,7 +6,6 @@ import {
 	Spin,
 	Row,
 	Col,
-	Select,
 	Button,
 	DatePicker,
 	ConfigProvider,
@@ -20,38 +19,37 @@ import { FormattedMessage } from "react-intl";
 
 import * as actions from "../../../store/actions";
 import { userService } from "../../../services";
+import { languages, LanguageUtils } from "../../../utils";
 import styles from "./ScheduleManage.module.scss";
-import { languages, LanguageUtils } from "../../../utils/";
 import en_US from "antd/lib/locale/en_US";
 import vi_VN from "antd/lib/locale/vi_VN";
 
-const { Option } = Select;
 const { confirm } = Modal;
 
-function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
+function DoctorScheduleManage({
+	language,
+	isLoadingTime,
+	times,
+	getTimeStart,
+	currentUser,
+}) {
 	const [loading, setLoading] = useState(false);
-	const [currentDoctorId, setCurrentDoctorId] = useState(null);
-	const [doctors, setDoctors] = useState(null);
 	const [listCurrentTime, setListCurrentTime] = useState([]);
 	const [currentDate, setCurrentDate] = useState(
 		moment().startOf("day").toDate()
 	);
 
 	useEffect(() => {
-		loadData();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	useEffect(() => {
 		loadSchedules();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currentDoctorId]);
+	}, [currentUser?.id]);
 
 	const loadSchedules = async () => {
-		if (!currentDoctorId) return;
+		if (!currentUser?.id) return;
 		setLoading(true);
 
-		const result = await userService.getDoctorSchedules(currentDoctorId);
+		getTimeStart();
+		const result = await userService.getDoctorSchedules(currentUser?.id);
 
 		if (result.errorCode === 0) {
 			if (result.data?.length) {
@@ -72,28 +70,13 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 		setLoading(false);
 	};
 
-	const loadData = async () => {
-		setLoading(true);
-		getTimeStart();
-		const resultDoctor = await userService.getAllDoctors();
-		if (resultDoctor.errorCode === 0) {
-			setDoctors(resultDoctor.data);
-		}
-		setLoading(false);
-	};
-
-	const handleChangeDoctor = (id) => {
-		setCurrentDoctorId(id);
-		setListCurrentTime([]);
-	};
-
 	const onChangeDate = (date, dateString) => {
 		const formatDate = moment(date).startOf("day").toDate();
 		setCurrentDate(formatDate);
 	};
 
 	const handleChangeTime = (timeKey) => {
-		if (!currentDoctorId) {
+		if (!currentUser?.id) {
 			message.error(
 				LanguageUtils.getMessageByKey("common.error-required-doctor", language)
 			);
@@ -168,9 +151,9 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 	};
 
 	const handleDeleteAllTime = async () => {
-		if (!currentDoctorId) return;
+		if (!currentUser?.id) return;
 		setLoading(true);
-		const result = await userService.deleteDoctorSchedules(currentDoctorId);
+		const result = await userService.deleteDoctorSchedules(currentUser?.id);
 
 		if (result.errorCode === 0) {
 			message.success(result.message);
@@ -184,11 +167,6 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 	};
 
 	const columns = [
-		{
-			title: <FormattedMessage id='common.name' />,
-			dataIndex: "name",
-			key: "name",
-		},
 		{
 			title: <FormattedMessage id='common.date' />,
 			dataIndex: "date",
@@ -219,20 +197,11 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 	const dataTable = useMemo(() => {
 		if (!listCurrentTime?.length) return [];
 
-		const currentDoctor = doctors.find(
-			(doctor) => doctor.id === currentDoctorId
-		);
-		const currentDoctorName =
-			language === "en"
-				? `${currentDoctor?.firstName} ${currentDoctor?.lastName}`
-				: `${currentDoctor?.lastName} ${currentDoctor?.firstName}`;
-
 		const dateTable = listCurrentTime.map((item, index) => {
 			const time = times.find((time) => time.keyMap === item.time);
 
 			return {
 				key: `${time.keyMap}-${index}`,
-				name: currentDoctorName,
 				date: item.date,
 				time: language === "en" ? time.valueEn : time.valueVi,
 			};
@@ -241,26 +210,26 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 		return dateTable.sort((a, b) => {
 			return new Date(b.date).getTime() - new Date(a.date).getTime();
 		});
-	}, [currentDoctorId, doctors, language, listCurrentTime, times]);
+	}, [language, listCurrentTime, times]);
 
 	const handleSave = useCallback(async () => {
 		setLoading(true);
 
-		if (!currentDoctorId || !currentDate || !listCurrentTime?.length) {
+		if (!currentDate || !listCurrentTime?.length) {
 			message.error(
 				LanguageUtils.getMessageByKey("common.error-missing-param", language)
 			);
 		}
 		const list = listCurrentTime.map((item) => {
 			return {
-				doctorId: currentDoctorId,
+				doctorId: currentUser?.id,
 				date: new Date(item.date).getTime(),
 				timeType: item.time,
 			};
 		});
 
 		const result = await userService.createDoctorSchedules(
-			currentDoctorId,
+			currentUser?.id,
 			list
 		);
 		if (result?.errorCode === 0) {
@@ -269,11 +238,11 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 			message.error(result?.message);
 		}
 		setLoading(false);
-	}, [currentDate, currentDoctorId, listCurrentTime]);
+	}, [currentDate, currentUser?.id, language, listCurrentTime]);
 
 	const enableSubmit = useMemo(() => {
-		return currentDoctorId && currentDate && listCurrentTime?.length;
-	}, [currentDate, currentDoctorId, listCurrentTime?.length]);
+		return currentDate && listCurrentTime?.length;
+	}, [currentDate, listCurrentTime?.length]);
 
 	const showDeleteConfirm = () => {
 		confirm({
@@ -297,43 +266,7 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 					</h1>
 					<div className={styles.blockTop}>
 						<Row gutter={[16, 16]}>
-							<Col xs={24} md={12}>
-								<div className={styles.chooseDoctor}>
-									<label>
-										<FormattedMessage id='system.doctor-manage.choose-doctor' />
-									</label>
-									<Select
-										size='large'
-										showSearch
-										style={{
-											width: 200,
-										}}
-										placeholder={
-											<FormattedMessage id='common.search_placeholder' />
-										}
-										optionFilterProp='children'
-										filterOption={(input, option) =>
-											option.children.includes(input)
-										}
-										filterSort={(optionA, optionB) =>
-											optionA.children
-												.toLowerCase()
-												.localeCompare(optionB.children.toLowerCase())
-										}
-										value={currentDoctorId}
-										onChange={handleChangeDoctor}>
-										{doctors?.length &&
-											doctors.map((doctor) => (
-												<Option value={doctor.id} key={doctor.id}>
-													{language === "vi"
-														? doctor.firstName + " " + doctor.lastName
-														: doctor.lastName + " " + doctor.firstName}
-												</Option>
-											))}
-									</Select>
-								</div>
-							</Col>
-							<Col xs={24} md={12}>
+							<Col xs={24}>
 								<div className={styles.dateInfo}>
 									<label>
 										<FormattedMessage id='system.schedule-manage.choose-date' />
@@ -408,6 +341,7 @@ const mapStateToProps = (state) => {
 		language: state.app.language,
 		isLoadingTime: state.admin.isLoadingTime,
 		times: state.admin.times,
+		currentUser: state.user.userInfo,
 	};
 };
 
@@ -417,4 +351,7 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ScheduleManage);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(DoctorScheduleManage);

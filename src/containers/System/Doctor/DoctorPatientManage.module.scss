@@ -1,0 +1,34 @@
+@import "../../../styles/common.scss";
+
+.patientManage {
+
+  .manageTitle {
+    color: $primary-brown;
+    font-size: 32px;
+    padding: 16px 0;
+    font-weight: bold;
+  }
+
+  .dateInfo {
+    width: 100%;
+
+    label {
+      margin-bottom: 12px;
+    }
+
+    :global {
+
+      .ant-picker,
+      .ant-select {
+        width: 100% !important;
+      }
+    }
+  }
+
+  .btnConfirm {
+    background-color: $colormain;
+    color: $primary-white;
+    border: none;
+    width: 100%;
+  }
+}
