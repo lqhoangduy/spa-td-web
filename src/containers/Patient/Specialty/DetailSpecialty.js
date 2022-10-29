@@ -103,12 +103,13 @@ function DetailSpecialty({
 							</Breadcrumb.Item>
 						</Breadcrumb>
 						<div className='mb-4'>
-							<Card
-								className={{}}
-								style={{
-									background: `linear-gradient(to bottom, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.4) 100%), url(${specialty?.image?.url}) no-repeat 0 0`,
-									backgroundSize: "cover",
-								}}>
+							<Card className={styles.infoSpecial}>
+								<div
+									className={styles.infoSpecialBackground}
+									style={{
+										backgroundImage: `url(${specialty?.image?.url})`,
+									}}
+								/>
 								<h1>{specialty?.name}</h1>
 								<div
 									dangerouslySetInnerHTML={{
