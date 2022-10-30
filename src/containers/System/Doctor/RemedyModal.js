@@ -24,7 +24,7 @@ function BookingModal({ language, onCancel, onSubmit, email }) {
 	};
 
 	const handleSubmit = async () => {
-		if (emailInput) {
+		if (emailInput && image) {
 			const data = {
 				email: emailInput,
 				image: image?.url,
