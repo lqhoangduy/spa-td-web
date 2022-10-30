@@ -1,0 +1,62 @@
+@import "../../../styles/common.scss";
+
+.modalRemedy {
+
+  .emailLabel,
+  .fileLabel {
+    color: $neutral-60;
+    margin-bottom: 12px;
+  }
+
+  .emailInput {
+    width: 100%;
+    display: block;
+
+    :global {
+      .ant-btn {
+        width: 100%;
+      }
+    }
+  }
+
+  .upload {
+    cursor: pointer;
+    border: 1px solid $neutral-20;
+    border-radius: 2px;
+    height: 40px;
+    width: 100%;
+    padding: 8px 14px;
+  }
+
+  .previewImage {
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: $neutral-5;
+    background-size: cover;
+    margin: 10px 0;
+    cursor: pointer;
+    position: relative;
+    aspect-ratio: 1;
+  }
+
+  .destroyImage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 10px;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    color: $primary-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}

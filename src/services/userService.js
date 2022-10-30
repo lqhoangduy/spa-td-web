@@ -48,6 +48,9 @@ const userService = {
 			`/api/get-patient-booking?doctorId=${doctorId}&date=${date}`
 		);
 	},
+	sendRemedy(data) {
+		return axios.post("/api/send-remedy", data);
+	},
 
 	// Schedules
 	createDoctorSchedules(doctorId, data) {

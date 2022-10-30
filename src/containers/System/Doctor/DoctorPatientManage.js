@@ -20,6 +20,7 @@ import en_US from "antd/lib/locale/en_US";
 import vi_VN from "antd/lib/locale/vi_VN";
 import { userService } from "../../../services";
 import { useCallback } from "react";
+import RemedyModal from "./RemedyModal";
 
 function DoctorPatientManage({ currentUser, language }) {
 	const [currentDate, setCurrentDate] = useState(
@@ -28,6 +29,8 @@ function DoctorPatientManage({ currentUser, language }) {
 	const [dataTable, setDataTable] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [patientBooking, setPatientBooking] = useState(null);
+	const [openModal, setOpenModal] = useState(false);
+	const [currentPatient, setCurrentPatient] = useState(null);
 
 	useEffect(() => {
 		loadData();
@@ -59,7 +62,7 @@ function DoctorPatientManage({ currentUser, language }) {
 	const buildDataTable = useCallback(() => {
 		const data = (patientBooking || []).map((booking, index) => {
 			return {
-				key: booking.id,
+				key: booking?.patientData?.id,
 				stt: index + 1,
 				name: booking?.patientData?.firstName,
 				email: booking?.patientData?.email,
@@ -73,6 +76,8 @@ function DoctorPatientManage({ currentUser, language }) {
 					language === languages.EN
 						? booking?.patientData?.genderData?.valueEn
 						: booking?.patientData?.genderData?.valueVi,
+				timeType: booking?.timeType,
+				date: booking?.date,
 			};
 		});
 		setDataTable(data);
@@ -127,50 +132,108 @@ function DoctorPatientManage({ currentUser, language }) {
 			fixed: "right",
 			width: 120,
 			render: (_, record) => (
-				<Button className={styles.btnConfirm}>
+				<Button
+					className={styles.btnConfirm}
+					onClick={() => handleOpenModal(record)}>
 					<FormattedMessage id='common.confirm' />
 				</Button>
 			),
 		},
 	];
 
+	const handleCancelModal = () => {
+		setOpenModal(false);
+		setCurrentPatient(null);
+	};
+
+	const handleOpenModal = (record) => {
+		setCurrentPatient(record);
+		setOpenModal(true);
+	};
+
+	const handleSubmitModal = async (data) => {
+		const body = {
+			...data,
+			doctorId: currentUser?.id,
+			patientId: currentPatient?.key,
+			timeType: currentPatient?.timeType,
+			date: currentPatient?.date,
+			language: language,
+			patientName: currentPatient?.name,
+			doctorName:
+				language === languages.EN
+					? `${currentUser?.firstName} ${currentUser?.lastName}`
+					: `${currentUser?.lastName} ${currentUser?.firstName}`,
+			time: `${currentPatient?.time}, ${moment(
+				new Date(currentPatient?.date)
+			).format("DD/MM/YYYY")}`,
+		};
+		const result = await userService.sendRemedy(body);
+		if (result.errorCode === 0) {
+			loadData();
+			message.success(
+				LanguageUtils.getMessageByKey(
+					"system.patient-manage.sendDone",
+					language
+				)
+			);
+			return true;
+		} else {
+			message.error(
+				LanguageUtils.getMessageByKey("common.unknown-error", language)
+			);
+			return false;
+		}
+	};
+
 	return (
-		<div className='container'>
-			<section className={styles.patientManage}>
-				<h1 className={clsx("text-center", styles.manageTitle)}>
-					<FormattedMessage id='system.patient-manage.title' />
-				</h1>
-				<div className='my-4'>
-					<div className={styles.dateInfo}>
-						<label>
-							<FormattedMessage id='system.schedule-manage.choose-date' />
-						</label>
-						<ConfigProvider locale={language === languages.EN ? en_US : vi_VN}>
-							<DatePicker
-								value={moment(currentDate)}
-								size='large'
-								onChange={onChangeDate}
-								disabledDate={(current) =>
-									current &&
-									current < moment(new Date()).subtract(1, "days").endOf("day")
-								}
-								format='DD/MM/YYYY'
-							/>
-						</ConfigProvider>
+		<>
+			<div className='container'>
+				<section className={styles.patientManage}>
+					<h1 className={clsx("text-center", styles.manageTitle)}>
+						<FormattedMessage id='system.patient-manage.title' />
+					</h1>
+					<div className='my-4'>
+						<div className={styles.dateInfo}>
+							<label>
+								<FormattedMessage id='system.schedule-manage.choose-date' />
+							</label>
+							<ConfigProvider
+								locale={language === languages.EN ? en_US : vi_VN}>
+								<DatePicker
+									value={moment(currentDate)}
+									size='large'
+									onChange={onChangeDate}
+									disabledDate={(current) =>
+										current &&
+										current <
+											moment(new Date()).subtract(1, "days").endOf("day")
+									}
+									format='DD/MM/YYYY'
+								/>
+							</ConfigProvider>
+						</div>
 					</div>
-				</div>
-				<div className={styles.tableData}>
-					<Card>
-						<Table
-							loading={loading}
-							columns={columns}
-							dataSource={dataTable}
-							scroll={{ x: 960, y: 300 }}
-						/>
-					</Card>
-				</div>
-			</section>
-		</div>
+					<div className={styles.tableData}>
+						<Card>
+							<Table
+								loading={loading}
+								columns={columns}
+								dataSource={dataTable}
+								scroll={{ x: 960, y: 300 }}
+							/>
+						</Card>
+					</div>
+				</section>
+			</div>
+			{openModal && (
+				<RemedyModal
+					onCancel={handleCancelModal}
+					onSubmit={handleSubmitModal}
+					email={currentPatient?.email}
+				/>
+			)}
+		</>
 	);
 }
 

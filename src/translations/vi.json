@@ -202,7 +202,11 @@
         },
         "patient-manage": {
             "title": "Quản lý Bệnh nhân khám bệnh",
-            "choose-date": "Chọn ngày khám: "
+            "choose-date": "Chọn ngày khám: ",
+            "email": "Email Bệnh nhân: ",
+            "file": "Ảnh đơn thuốc: ",
+            "title-modal": "Gửi mail khám bệnh xong",
+            "sendDone": "Đã xác nhận thành công"
         }
     },
     "header": {

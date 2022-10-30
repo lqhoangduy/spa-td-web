@@ -420,6 +420,7 @@ const ModalUser = ({
 											</span>
 										</label>
 										<input
+											ref={fileRef}
 											type='file'
 											hidden
 											id='previewImg'

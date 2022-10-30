@@ -202,7 +202,11 @@
         },
         "patient-manage": {
             "title": "Manage doctor's examination patients",
-            "choose-date": "Choose date: "
+            "choose-date": "Choose date: ",
+            "email": "Patient email: ",
+            "file": "Photo of prescription: ",
+            "title-modal": "Email sent for medical examination done",
+            "sendDone": "Send Remedy successfully"
         }
     },
     "header": {
