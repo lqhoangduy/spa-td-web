@@ -200,6 +200,22 @@
             "delete-fail": "Deleted clinic fail. Please try again!",
             "missing-field": "Please complete all information"
         },
+        "handbook-manage": {
+            "title": "Handbook manage",
+            "add-handbook": "Add handbook",
+            "sure-delete-handbook": "Are you sure to delete this handbook",
+            "name": "Name",
+            "image": "Image",
+            "info": "Handbook information",
+            "edit-handbook": "Edit handbook",
+            "create-success": "Create handbook successfully",
+            "create-fail": "Create handbook fail. Please try again!",
+            "update-success": "Update handbook successfully",
+            "update-fail": "Update handbook fail. Please try again!",
+            "delete-success": "Deleted handbook successfully",
+            "delete-fail": "Deleted handbook fail. Please try again!",
+            "missing-field": "Please complete all information"
+        },
         "patient-manage": {
             "title": "Manage doctor's examination patients",
             "choose-date": "Choose date: ",
@@ -216,8 +232,8 @@
         "branch-note": "Select branch",
         "doctor": "Doctor",
         "doctor-note": "Select doctor",
-        "package": "Beauty pack",
-        "package-note": "Select beauty pack",
+        "handbook": "Handbook",
+        "handbook-note": "Find handbook",
         "help": "Help"
     },
     "homepage": {
@@ -276,7 +292,8 @@
         "booking-error": "Appointment failed, please try again!",
         "confirm-success": "Confirmation of booking information successful!",
         "confirm-not-found": "No booking information or confirmed booking information found!!!",
-        "confirm-out-of-date": "It's over time to confirm booking information!!!"
+        "confirm-out-of-date": "It's over time to confirm booking information!!!",
+        "list": "Danh sách bác sĩ"
     },
     "dashboard": {
         "title": "Dashboard",
@@ -312,10 +329,19 @@
     },
     "specialty": {
         "title": "Specialty information",
-        "empty-doctor": "Currently there are no doctors in this specialty"
+        "empty-doctor": "Currently there are no doctors in this specialty",
+        "empty-list": "Currently there are no specialty",
+        "list": "List specialty"
     },
     "clinic": {
         "title": "Clinic information",
-        "empty-doctor": "Currently there are no doctors in this clinic"
+        "empty-doctor": "Currently there are no doctors in this clinic",
+        "empty-clinic": "Currently there are no clinic",
+        "list": "List clinic"
+    },
+    "handbook": {
+        "title": "Handbook information",
+        "list": "List handbook",
+        "empty": "Currently there are no handbook"
     }
 }

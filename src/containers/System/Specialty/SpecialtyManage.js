@@ -19,6 +19,7 @@ import clsx from "clsx";
 import { userService } from "../../../services";
 import ModalSpecialty from "./ModalSpecialty";
 import { LanguageUtils } from "../../../utils";
+import FreeText from "../../../components/FreeText/FreeText";
 
 function SpecialtyManage({ language }) {
 	const [loading, setLoading] = useState(false);
@@ -165,10 +166,7 @@ function SpecialtyManage({ language }) {
 			title: <FormattedMessage id='system.specialty-manage.info' />,
 			dataIndex: "info",
 			render: (_, record) => (
-				<div
-					dangerouslySetInnerHTML={{ __html: record.info }}
-					className={styles.tableInfo}
-				/>
+				<FreeText html={record.info} className={styles.tableInfo} />
 			),
 		},
 		{

@@ -15,21 +15,20 @@ import { FormattedMessage } from "react-intl";
 
 import { userService } from "../../../services";
 import { LanguageUtils } from "../../../utils";
-import ModalClinic from "./ModalClinic";
-import styles from "./ClinicManage.module.scss";
+import ModalHandbook from "./ModalHandbook";
+import styles from "./HandbookManage.module.scss";
 import "react-markdown-editor-lite/lib/index.css";
-import FreeText from "../../../components/FreeText/FreeText";
 
-function ClinicManage({ language }) {
+function HandbookManage({ language }) {
 	const [loading, setLoading] = useState(false);
 	const [isModalVisible, setModalVisible] = useState(false);
 	const [isModeEdit, setIsModeEdit] = useState(false);
 	const [dataTable, setDataTable] = useState([]);
-	const [clinics, setClinics] = useState([]);
-	const [clinicEdit, setClinicEdit] = useState([]);
+	const [handbooks, setHandbooks] = useState([]);
+	const [handbookEdit, setHandbookEdit] = useState([]);
 
 	useEffect(() => {
-		getClinics();
+		getHandbooks();
 	}, []);
 
 	const handleCloseModal = () => {
@@ -37,23 +36,23 @@ function ClinicManage({ language }) {
 		setIsModeEdit(false);
 	};
 
-	const handleCreateClinic = async (data) => {
+	const handleCreateHandbook = async (data) => {
 		try {
-			const response = await userService.createClinic(data);
+			const response = await userService.createHandbook(data);
 			if (response?.errorCode === 0) {
 				message.success(
 					LanguageUtils.getMessageByKey(
-						"system.clinic-manage.create-success",
+						"system.handbook-manage.create-success",
 						language
 					)
 				);
-				getClinics();
+				getHandbooks();
 				handleCloseModal();
 				return true;
 			} else {
 				message.error(
 					LanguageUtils.getMessageByKey(
-						"system.clinic-manage.create-fail",
+						"system.handbook-manage.create-fail",
 						language
 					)
 				);
@@ -66,50 +65,49 @@ function ClinicManage({ language }) {
 		}
 	};
 
-	const getClinics = async () => {
+	const getHandbooks = async () => {
 		setLoading(true);
-		const response = await userService.getClinics();
+		const response = await userService.getHandbooks();
 		if (response?.errorCode === 0) {
-			const dataTable = (response.data || []).map((clinic) => {
+			const dataTable = (response.data || []).map((handbook) => {
 				return {
-					key: clinic.id,
-					name: clinic.name,
-					address: clinic.address,
-					image: clinic.image?.url,
-					info: clinic.descriptionHTML,
+					key: handbook.id,
+					title: handbook.title,
+					image: handbook.image?.url,
+					info: handbook.descriptionHTML,
 				};
 			});
-			setClinics(response.data);
+			setHandbooks(response.data);
 			setDataTable(dataTable);
 		}
 		setLoading(false);
 	};
 
 	const handleOpenModalEdit = (id) => {
-		const clinic = clinics.find((clinic) => clinic.id === id);
-		setClinicEdit(clinic);
+		const handbook = handbooks.find((handbook) => handbook.id === id);
+		setHandbookEdit(handbook);
 		setIsModeEdit(true);
 		setModalVisible(true);
 	};
 
-	const handleEditClinic = async (data) => {
+	const handleEditHandbook = async (data) => {
 		try {
-			const response = await userService.editClinic(data);
+			const response = await userService.editHandbook(data);
 			if (response?.errorCode === 0) {
 				message.success(
 					LanguageUtils.getMessageByKey(
-						"system.clinic-manage.update-success",
+						"system.handbook-manage.update-success",
 						language
 					)
 				);
-				getClinics();
+				getHandbooks();
 				handleCloseModal();
 				setIsModeEdit(false);
 				return true;
 			} else {
 				message.error(
 					LanguageUtils.getMessageByKey(
-						"system.clinic-manage.update-fail",
+						"system.handbook-manage.update-fail",
 						language
 					)
 				);
@@ -122,21 +120,21 @@ function ClinicManage({ language }) {
 		}
 	};
 
-	const handleDeleteClinic = async (id) => {
+	const handleDeleteHandbook = async (id) => {
 		try {
-			const response = await userService.deleteClinic(id);
+			const response = await userService.deleteHandbook(id);
 			if (response?.errorCode === 0) {
 				message.success(
 					LanguageUtils.getMessageByKey(
-						"system.clinic-manage.delete-success",
+						"system.handbook-manage.delete-success",
 						language
 					)
 				);
-				getClinics();
+				getHandbooks();
 			} else {
 				message.error(
 					LanguageUtils.getMessageByKey(
-						"system.clinic-manage.delete-fail",
+						"system.handbook-manage.delete-fail",
 						language
 					)
 				);
@@ -150,28 +148,17 @@ function ClinicManage({ language }) {
 
 	const columns = [
 		{
-			title: <FormattedMessage id='system.clinic-manage.name' />,
-			dataIndex: "name",
+			title: <FormattedMessage id='system.handbook-manage.name' />,
+			dataIndex: "title",
 		},
 		{
-			title: <FormattedMessage id='system.clinic-manage.address' />,
-			dataIndex: "address",
-		},
-		{
-			title: <FormattedMessage id='system.clinic-manage.image' />,
+			title: <FormattedMessage id='system.handbook-manage.image' />,
 			dataIndex: "image",
 			render: (_, record) => {
 				if (record.image) {
 					return <Image width={80} src={record.image} />;
 				} else return null;
 			},
-		},
-		{
-			title: <FormattedMessage id='system.clinic-manage.info' />,
-			dataIndex: "info",
-			render: (_, record) => (
-				<FreeText html={record.info} className={styles.tableInfo} />
-			),
 		},
 		{
 			title: <FormattedMessage id='common.action' />,
@@ -189,9 +176,9 @@ function ClinicManage({ language }) {
 					</Tooltip>
 					<Popconfirm
 						title={
-							<FormattedMessage id='system.clinic-manage.sure-delete-clinic' />
+							<FormattedMessage id='system.handbook-manage.sure-delete-handbook' />
 						}
-						onConfirm={() => handleDeleteClinic(record.key)}
+						onConfirm={() => handleDeleteHandbook(record.key)}
 						okText={<FormattedMessage id='common.yes' />}
 						cancelText={<FormattedMessage id='common.no' />}>
 						<Tooltip
@@ -212,9 +199,9 @@ function ClinicManage({ language }) {
 	return (
 		<>
 			<div className='container'>
-				<section className={styles.clinicManage}>
-					<h1 className={clsx("text-center", styles.clinicManageTitle)}>
-						<FormattedMessage id='system.clinic-manage.title' />
+				<section className={styles.handbookManage}>
+					<h1 className={clsx("text-center", styles.handbookManageTitle)}>
+						<FormattedMessage id='system.handbook-manage.title' />
 					</h1>
 					<Button
 						size='large'
@@ -223,8 +210,8 @@ function ClinicManage({ language }) {
 						}}
 						type='primary'
 						icon={<PlusOutlined />}
-						className={styles.btnAddClinic}>
-						<FormattedMessage id='system.clinic-manage.add-clinic' />
+						className={styles.btnAdd}>
+						<FormattedMessage id='system.handbook-manage.add-handbook' />
 					</Button>
 					<div className='users-table mt-3'>
 						<Table
@@ -237,13 +224,13 @@ function ClinicManage({ language }) {
 					</div>
 				</section>
 			</div>
-			<ModalClinic
+			<ModalHandbook
 				isShow={isModalVisible}
 				isEdit={isModeEdit}
 				onClose={handleCloseModal}
-				onCreate={handleCreateClinic}
-				onEdit={handleEditClinic}
-				clinicEdit={clinicEdit}
+				onCreate={handleCreateHandbook}
+				onEdit={handleEditHandbook}
+				handbookEdit={handbookEdit}
 			/>
 		</>
 	);
@@ -259,4 +246,4 @@ const mapDispatchToProps = (dispatch) => {
 	return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClinicManage);
+export default connect(mapStateToProps, mapDispatchToProps)(HandbookManage);

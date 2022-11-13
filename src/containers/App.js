@@ -25,6 +25,11 @@ import DetailDoctor from "./Patient/Doctor/DetailDoctor";
 import VerifyBooking from "../components/VerifyBooking/VerifyBooking";
 import DetailSpecialty from "./Patient/Specialty/DetailSpecialty";
 import DetailClinic from "./Patient/Clinic/DetailClinic";
+import ListClinic from "./Patient/Clinic/ListClinic";
+import ListSpecialty from "./Patient/Specialty/ListSpecialty";
+import ListDoctor from "./Patient/Doctor/ListDoctor";
+import ListHandbook from "./Patient/Handbook/ListHandbook";
+import DetailHandbook from "./Patient/Handbook/DetailHandbook";
 
 const MapLayout = ({ isLoggedIn, children }) => {
 	return isLoggedIn ? <AdminLayout>{children}</AdminLayout> : <>{children}</>;
@@ -69,11 +74,19 @@ class App extends Component {
 										/>
 										<Route path={path.HOMEPAGE} component={HomePage} />
 										<Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+										<Route path={path.DOCTOR} component={ListDoctor} />
 										<Route
 											path={path.DETAIL_SPECIALTY}
 											component={DetailSpecialty}
 										/>
+										<Route path={path.SPECIALTY} component={ListSpecialty} />
 										<Route path={path.DETAIL_CLINIC} component={DetailClinic} />
+										<Route path={path.CLINIC} component={ListClinic} />
+										<Route
+											path={path.HANDBOOK_DETAIL}
+											component={DetailHandbook}
+										/>
+										<Route path={path.HANDBOOK} component={ListHandbook} />
 										<Route
 											path={path.VERIFY_BOOKING}
 											component={VerifyBooking}

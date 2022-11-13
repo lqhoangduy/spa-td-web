@@ -200,6 +200,22 @@
             "delete-fail": "Xoá phòng khám thất bại, vui lòng thử lại",
             "missing-field": "Vui lòng điền đầy đủ thông tin"
         },
+        "handbook-manage": {
+            "title": "Quản lý bài viết",
+            "add-handbook": "Thêm bài viết",
+            "sure-delete-handbook": "Bạn có chắc chắn muốn xoá bài viết này",
+            "name": "Tiêu đề bài viết",
+            "image": "Ảnh bài viết",
+            "info": "Thông tin bài viết",
+            "edit-handbook": "Chỉnh sửa bài viết",
+            "create-success": "Tạo bài viết thành công",
+            "create-fail": "Tạo bài viết thất bại, vui lòng thử lại",
+            "update-success": "Cập nhật bài viết thành công",
+            "update-fail": "Cập nhật bài viết thất bại, vui lòng thử lại",
+            "delete-success": "Xoá bài viết thành công",
+            "delete-fail": "Xoá bài viết thất bại, vui lòng thử lại",
+            "missing-field": "Vui lòng điền đầy đủ thông tin"
+        },
         "patient-manage": {
             "title": "Quản lý Bệnh nhân khám bệnh",
             "choose-date": "Chọn ngày khám: ",
@@ -216,8 +232,8 @@
         "branch-note": "Chọn chi nhánh",
         "doctor": "Bác sĩ",
         "doctor-note": "Chọn bác sĩ",
-        "package": "Gói làm đẹp",
-        "package-note": "Chọn gói làm đẹp",
+        "handbook": "Cẩm nang",
+        "handbook-note": "Tìm kiếm cẩm nang",
         "help": "Hỗ trợ"
     },
     "homepage": {
@@ -276,7 +292,8 @@
         "booking-error": "Đặt lịch hẹn thất bại, vui lòng thử lại!",
         "confirm-success": "Xác nhận lịch hẹn thành công!",
         "confirm-not-found": "Không tìm thấy thông tin lịch hẹn hoặc lịch hẹn đã được xác nhận",
-        "confirm-out-of-date": "Đã quá thời gian xác nhận lịch hẹn!!!"
+        "confirm-out-of-date": "Đã quá thời gian xác nhận lịch hẹn!!!",
+        "list": "Danh sách bác sĩ"
     },
     "dashboard": {
         "title": "Dashboard",
@@ -312,10 +329,19 @@
     },
     "specialty": {
         "title": "Thông tin chuyên khoa",
-        "empty-doctor": "Hiện tại chuyên khoa chưa có bác sĩ"
+        "empty-doctor": "Hiện tại chuyên khoa chưa có bác sĩ",
+        "empty-list": "Hiện tại chưa có chuyên khoa",
+        "list": "Danh sách chuyên khoa"
     },
     "clinic": {
         "title": "Thông tin phòng khám",
-        "empty-doctor": "Hiện tại phòng khám chưa có bác sĩ"
+        "empty-doctor": "Hiện tại phòng khám chưa có bác sĩ",
+        "empty-clinic": "Hiện tại chưa có phòng khám",
+        "list": "Danh sách phòng khám"
+    },
+    "handbook": {
+        "title": "Thông tin bài viết",
+        "list": "Danh sách bài viết",
+        "empty": "Không có bài viết"
     }
 }

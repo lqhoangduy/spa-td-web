@@ -1,0 +1,21 @@
+@import "../../../styles/common.scss";
+
+.handbookManage {
+  .handbookManageTitle {
+    color: $primary-brown;
+    font-size: 32px;
+    padding: 16px 0;
+    font-weight: bold;
+  }
+
+  .saveWrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+  }
+
+  .btnDelete {
+    color: $common-red;
+  }
+}

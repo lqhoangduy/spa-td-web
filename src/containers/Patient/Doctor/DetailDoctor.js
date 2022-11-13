@@ -29,6 +29,7 @@ import ScheduleDoctor from "./ScheduleDoctor";
 import ExtraDoctorInfo from "./ExtraDoctorInfo";
 import moment from "moment";
 import ProfileDoctor from "./ProfileDoctor";
+import FreeText from "../../../components/FreeText/FreeText";
 
 const fakeListComment = [
 	{
@@ -204,11 +205,7 @@ function DetailDoctor({ language }) {
 							<FormattedMessage id='doctor.detail-information' />
 						</h4>
 						<Card>
-							<div
-								dangerouslySetInnerHTML={{
-									__html: doctor?.Markdown?.contentHTML ?? "",
-								}}
-							/>
+							<FreeText html={doctor?.Markdown?.contentHTML} />
 						</Card>
 					</div>
 				</div>

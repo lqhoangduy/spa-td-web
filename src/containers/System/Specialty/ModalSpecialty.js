@@ -55,7 +55,10 @@ const ModalSpecialty = ({
 	const handleSubmit = async () => {
 		if (!name || !descriptionHTML || !descriptionMarkdown) {
 			message.error(
-				LanguageUtils.getMessageByKey("system.specialty-manage.missing-field")
+				LanguageUtils.getMessageByKey(
+					"system.specialty-manage.missing-field",
+					language
+				)
 			);
 			return;
 		}

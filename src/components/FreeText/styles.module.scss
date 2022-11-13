@@ -1,0 +1,47 @@
+@use "sass:map";
+@import "../../styles/common";
+
+.freeText {
+  p:last-child {
+    margin: 0;
+  }
+
+  ul,
+  ol {
+    padding-left: 24px;
+    list-style: none;
+    margin-bottom: 0;
+    margin-bottom: 20px;
+
+    li {
+      position: relative;
+      margin-bottom: 10px;
+
+      &::before {
+        position: absolute;
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        left: -13px;
+        top: 8px;
+      }
+    }
+  }
+
+  iframe {
+    width: 100%;
+    min-height: 400px;
+  }
+
+
+  @include maxLg {
+
+    ul,
+    ol {
+      li {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}

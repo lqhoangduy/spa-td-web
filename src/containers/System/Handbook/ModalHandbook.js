@@ -8,46 +8,43 @@ import MdEditor from "react-markdown-editor-lite";
 import MarkdownIt from "markdown-it";
 import { LanguageUtils } from "../../../utils";
 import { uploadService } from "../../../services";
-import styles from "./ModalClinic.module.scss";
+import styles from "./ModalHandbook.module.scss";
 import "react-image-lightbox/style.css";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
-const ModalClinic = ({
+const ModalHandbook = ({
 	isShow,
 	isEdit,
 	onClose,
 	language,
 	onCreate,
-	clinicEdit,
+	handbookEdit,
 	onEdit,
 }) => {
 	const [openLightBox, setOpenLightBox] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [loadingImg, setLoadingImg] = useState(false);
-	const [name, setName] = useState("");
-	const [address, setAddress] = useState("");
+	const [title, setTitle] = useState("");
 	const [image, setImage] = useState(null);
 	const [descriptionHTML, setDescriptionHTML] = useState("");
 	const [descriptionMarkdown, setDescriptionMarkdown] = useState("");
 	const fileRef = useRef();
 
 	useEffect(() => {
-		if (isEdit && clinicEdit) {
-			if (clinicEdit.image) {
-				setImage(clinicEdit.image);
+		if (isEdit && handbookEdit) {
+			if (handbookEdit.image) {
+				setImage(handbookEdit.image);
 			}
-			setDescriptionMarkdown(clinicEdit.descriptionMarkdown);
-			setDescriptionHTML(clinicEdit.descriptionHTML);
-			setName(clinicEdit.name);
-			setAddress(clinicEdit.address);
+			setDescriptionMarkdown(handbookEdit.descriptionMarkdown);
+			setDescriptionHTML(handbookEdit.descriptionHTML);
+			setTitle(handbookEdit.title);
 		}
-	}, [isEdit, clinicEdit]);
+	}, [isEdit, handbookEdit]);
 
 	const handleCancel = () => {
 		setImage(null);
-		setName("");
-		setAddress("");
+		setTitle("");
 		setDescriptionHTML("");
 		setDescriptionMarkdown("");
 		clearInputFile();
@@ -55,10 +52,10 @@ const ModalClinic = ({
 	};
 
 	const handleSubmit = async () => {
-		if (!name || !descriptionHTML || !descriptionMarkdown) {
+		if (!title || !descriptionHTML || !descriptionMarkdown) {
 			message.error(
 				LanguageUtils.getMessageByKey(
-					"system.clinic-manage.missing-field",
+					"system.handbook-manage.missing-field",
 					language
 				)
 			);
@@ -66,9 +63,8 @@ const ModalClinic = ({
 		}
 
 		const data = {
-			id: clinicEdit?.id,
-			name,
-			address,
+			id: handbookEdit?.id,
+			title,
 			descriptionHTML,
 			descriptionMarkdown,
 			image,
@@ -164,15 +160,15 @@ const ModalClinic = ({
 			<Modal
 				title={
 					isEdit ? (
-						<FormattedMessage id='system.clinic-manage.edit-clinic' />
+						<FormattedMessage id='system.handbook-manage.edit-handbook' />
 					) : (
-						<FormattedMessage id='system.clinic-manage.add-clinic' />
+						<FormattedMessage id='system.handbook-manage.add-handbook' />
 					)
 				}
 				visible={isShow}
 				onOk={handleSubmit}
 				onCancel={handleCancel}
-				className={styles.modalClinic}
+				className={styles.modalHandbook}
 				footer={[
 					<Button key='back' onClick={handleCancel}>
 						<FormattedMessage id='common.close' />
@@ -189,13 +185,13 @@ const ModalClinic = ({
 						)}
 					</Button>,
 				]}>
-				<div className={styles.modalClinicInfo}>
+				<div className={styles.modalHandbookInfo}>
 					<Row gutter={[16, 16]} justify='center'>
 						<Col xs={24}>
 							<Spin spinning={loadingImg}>
 								<div className={styles.uploadImage}>
 									<label>
-										<FormattedMessage id='system.clinic-manage.image' />
+										<FormattedMessage id='system.handbook-manage.image' />
 									</label>
 									<div className={styles.uploadImageContainer}>
 										<div
@@ -233,38 +229,24 @@ const ModalClinic = ({
 								</div>
 							</Spin>
 						</Col>
-						<Col xs={24} md={12}>
+						<Col xs={24}>
 							<div className={styles.name}>
 								<label>
-									<FormattedMessage id='system.clinic-manage.name' />
+									<FormattedMessage id='system.handbook-manage.name' />
 								</label>
 								<Input
 									size='large'
-									value={name}
+									value={title}
 									onChange={(e) => {
-										setName(e.target.value);
-									}}
-								/>
-							</div>
-						</Col>
-						<Col xs={24} md={12}>
-							<div className={styles.address}>
-								<label>
-									<FormattedMessage id='system.clinic-manage.address' />
-								</label>
-								<Input
-									size='large'
-									value={address}
-									onChange={(e) => {
-										setAddress(e.target.value);
+										setTitle(e.target.value);
 									}}
 								/>
 							</div>
 						</Col>
 						<Col xs={24}>
-							<div className={styles.clinicManageEditor}>
+							<div className={styles.handbookManageEditor}>
 								<label>
-									<FormattedMessage id='system.clinic-manage.info' />
+									<FormattedMessage id='system.handbook-manage.info' />
 								</label>
 								<MdEditor
 									value={descriptionMarkdown}
@@ -296,4 +278,4 @@ const mapDispatchToProps = (dispatch) => {
 	return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalClinic);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalHandbook);

@@ -51,6 +51,9 @@ const userService = {
 	sendRemedy(data) {
 		return axios.post("/api/send-remedy", data);
 	},
+	getListDoctor(provinceId) {
+		return axios.get(`/api/list-doctor?provinceId=${provinceId}`);
+	},
 
 	// Schedules
 	createDoctorSchedules(doctorId, data) {
@@ -119,6 +122,23 @@ const userService = {
 	},
 	getDoctorClinic(clinicId) {
 		return axios.get(`/api/get-doctor-clinic?clinicId=${clinicId}`);
+	},
+
+	// Handbook
+	createHandbook(data) {
+		return axios.post("/api/create-handbook", data);
+	},
+	getHandbooks() {
+		return axios.get("/api/get-handbooks");
+	},
+	editHandbook(data) {
+		return axios.put("/api/edit-handbook", data);
+	},
+	deleteHandbook(id) {
+		return axios.delete(`/api/delete-handbook?id=${id}`);
+	},
+	getHandbook(id) {
+		return axios.get(`/api/get-handbook?id=${id}`);
 	},
 };
 

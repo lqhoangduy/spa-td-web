@@ -15,6 +15,7 @@ import ScheduleDoctor from "../Doctor/ScheduleDoctor";
 import ExtraDoctorInfo from "../Doctor/ExtraDoctorInfo";
 import ProfileDoctor from "../Doctor/ProfileDoctor";
 import * as actions from "../../../store/actions";
+import FreeText from "../../../components/FreeText/FreeText";
 
 function DetailClinic({ language }) {
 	const { id } = useParams();
@@ -100,16 +101,12 @@ function DetailClinic({ language }) {
 									}}
 								/>
 								<h1>{clinic?.name}</h1>
-								<div
-									dangerouslySetInnerHTML={{
-										__html: clinic?.descriptionHTML ?? "",
-									}}
-								/>
+								<FreeText html={clinic?.descriptionHTML} />
 							</Card>
 						</div>
 						{doctors?.length !== 0 ? (
-							doctors.map((doctor) => (
-								<Card key={doctor} className='my-4'>
+							doctors.map((doctor, index) => (
+								<Card key={index} className='my-4'>
 									<Row gutter={[16, 16]}>
 										<Col xs={24}>
 											<Link to={`/doctor/${doctor.id}`} className={styles.link}>

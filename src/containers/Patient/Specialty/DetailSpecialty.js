@@ -15,6 +15,7 @@ import ScheduleDoctor from "../Doctor/ScheduleDoctor";
 import ExtraDoctorInfo from "../Doctor/ExtraDoctorInfo";
 import ProfileDoctor from "../Doctor/ProfileDoctor";
 import * as actions from "../../../store/actions";
+import FreeText from "../../../components/FreeText/FreeText";
 
 const { Option } = Select;
 
@@ -109,11 +110,7 @@ function DetailSpecialty({
 									}}
 								/>
 								<h1>{specialty?.name}</h1>
-								<div
-									dangerouslySetInnerHTML={{
-										__html: specialty?.descriptionHTML ?? "",
-									}}
-								/>
+								<FreeText html={specialty?.descriptionHTML} />
 							</Card>
 						</div>
 						<div className='my-2'>
@@ -137,8 +134,8 @@ function DetailSpecialty({
 							</Select>
 						</div>
 						{doctors?.length !== 0 ? (
-							doctors.map((doctor) => (
-								<Card key={doctor} className='my-4'>
+							doctors.map((doctor, index) => (
+								<Card key={index} className='my-4'>
 									<Row gutter={[16, 16]}>
 										<Col xs={24}>
 											<Link to={`/doctor/${doctor.id}`} className={styles.link}>

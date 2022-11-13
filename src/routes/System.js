@@ -15,6 +15,7 @@ import SpecialtyManage from "../containers/System/Specialty/SpecialtyManage";
 import ClinicManage from "../containers/System/Clinic/ClinicManage";
 import DoctorScheduleManage from "../containers/System/Doctor/DoctorScheduleManage";
 import DoctorPatientManage from "../containers/System/Doctor/DoctorPatientManage";
+import HandbookManage from "../containers/System/Handbook/HandbookManage";
 
 function System({ currentUser }) {
 	const systemPath = useMemo(() => {
@@ -55,6 +56,10 @@ function System({ currentUser }) {
 					<Route
 						path='/system/clinic-manage'
 						component={userIsAdmin(ClinicManage)}
+					/>
+					<Route
+						path='/system/handbook-manage'
+						component={userIsAdmin(HandbookManage)}
 					/>
 					<Route
 						path='/system/doctor/schedule-manage'

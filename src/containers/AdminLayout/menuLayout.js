@@ -1,6 +1,5 @@
 import {
 	FileSearchOutlined,
-	UserOutlined,
 	TeamOutlined,
 	HomeOutlined,
 	LogoutOutlined,
@@ -42,7 +41,8 @@ export const menuAdmin = [
 		getItem(
 			<Tooltip
 				placement='right'
-				title={<FormattedMessage id='menu.admin.user-manage' />}>
+				title={<FormattedMessage id='menu.admin.user-manage' />}
+			>
 				<Link to='/system/user-manage'>
 					<FormattedMessage id='menu.admin.user-manage' />
 				</Link>
@@ -53,7 +53,8 @@ export const menuAdmin = [
 		getItem(
 			<Tooltip
 				placement='right'
-				title={<FormattedMessage id='menu.admin.doctor-manage' />}>
+				title={<FormattedMessage id='menu.admin.doctor-manage' />}
+			>
 				<Link to='/system/doctor-manage'>
 					<FormattedMessage id='menu.admin.doctor-manage' />
 				</Link>
@@ -64,18 +65,8 @@ export const menuAdmin = [
 		getItem(
 			<Tooltip
 				placement='right'
-				title={<FormattedMessage id='menu.admin.admin-manage' />}>
-				<Link to='/system/admin-manage'>
-					<FormattedMessage id='menu.admin.admin-manage' />
-				</Link>
-			</Tooltip>,
-			"admin-manage",
-			<UserOutlined />
-		),
-		getItem(
-			<Tooltip
-				placement='right'
-				title={<FormattedMessage id='menu.doctor.schedule-manage' />}>
+				title={<FormattedMessage id='menu.doctor.schedule-manage' />}
+			>
 				<Link to='/system/schedule-manage'>
 					<FormattedMessage id='menu.doctor.schedule-manage' />
 				</Link>
@@ -92,7 +83,8 @@ export const menuAdmin = [
 			getItem(
 				<Tooltip
 					placement='right'
-					title={<FormattedMessage id='menu.admin.clinic-manage' />}>
+					title={<FormattedMessage id='menu.admin.clinic-manage' />}
+				>
 					<Link to='/system/clinic-manage'>
 						<FormattedMessage id='menu.admin.clinic-manage' />
 					</Link>
@@ -110,7 +102,8 @@ export const menuAdmin = [
 			getItem(
 				<Tooltip
 					placement='right'
-					title={<FormattedMessage id='menu.admin.specialty-manage' />}>
+					title={<FormattedMessage id='menu.admin.specialty-manage' />}
+				>
 					<Link to='/system/specialty-manage'>
 						<FormattedMessage id='menu.admin.specialty-manage' />
 					</Link>
@@ -128,7 +121,8 @@ export const menuAdmin = [
 			getItem(
 				<Tooltip
 					placement='right'
-					title={<FormattedMessage id='menu.admin.handbook-manage' />}>
+					title={<FormattedMessage id='menu.admin.handbook-manage' />}
+				>
 					<Link to='/system/handbook-manage'>
 						<FormattedMessage id='menu.admin.handbook-manage' />
 					</Link>
@@ -156,7 +150,8 @@ export const menuDoctor = [
 	getItem(
 		<Tooltip
 			placement='right'
-			title={<FormattedMessage id='menu.doctor.schedule-manage' />}>
+			title={<FormattedMessage id='menu.doctor.schedule-manage' />}
+		>
 			<Link to='/system/doctor/schedule-manage'>
 				<FormattedMessage id='menu.doctor.schedule-manage' />
 			</Link>
@@ -167,7 +162,8 @@ export const menuDoctor = [
 	getItem(
 		<Tooltip
 			placement='right'
-			title={<FormattedMessage id='menu.doctor.patient-manage' />}>
+			title={<FormattedMessage id='menu.doctor.patient-manage' />}
+		>
 			<Link to='/system/doctor/patient-manage'>
 				<FormattedMessage id='menu.doctor.patient-manage' />
 			</Link>

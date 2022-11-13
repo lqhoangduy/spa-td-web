@@ -1,0 +1,71 @@
+@import "../../../styles/common.scss";
+
+.listClinic {
+  margin-bottom: 64px;
+
+  :global {
+    .ant-image {
+      width: 100%;
+    }
+
+    .ant-card {
+      border-radius: 5px;
+    }
+
+    .ant-list-item {
+      padding: 12px 0;
+    }
+
+    .ant-pagination-item-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .date {
+      margin-bottom: 10px;
+      line-height: 22px;
+      color: $neutral-60;
+      font-size: 14px;
+    }
+
+    .title {
+      font-size: 20px;
+      color: $primary-brown;
+      text-decoration: underline;
+      text-decoration-color: $primary-brown;
+      @include ellipsis(1);
+    }
+
+    .description {
+      margin-top: 12px;
+      color: $neutral-80;
+      margin-bottom: 0;
+      @include ellipsis(3);
+    }
+  }
+
+  .link {
+    text-decoration: none;
+  }
+
+  .image {
+    width: 100%;
+    border-radius: 5px;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .description {
+    margin-top: 12px;
+    color: $neutral-80;
+    margin-bottom: 0;
+    @include ellipsis(3);
+  }
+
+  @include maxMd {
+    .image {
+      aspect-ratio: 2;
+    }
+  }
+}

@@ -34,6 +34,7 @@ const Section = ({ language }) => {
 	const [topDoctors, setTopDoctors] = useState(null);
 	const [specialties, setSpecialties] = useState(null);
 	const [clinics, setClinics] = useState(null);
+	const [handbooks, setHandbooks] = useState(null);
 
 	const setting1 = {
 		dots: false,
@@ -70,6 +71,11 @@ const Section = ({ language }) => {
 		if (resultClinic.errorCode === 0) {
 			setClinics(resultClinic.data);
 		}
+
+		const resultHandbook = await userService.getHandbooks();
+		if (resultHandbook.errorCode === 0) {
+			setHandbooks(resultHandbook.data);
+		}
 	};
 
 	const handleDetailDoctor = (id) => {
@@ -82,6 +88,10 @@ const Section = ({ language }) => {
 
 	const handleDetailClinic = (id) => {
 		history.push(`/clinic/${id}`);
+	};
+
+	const handleDetailHandbook = (id) => {
+		history.push(`/handbook/${id}`);
 	};
 
 	return (
@@ -145,19 +155,30 @@ const Section = ({ language }) => {
 					</Slider>
 				</div>
 			)}
-			<div className={styles.sectionWrap}>
-				<h3 className={styles.sectionTitle}>
-					<FormattedMessage id='section.handbooks' />
-				</h3>
-				<Slider {...setting2}>
-					{specialtiesMock.map((specialty) => (
-						<div key={specialty.key} className={styles.sectionItem}>
-							<img src={specialty.url} alt='partner' />
-							<span>{specialty.title}</span>
-						</div>
-					))}
-				</Slider>
-			</div>
+			{handbooks?.length && (
+				<div className={styles.sectionWrap}>
+					<h3 className={styles.sectionTitle}>
+						<FormattedMessage id='section.handbooks' />
+					</h3>
+					<Slider {...setting2}>
+						{/* {specialtiesMock.map((specialty) => (
+							<div key={specialty.key} className={styles.sectionItem}>
+								<img src={specialty.url} alt='partner' />
+								<span>{specialty.title}</span>
+							</div>
+						))} */}
+						{handbooks.map((handbook, index) => (
+							<div
+								key={index}
+								className={styles.sectionItem}
+								onClick={() => handleDetailHandbook(handbook.id)}>
+								<img src={handbook.image?.url} alt='handbook' />
+								<span>{handbook.title}</span>
+							</div>
+						))}
+					</Slider>
+				</div>
+			)}
 		</section>
 	);
 };

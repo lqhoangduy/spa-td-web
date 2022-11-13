@@ -1,3 +1,5 @@
+import moment from "moment";
+
 class Format {
 	static currencyVI(number) {
 		const formatter = new Intl.NumberFormat("vi-VN", {
@@ -14,6 +16,10 @@ class Format {
 			minimumFractionDigits: 2,
 		});
 		return formatter.format(number);
+	}
+
+	static Date(date) {
+		return moment(date).format("DD/MM/YYYY");
 	}
 }
 

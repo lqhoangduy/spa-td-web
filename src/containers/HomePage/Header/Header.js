@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Drawer, Button, Divider } from "antd";
 import { FormattedMessage } from "react-intl";
 import { QuestionCircleOutlined, MenuOutlined } from "@ant-design/icons";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { languages } from "../../../utils/constant";
 import * as actions from "../../../store/actions";
@@ -13,21 +13,25 @@ const navbars = [
 		key: "specialist",
 		title: <FormattedMessage id='header.specialist' />,
 		note: <FormattedMessage id='header.specialist-note' />,
+		link: "/specialty",
 	},
 	{
 		key: "branch",
 		title: <FormattedMessage id='header.branch' />,
 		note: <FormattedMessage id='header.branch-note' />,
+		link: "/clinic",
 	},
 	{
 		key: "doctor",
 		title: <FormattedMessage id='header.doctor' />,
 		note: <FormattedMessage id='header.doctor-note' />,
+		link: "/doctor",
 	},
 	{
-		key: "package",
-		title: <FormattedMessage id='header.package' />,
-		note: <FormattedMessage id='header.package-note' />,
+		key: "handbook",
+		title: <FormattedMessage id='header.handbook' />,
+		note: <FormattedMessage id='header.handbook-note' />,
+		link: "/handbook",
 	},
 ];
 
@@ -50,10 +54,12 @@ const Header = ({ language, changeLanguage }) => {
 						<div className={styles.nav}>
 							{navbars.map((nav) => {
 								return (
-									<div className={styles.navItem} key={nav.key}>
-										<h4>{nav.title}</h4>
-										<span>{nav.note}</span>
-									</div>
+									<Link to={nav.link} className={styles.navLink} key={nav.key}>
+										<div className={styles.navItem}>
+											<h4>{nav.title}</h4>
+											<span>{nav.note}</span>
+										</div>
+									</Link>
 								);
 							})}
 						</div>
@@ -94,13 +100,17 @@ const Header = ({ language, changeLanguage }) => {
 				</div>
 			</section>
 			<Drawer
-				title='Basic Drawer'
 				placement='right'
 				onClose={() => setShowDrawer(false)}
-				visible={showDrawer}>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
+				visible={showDrawer}
+				className={styles.drawer}>
+				{navbars.map((nav) => (
+					<Link to={nav.link} className={styles.navLink} key={nav.key}>
+						<div className={styles.navItem}>
+							<h4>{nav.title}</h4>
+						</div>
+					</Link>
+				))}
 			</Drawer>
 		</>
 	);
