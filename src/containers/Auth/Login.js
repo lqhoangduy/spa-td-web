@@ -2,13 +2,18 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { Divider, Button, Form, Input, message } from "antd";
-import { GooglePlusOutlined, FacebookOutlined } from "@ant-design/icons";
+import {
+	GooglePlusOutlined,
+	FacebookOutlined,
+	ArrowLeftOutlined,
+} from "@ant-design/icons";
 import { FormattedMessage } from "react-intl";
 
 import * as actions from "./../../store/actions";
 import { userService } from "../../services";
 
 import styles from "./Login.module.scss";
+import { Link } from "react-router-dom";
 
 class Login extends Component {
 	constructor(props) {
@@ -38,8 +43,13 @@ class Login extends Component {
 			<div className={styles.loginWrapper}>
 				<div className='login-container shadow-primary'>
 					<div className='login-content row'>
-						<div className='col-12 login-title'>
-							<FormattedMessage id='login.login' />
+						<div className='wrap-title'>
+							<Link to='/home' className='back-to-home'>
+								<ArrowLeftOutlined />
+							</Link>
+							<div className='col-12 login-title'>
+								<FormattedMessage id='login.login' />
+							</div>
 						</div>
 						<Form
 							name='login'

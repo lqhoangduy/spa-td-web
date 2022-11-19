@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Drawer, Button, Divider } from "antd";
 import { FormattedMessage } from "react-intl";
-import { QuestionCircleOutlined, MenuOutlined } from "@ant-design/icons";
+import { MenuOutlined, LoginOutlined } from "@ant-design/icons";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { languages } from "../../../utils/constant";
@@ -65,12 +65,14 @@ const Header = ({ language, changeLanguage }) => {
 						</div>
 					</div>
 					<div className={styles.rightContainer}>
-						<div className={styles.help}>
-							<QuestionCircleOutlined className={styles.icon} />
-							<span className={styles.helpNote}>
-								<FormattedMessage id='header.help' />
-							</span>
-						</div>
+						<Link to='/login' className={styles.link}>
+							<div className={styles.login}>
+								<LoginOutlined className={styles.icon} />
+								<span className={styles.loginNote}>
+									<FormattedMessage id='header.login' />
+								</span>
+							</div>
+						</Link>
 						<div className={styles.languageWrap}>
 							<Button
 								type='link'

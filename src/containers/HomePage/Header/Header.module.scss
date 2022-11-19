@@ -67,17 +67,22 @@
       display: flex;
       align-items: center;
 
-      .help {
+      .link {
+        text-decoration: none;
+      }
+
+      .login {
         display: flex;
         align-items: center;
 
         .icon {
           color: $primary-light;
-          margin-right: 4px;
+          margin-right: 8px;
           font-size: 16px;
+          font-weight: 700;
         }
 
-        .helpNote {
+        .loginNote {
           font-size: 16px;
           color: $primary-light;
         }

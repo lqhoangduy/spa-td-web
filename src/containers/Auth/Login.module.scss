@@ -16,22 +16,38 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      
+
       .login-content {
         padding: 24px 20px;
-  
+
+        .wrap-title {
+          display: flex;
+          align-items: center;
+          margin-bottom: 16px;
+        }
+
+        .back-to-home {
+          text-decoration: none;
+
+          &>span {
+            font-size: 20px;
+            font-weight: 700;
+            color: $color-text;
+          }
+        }
+
         .login-title {
           font-weight: 600;
           font-size: 24px;
           text-align: center;
-          margin-bottom: 16px;
+
         }
-  
+
         .login-label {
-            color: $neutral-60;
-            margin-bottom: 8px;
+          color: $neutral-60;
+          margin-bottom: 8px;
         }
-  
+
         .login-btn {
           width: 100%;
           margin: 12px 0;
@@ -42,25 +58,25 @@
           font-weight: bold;
           font-size: 16px;
         }
-  
+
         .forgot-password {
           font-size: 14px;
           color: $neutral-60;
         }
-  
+
         .login-social {
           display: flex;
           justify-content: center;
-  
+
           .btn-social {
             font-size: 24px;
-  
+
             &:first-child {
               margin-right: 20px;
               color: $common-red;
               border: 2px solid $common-red;
             }
-  
+
             &:last-child {
               color: $colormain;
               border: 2px solid $colormain;
