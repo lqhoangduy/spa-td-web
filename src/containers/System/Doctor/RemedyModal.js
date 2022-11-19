@@ -9,11 +9,14 @@ import { uploadService } from "../../../services";
 import styles from "./RemedyModal.module.scss";
 import "react-image-lightbox/style.css";
 
-function BookingModal({ language, onCancel, onSubmit, email }) {
+const { TextArea } = Input;
+
+function RemedyModal({ language, onCancel, onSubmit, email }) {
 	const [loading, setLoading] = useState(false);
 	const [emailInput, setEmailInput] = useState(email);
 	const [openLightBox, setOpenLightBox] = useState(false);
 	const [image, setImage] = useState(null);
+	const [note, setNote] = useState(null);
 	const fileRef = useRef();
 
 	const handleCancel = async () => {
@@ -24,10 +27,11 @@ function BookingModal({ language, onCancel, onSubmit, email }) {
 	};
 
 	const handleSubmit = async () => {
-		if (emailInput && image) {
+		if (emailInput && image && note) {
 			const data = {
 				email: emailInput,
-				image: image?.url,
+				image: image,
+				note: note,
 			};
 			setLoading(true);
 			const result = await onSubmit(data);
@@ -130,18 +134,29 @@ function BookingModal({ language, onCancel, onSubmit, email }) {
 				]}>
 				<Spin spinning={loading}>
 					<Row className={styles.remedyBody} gutter={[16, 16]} justify='center'>
-						<Col xs={24} md={12}>
+						<Col xs={24}>
 							<label className={styles.emailLabel}>
 								<FormattedMessage id='system.patient-manage.email' />
 							</label>
 							<Input
 								className={styles.emailInput}
 								value={emailInput}
-								onChange={setEmailInput}
+								onChange={(e) => setEmailInput(e.target.value)}
 								size='large'
 							/>
 						</Col>
-						<Col xs={24} md={12}>
+						<Col xs={24}>
+							<label className={styles.label}>
+								<FormattedMessage id='system.patient-manage.note' />
+							</label>
+							<TextArea
+								rows={6}
+								className={styles.noteInput}
+								value={note}
+								onChange={(e) => setNote(e.target.value)}
+							/>
+						</Col>
+						<Col xs={24}>
 							<label className={styles.fileLabel}>
 								<FormattedMessage id='system.patient-manage.file' />
 							</label>
@@ -204,4 +219,4 @@ const mapDispatchToProps = (dispatch) => {
 	return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookingModal);
+export default connect(mapStateToProps, mapDispatchToProps)(RemedyModal);

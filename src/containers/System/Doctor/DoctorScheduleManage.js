@@ -201,9 +201,9 @@ function DoctorScheduleManage({
 			const time = times.find((time) => time.keyMap === item.time);
 
 			return {
-				key: `${time.keyMap}-${index}`,
+				key: `${time?.keyMap}-${index}`,
 				date: item.date,
-				time: language === "en" ? time.valueEn : time.valueVi,
+				time: language === "en" ? time?.valueEn : time?.valueVi,
 			};
 		});
 

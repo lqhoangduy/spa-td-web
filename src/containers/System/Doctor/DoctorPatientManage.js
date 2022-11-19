@@ -1,12 +1,13 @@
 import {
 	Button,
 	Card,
-	Col,
 	ConfigProvider,
 	DatePicker,
 	message,
-	Row,
+	Popconfirm,
 	Table,
+	Tag,
+	Tooltip,
 } from "antd";
 import moment from "moment";
 import clsx from "clsx";
@@ -15,12 +16,71 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 
 import styles from "./DoctorPatientManage.module.scss";
-import { languages, LanguageUtils } from "../../../utils";
+import { languages, LanguageUtils, STATUS } from "../../../utils";
 import en_US from "antd/lib/locale/en_US";
 import vi_VN from "antd/lib/locale/vi_VN";
 import { userService } from "../../../services";
 import { useCallback } from "react";
 import RemedyModal from "./RemedyModal";
+import { useMemo } from "react";
+import {
+	CheckCircleOutlined,
+	ClockCircleOutlined,
+	CloseCircleOutlined,
+	SyncOutlined,
+} from "@ant-design/icons";
+import _ from "lodash";
+
+function MapTagStatus({ status, language }) {
+	const statusTag = useMemo(() => {
+		const data = {};
+
+		switch (status) {
+			case STATUS.NEW:
+				data.color = "default";
+				data.title = LanguageUtils.getMessageByKey(
+					"common.statusNew",
+					language
+				);
+				data.icon = <ClockCircleOutlined spin />;
+				break;
+			case STATUS.CONFIRMED:
+				data.color = "processing";
+				data.title = LanguageUtils.getMessageByKey(
+					"common.statusConfirmed",
+					language
+				);
+				data.icon = <SyncOutlined spin />;
+				break;
+			case STATUS.DONE:
+				data.color = "success";
+				data.title = LanguageUtils.getMessageByKey(
+					"common.statusDone",
+					language
+				);
+				data.icon = <CheckCircleOutlined />;
+				break;
+			case STATUS.CANCEL:
+				data.color = "error";
+				data.title = LanguageUtils.getMessageByKey(
+					"common.statusCancel",
+					language
+				);
+				data.icon = <CloseCircleOutlined />;
+				break;
+			default:
+				break;
+		}
+
+		return data;
+	}, [status, language]);
+
+	return _.isEmpty(statusTag) ? null : (
+		<Tag icon={statusTag.icon} color={statusTag.color}>
+			{statusTag.title}
+		</Tag>
+	);
+}
 
 function DoctorPatientManage({ currentUser, language }) {
 	const [currentDate, setCurrentDate] = useState(
@@ -31,6 +91,8 @@ function DoctorPatientManage({ currentUser, language }) {
 	const [patientBooking, setPatientBooking] = useState(null);
 	const [openModal, setOpenModal] = useState(false);
 	const [currentPatient, setCurrentPatient] = useState(null);
+	const [openConfirm, setOpenConfirm] = useState(false);
+	const [confirmLoading, setConfirmLoading] = useState(false);
 
 	useEffect(() => {
 		loadData();
@@ -62,7 +124,8 @@ function DoctorPatientManage({ currentUser, language }) {
 	const buildDataTable = useCallback(() => {
 		const data = (patientBooking || []).map((booking, index) => {
 			return {
-				key: booking?.patientData?.id,
+				key: index,
+				id: booking?.patientData?.id,
 				stt: index + 1,
 				name: booking?.patientData?.firstName,
 				email: booking?.patientData?.email,
@@ -78,6 +141,7 @@ function DoctorPatientManage({ currentUser, language }) {
 						: booking?.patientData?.genderData?.valueVi,
 				timeType: booking?.timeType,
 				date: booking?.date,
+				status: booking?.statusId,
 			};
 		});
 		setDataTable(data);
@@ -95,11 +159,15 @@ function DoctorPatientManage({ currentUser, language }) {
 			dataIndex: "stt",
 			fixed: "left",
 			width: 60,
+			sorter: (a, b) => a.stt - b.stt,
+			sortDirections: ["descend"],
 		},
 		{
 			title: <FormattedMessage id='common.name' />,
 			key: "name",
 			dataIndex: "name",
+			sorter: (a, b) => a.name.length - b.name.length,
+			sortDirections: ["descend"],
 		},
 		{
 			title: <FormattedMessage id='common.email' />,
@@ -115,29 +183,96 @@ function DoctorPatientManage({ currentUser, language }) {
 			title: <FormattedMessage id='common.time' />,
 			key: "time",
 			dataIndex: "time",
+			sorter: (a, b) => {
+				const timeASplit = a.timeType.split("");
+				const timeBSplit = b.timeType.split("");
+
+				return Number(timeASplit[1]) - Number(timeBSplit[1]);
+			},
 		},
 		{
-			title: <FormattedMessage id='common.address' />,
-			key: "address",
-			dataIndex: "address",
+			title: <FormattedMessage id='common.status' />,
+			key: "status",
+			filters: [
+				{
+					text: LanguageUtils.getMessageByKey("common.statusNew", language),
+					value: STATUS.NEW,
+				},
+				{
+					text: LanguageUtils.getMessageByKey(
+						"common.statusConfirmed",
+						language
+					),
+					value: STATUS.CONFIRMED,
+				},
+				{
+					text: LanguageUtils.getMessageByKey("common.statusDone", language),
+					value: STATUS.DONE,
+				},
+				{
+					text: LanguageUtils.getMessageByKey("common.statusCancel", language),
+					value: STATUS.CANCEL,
+				},
+			],
+			onFilter: (value, record) => record.status.indexOf(value) === 0,
+			render: (_, record) => (
+				<MapTagStatus status={record.status} language={language} />
+			),
 		},
 		{
 			title: <FormattedMessage id='common.gender' />,
 			key: "gender",
 			dataIndex: "gender",
+			sorter: (a, b) => a.gender.length - b.gender.length,
 		},
 		{
 			title: <FormattedMessage id='common.action' />,
 			key: "action",
 			fixed: "right",
-			width: 120,
-			render: (_, record) => (
-				<Button
-					className={styles.btnConfirm}
-					onClick={() => handleOpenModal(record)}>
-					<FormattedMessage id='common.confirm' />
-				</Button>
-			),
+			width: 240,
+			render: (_, record) => {
+				if (record.status === STATUS.DONE || record.status === STATUS.CANCEL) {
+					return (
+						<Tag color='default'>
+							<FormattedMessage id='common.done' />
+						</Tag>
+					);
+				}
+
+				return (
+					<div>
+						{record.status === STATUS.CONFIRMED && (
+							<Button
+								type='primary'
+								className={styles.btnConfirm}
+								onClick={() => handleOpenModal(record)}>
+								<FormattedMessage id='common.confirm' />
+							</Button>
+						)}
+						<Popconfirm
+							title={
+								<FormattedMessage id='system.patient-manage.cancelConfirm' />
+							}
+							open={openConfirm}
+							onConfirm={() => handleCancelBook(record)}
+							okText={<FormattedMessage id='common.yes' />}
+							cancelText={<FormattedMessage id='common.no' />}
+							okButtonProps={{ loading: confirmLoading }}
+							onCancel={() => setOpenConfirm(false)}>
+							<Tooltip
+								placement='bottom'
+								title={<FormattedMessage id='common.delete' />}>
+								<Button
+									danger
+									className={styles.btnCancel}
+									onClick={() => setOpenConfirm(true)}>
+									<FormattedMessage id='common.cancel' />
+								</Button>
+							</Tooltip>
+						</Popconfirm>
+					</div>
+				);
+			},
 		},
 	];
 
@@ -151,11 +286,41 @@ function DoctorPatientManage({ currentUser, language }) {
 		setOpenModal(true);
 	};
 
+	const handleCancelBook = async (record) => {
+		setConfirmLoading(true);
+		const data = {
+			doctorId: currentUser?.id,
+			patientId: record?.id,
+			timeType: record?.timeType,
+			date: record?.date,
+			status: record?.status,
+		};
+		const result = await userService.cancelPatientBooking(data);
+		setConfirmLoading(false);
+		if (result?.errorCode === 0) {
+			loadData();
+			setOpenConfirm(false);
+			message.success(
+				LanguageUtils.getMessageByKey(
+					"system.patient-manage.cancelSuccess",
+					language
+				)
+			);
+		} else {
+			message.error(
+				LanguageUtils.getMessageByKey(
+					"system.patient-manage.cancelFail",
+					language
+				)
+			);
+		}
+	};
+
 	const handleSubmitModal = async (data) => {
 		const body = {
 			...data,
 			doctorId: currentUser?.id,
-			patientId: currentPatient?.key,
+			patientId: currentPatient?.id,
 			timeType: currentPatient?.timeType,
 			date: currentPatient?.date,
 			language: language,
@@ -201,14 +366,10 @@ function DoctorPatientManage({ currentUser, language }) {
 							<ConfigProvider
 								locale={language === languages.EN ? en_US : vi_VN}>
 								<DatePicker
+									allowClear={false}
 									value={moment(currentDate)}
 									size='large'
 									onChange={onChangeDate}
-									disabledDate={(current) =>
-										current &&
-										current <
-											moment(new Date()).subtract(1, "days").endOf("day")
-									}
 									format='DD/MM/YYYY'
 								/>
 							</ConfigProvider>

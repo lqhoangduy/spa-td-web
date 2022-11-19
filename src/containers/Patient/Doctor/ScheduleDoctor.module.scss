@@ -47,6 +47,10 @@
     text-transform: uppercase;
   }
 
+  .badge {
+    width: 100%;
+  }
+
   .btnTime {
     width: 100%;
     font-size: 14px;
@@ -63,6 +67,11 @@
 
     &>span {
       @include ellipsis(1);
+    }
+
+    &.disabled {
+      background-color: $neutral-20;
+      color: $color-text;
     }
   }
 

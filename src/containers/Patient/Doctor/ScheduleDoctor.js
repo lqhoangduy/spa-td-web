@@ -1,7 +1,21 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
-import { Select, Spin, Row, Col, Button, Empty, message } from "antd";
-import { CalendarOutlined } from "@ant-design/icons";
+import {
+	Select,
+	Spin,
+	Row,
+	Col,
+	Button,
+	Empty,
+	message,
+	Badge,
+	Tag,
+} from "antd";
+import {
+	CalendarOutlined,
+	CheckCircleOutlined,
+	ClockCircleOutlined,
+} from "@ant-design/icons";
 import moment from "moment";
 // eslint-disable-next-line no-unused-vars
 import localization from "moment/locale/vi";
@@ -44,17 +58,9 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 			const dayOfWeek = {
 				label:
 					language === languages.VI
-						? moment()
-								.add(i, "days")
-								.format("dddd - DD/MM/YYYY")
-						: moment()
-								.locale("en")
-								.add(i, "days")
-								.format("dddd - DD/MM/YYYY"),
-				value: moment()
-					.add(i, "days")
-					.startOf("day")
-					.valueOf(),
+						? moment().add(i, "days").format("dddd - DD/MM/YYYY")
+						: moment().locale("en").add(i, "days").format("dddd - DD/MM/YYYY"),
+				value: moment().add(i, "days").startOf("day").valueOf(),
 			};
 
 			if (i === 0) {
@@ -68,9 +74,7 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 			} else {
 				if (language === languages.VI) {
 					// Language VI
-					dayOfWeek.label = moment()
-						.add(i, "days")
-						.format("dddd - DD/MM/YYYY");
+					dayOfWeek.label = moment().add(i, "days").format("dddd - DD/MM/YYYY");
 				} else {
 					// Language EN
 					dayOfWeek.label = moment()
@@ -80,10 +84,7 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 				}
 			}
 
-			dayOfWeek.value = moment()
-				.add(i, "days")
-				.startOf("day")
-				.valueOf();
+			dayOfWeek.value = moment().add(i, "days").startOf("day").valueOf();
 
 			arrayDate.push(dayOfWeek);
 		}
@@ -119,7 +120,6 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 	};
 
 	const handleSubmitBooking = async (data) => {
-		console.log(data);
 		const result = await userService.bookingAppointment(data);
 		if (result?.errorCode === 0) {
 			message.success(
@@ -127,9 +127,16 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 			);
 			return true;
 		} else {
-			message.error(
-				LanguageUtils.getMessageByKey("doctor.booking-error", language)
-			);
+			if (result?.message === "not_available") {
+				message.error(
+					LanguageUtils.getMessageByKey("doctor.not_available", language)
+				);
+			} else {
+				message.error(
+					LanguageUtils.getMessageByKey("doctor.booking-error", language)
+				);
+			}
+
 			return false;
 		}
 	};
@@ -152,8 +159,7 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 						className={styles.selectSchedule}
 						placeholder={<FormattedMessage id='doctor.select-date' />}
 						bordered={false}
-						value={currentDate}
-					>
+						value={currentDate}>
 						{allDays?.length &&
 							allDays.map((day) => (
 								<Option value={day.value} key={day.value}>
@@ -174,23 +180,34 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 							<Row gutter={[16, 16]} className={styles.listTime}>
 								{schedules.map((schedule) => (
 									<Col key={schedule.id} xs={24} md={12} lg={6}>
-										<Button
-											onClick={() =>
-												handleChangeChooseTime(
-													schedule.timeType,
-													schedule.timeTypeData
+										<Badge
+											count={
+												schedule.isAvailable ? (
+													0
+												) : (
+													<ClockCircleOutlined style={{ color: "#f5222d" }} />
 												)
 											}
-											size='large'
-											className={clsx(styles.btnTime, {
-												[styles.active]:
-													currentTime?.timeType === schedule.timeType,
-											})}
-										>
-											{language === languages.EN
-												? schedule.timeTypeData?.valueEn
-												: schedule.timeTypeData?.valueVi}
-										</Button>
+											className={styles.badge}>
+											<Button
+												disabled={!schedule.isAvailable}
+												onClick={() =>
+													handleChangeChooseTime(
+														schedule.timeType,
+														schedule.timeTypeData
+													)
+												}
+												size='large'
+												className={clsx(styles.btnTime, {
+													[styles.active]:
+														currentTime?.timeType === schedule.timeType,
+													[styles.disabled]: !schedule.isAvailable,
+												})}>
+												{language === languages.EN
+													? schedule.timeTypeData?.valueEn
+													: schedule.timeTypeData?.valueVi}
+											</Button>
+										</Badge>
 									</Col>
 								))}
 							</Row>

@@ -42,3 +42,10 @@ export const USER_ROLE = {
 	DOCTOR: "R2",
 	PATIENT: "R3",
 };
+
+export const STATUS = {
+	NEW: "S1",
+	CONFIRMED: "S2",
+	DONE: "S3",
+	CANCEL: "S4",
+};

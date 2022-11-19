@@ -53,7 +53,16 @@
         "gender": "Gender",
         "phone": "Phone number",
         "email": "Email",
-        "send-bill": "Send bill"
+        "send-bill": "Send bill",
+        "statusNew": "New",
+        "statusConfirmed": "Confirmed",
+        "statusDone": "Done",
+        "statusCancel": "Cancel",
+        "status": "Status",
+        "cancel": "Cancel",
+        "waitConfirm": "Wait confirm",
+        "done": "Done",
+        "reserved": "Full"
     },
     "login": {
         "login": "Login",
@@ -220,9 +229,13 @@
             "title": "Manage doctor's examination patients",
             "choose-date": "Choose date: ",
             "email": "Patient email: ",
-            "file": "Photo of prescription: ",
+            "file": "Photo of result/prescription: ",
             "title-modal": "Email sent for medical examination done",
-            "sendDone": "Send Remedy successfully"
+            "sendDone": "Send Remedy successfully",
+            "cancelConfirm": "Are you sure cancel?",
+            "cancelSuccess": "Cancel booking successfully",
+            "cancelFail": "Cancel booking failed",
+            "note": "Note: "
         }
     },
     "header": {
@@ -293,7 +306,8 @@
         "confirm-success": "Confirmation of booking information successful!",
         "confirm-not-found": "No booking information or confirmed booking information found!!!",
         "confirm-out-of-date": "It's over time to confirm booking information!!!",
-        "list": "Danh sách bác sĩ"
+        "list": "List doctor",
+        "not_available": "The time you booked is currently unavailable, please choose another time."
     },
     "dashboard": {
         "title": "Dashboard",

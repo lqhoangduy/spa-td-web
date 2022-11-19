@@ -54,6 +54,9 @@ const userService = {
 	getListDoctor(provinceId) {
 		return axios.get(`/api/list-doctor?provinceId=${provinceId}`);
 	},
+	cancelPatientBooking(data) {
+		return axios.put("/api/cancel-patient-booking", data);
+	},
 
 	// Schedules
 	createDoctorSchedules(doctorId, data) {

@@ -17,6 +17,11 @@ const verifyBookingStatus = {
 	error: "error",
 };
 
+const errorType = {
+	outOfDate: "out_of_date",
+	notAvailable: "not_available",
+};
+
 function VerifyBooking({ language }) {
 	const history = useHistory();
 	const query = useQuery();
@@ -25,6 +30,7 @@ function VerifyBooking({ language }) {
 	const token = query.get("token");
 
 	const [status, setStatus] = useState(verifyBookingStatus.loading);
+	const [typeError, setTypeError] = useState();
 	const [title, setTitle] = useState("");
 
 	useEffect(() => {
@@ -38,15 +44,29 @@ function VerifyBooking({ language }) {
 				LanguageUtils.getMessageByKey("doctor.confirm-success", language)
 			);
 		} else if (status === verifyBookingStatus.error) {
-			setTitle(
-				LanguageUtils.getMessageByKey("doctor.confirm-out-of-date", language)
-			);
+			switch (typeError) {
+				case errorType.outOfDate:
+					setTitle(
+						LanguageUtils.getMessageByKey(
+							"doctor.confirm-out-of-date",
+							language
+						)
+					);
+					break;
+				case errorType.notAvailable:
+					setTitle(
+						LanguageUtils.getMessageByKey("doctor.not_available", language)
+					);
+					break;
+				default:
+					break;
+			}
 		} else if (status === verifyBookingStatus.warning) {
 			setTitle(
 				LanguageUtils.getMessageByKey("doctor.confirm-not-found", language)
 			);
 		}
-	}, [language, status]);
+	}, [language, status, typeError]);
 
 	const verifyBookingAppointment = async () => {
 		if (id && token) {
@@ -62,8 +82,12 @@ function VerifyBooking({ language }) {
 			if (result?.errorCode === 0) {
 				setStatus(verifyBookingStatus.success);
 			} else {
-				if (result?.message === "out_of_date") {
+				if (result?.message === errorType.outOfDate) {
 					setStatus(verifyBookingStatus.error);
+					setTypeError(errorType.outOfDate);
+				} else if (result?.message === errorType.notAvailable) {
+					setStatus(verifyBookingStatus.error);
+					setTypeError(errorType.notAvailable);
 				} else {
 					setStatus(verifyBookingStatus.warning);
 				}

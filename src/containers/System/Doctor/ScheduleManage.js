@@ -231,10 +231,10 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 			const time = times.find((time) => time.keyMap === item.time);
 
 			return {
-				key: `${time.keyMap}-${index}`,
+				key: `${time?.keyMap}-${index}`,
 				name: currentDoctorName,
 				date: item.date,
-				time: language === "en" ? time.valueEn : time.valueVi,
+				time: language === "en" ? time?.valueEn : time?.valueVi,
 			};
 		});
 
@@ -341,6 +341,7 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 									<ConfigProvider
 										locale={language === languages.EN ? en_US : vi_VN}>
 										<DatePicker
+											allowClear={false}
 											value={moment(currentDate)}
 											size='large'
 											onChange={onChangeDate}

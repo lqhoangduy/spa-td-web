@@ -140,18 +140,22 @@ class UserManage extends Component {
 			{
 				title: <FormattedMessage id='system.user-manage.email' />,
 				dataIndex: "email",
+				sorter: (a, b) => a.email.length - b.email.length,
 			},
 			{
 				title: <FormattedMessage id='system.user-manage.first-name' />,
 				dataIndex: "firstName",
+				sorter: (a, b) => a.firstName.length - b.firstName.length,
 			},
 			{
 				title: <FormattedMessage id='system.user-manage.last-name' />,
 				dataIndex: "lastName",
+				sorter: (a, b) => a.lastName.length - b.lastName.length,
 			},
 			{
 				title: <FormattedMessage id='system.user-manage.address' />,
 				dataIndex: "address",
+				sorter: (a, b) => a.address.length - b.address.length,
 			},
 			{
 				title: <FormattedMessage id='common.action' />,

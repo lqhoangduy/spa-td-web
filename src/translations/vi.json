@@ -53,7 +53,16 @@
         "gender": "Giới tính",
         "phone": "Số điện thoại",
         "email": "Email",
-        "send-bill": "Gửi hoá đơn"
+        "send-bill": "Gửi hoá đơn",
+        "statusNew": "Mới",
+        "statusConfirmed": "Đã xác nhận",
+        "statusDone": "Hoàn thành",
+        "statusCancel": "Đã huỷ",
+        "status": "Trạng thái",
+        "cancel": "Huỷ",
+        "waitConfirm": "Đợi BN xác nhận",
+        "done": "Đã xong",
+        "reserved": "Full"
     },
     "login": {
         "login": "Đăng nhập",
@@ -220,9 +229,13 @@
             "title": "Quản lý Bệnh nhân khám bệnh",
             "choose-date": "Chọn ngày khám: ",
             "email": "Email Bệnh nhân: ",
-            "file": "Ảnh đơn thuốc: ",
+            "file": "Ảnh kết quả/đơn thuốc: ",
             "title-modal": "Gửi mail khám bệnh xong",
-            "sendDone": "Đã xác nhận thành công"
+            "sendDone": "Đã xác nhận thành công",
+            "cancelConfirm": "Bạn có muốn huỷ lịch khách này",
+            "cancelSuccess": "Huỷ lịch thành công",
+            "cancelFail": "Huỷ lịch thất bại",
+            "note": "Ghi chú cho bệnh nhân: "
         }
     },
     "header": {
@@ -293,7 +306,8 @@
         "confirm-success": "Xác nhận lịch hẹn thành công!",
         "confirm-not-found": "Không tìm thấy thông tin lịch hẹn hoặc lịch hẹn đã được xác nhận",
         "confirm-out-of-date": "Đã quá thời gian xác nhận lịch hẹn!!!",
-        "list": "Danh sách bác sĩ"
+        "list": "Danh sách bác sĩ",
+        "not_available": "Hiện tại thời gian bạn đặt đã không còn trống, vui lòng chọn thời gian khác."
     },
     "dashboard": {
         "title": "Dashboard",

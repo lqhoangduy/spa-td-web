@@ -26,9 +26,15 @@
   }
 
   .btnConfirm {
-    background-color: $colormain;
-    color: $primary-white;
+    border-radius: 5px;
     border: none;
-    width: 100%;
+    width: 45%;
+    margin-right: 8px;
+  }
+
+  .btnCancel {
+
+    border-radius: 5px;
+    width: 45%;
   }
 }
