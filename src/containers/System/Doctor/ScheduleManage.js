@@ -14,8 +14,15 @@ import {
 	Table,
 	message,
 	Modal,
+	Tag,
+	Badge,
 } from "antd";
-import { PlusOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import {
+	PlusOutlined,
+	ExclamationCircleOutlined,
+	CheckCircleOutlined,
+	ClockCircleOutlined,
+} from "@ant-design/icons";
 import { FormattedMessage } from "react-intl";
 
 import * as actions from "../../../store/actions";
@@ -59,6 +66,7 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 					return {
 						time: item.timeType,
 						date: moment(item.date).toDate(),
+						isAvailable: item.isAvailable,
 					};
 				});
 
@@ -132,6 +140,7 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 				{
 					time: timeKey,
 					date: currentDate,
+					isAvailable: true,
 				},
 			]);
 		}
@@ -205,14 +214,19 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 		{
 			title: <FormattedMessage id='common.action' />,
 			key: "action",
-			render: (_, record) => (
-				<Button
-					type='link'
-					className={styles.btnDelete}
-					onClick={() => handleDeleteTime(record)}>
-					<FormattedMessage id='common.delete' />
-				</Button>
-			),
+			render: (_, record) =>
+				record.isAvailable ? (
+					<Button
+						type='link'
+						className={styles.btnDelete}
+						onClick={() => handleDeleteTime(record)}>
+						<FormattedMessage id='common.delete' />
+					</Button>
+				) : (
+					<Tag icon={<CheckCircleOutlined />} color='processing'>
+						<FormattedMessage id='common.reserved' />
+					</Tag>
+				),
 		},
 	];
 
@@ -235,6 +249,7 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 				name: currentDoctorName,
 				date: item.date,
 				time: language === "en" ? time?.valueEn : time?.valueVi,
+				isAvailable: item.isAvailable,
 			};
 		});
 
@@ -256,6 +271,7 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 				doctorId: currentDoctorId,
 				date: new Date(item.date).getTime(),
 				timeType: item.time,
+				isAvailable: item.isAvailable,
 			};
 		});
 
@@ -269,7 +285,7 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 			message.error(result?.message);
 		}
 		setLoading(false);
-	}, [currentDate, currentDoctorId, listCurrentTime]);
+	}, [currentDate, currentDoctorId, language, listCurrentTime]);
 
 	const enableSubmit = useMemo(() => {
 		return currentDoctorId && currentDate && listCurrentTime?.length;
@@ -287,6 +303,21 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 			},
 		});
 	};
+
+	const checkAvailableTime = useCallback(
+		(time) => {
+			const curDate = moment(new Date(currentDate)).startOf("day");
+			const curTime = listCurrentTime.find((item) => {
+				const itemDate = moment(new Date(item.date)).startOf("day");
+				return item.time === time && curDate.isSame(itemDate);
+			});
+
+			if (!curTime || !currentDate) return true;
+
+			return curTime.isAvailable;
+		},
+		[currentDate, listCurrentTime]
+	);
 
 	return (
 		<div className='container'>
@@ -367,14 +398,29 @@ function ScheduleManage({ language, isLoadingTime, times, getTimeStart }) {
 									<Row gutter={[16, 16]}>
 										{times.map((time) => (
 											<Col key={time.keyMap} xs={24} md={12} lg={6}>
-												<Button
-													type={checkEnableTime(time.keyMap) ? "primary" : ""}
-													value={time.keyMap}
-													size='large'
-													className={styles.btnTime}
-													onClick={() => handleChangeTime(time.keyMap)}>
-													{language === "en" ? time.valueEn : time.valueVi}
-												</Button>
+												<Badge
+													count={
+														checkAvailableTime(time.keyMap) ? (
+															0
+														) : (
+															<ClockCircleOutlined
+																style={{ color: "#f5222d" }}
+															/>
+														)
+													}
+													className={styles.badge}>
+													<Button
+														disabled={!checkAvailableTime(time.keyMap)}
+														type={checkEnableTime(time.keyMap) ? "primary" : ""}
+														value={time.keyMap}
+														size='large'
+														className={clsx(styles.btnTime, {
+															[styles.disabled]: !time.isAvailable,
+														})}
+														onClick={() => handleChangeTime(time.keyMap)}>
+														{language === "en" ? time.valueEn : time.valueVi}
+													</Button>
+												</Badge>
 											</Col>
 										))}
 									</Row>

@@ -31,9 +31,12 @@
   }
 
   .listTime {
-
     label {
       margin-bottom: 12px;
+    }
+
+    .badge {
+      width: 100%;
     }
 
     .btnTime {

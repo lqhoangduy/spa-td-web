@@ -1,21 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
-import {
-	Select,
-	Spin,
-	Row,
-	Col,
-	Button,
-	Empty,
-	message,
-	Badge,
-	Tag,
-} from "antd";
-import {
-	CalendarOutlined,
-	CheckCircleOutlined,
-	ClockCircleOutlined,
-} from "@ant-design/icons";
+import { Select, Spin, Row, Col, Button, Empty, message, Badge } from "antd";
+import { CalendarOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import moment from "moment";
 // eslint-disable-next-line no-unused-vars
 import localization from "moment/locale/vi";
@@ -42,15 +28,18 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 
 	useEffect(() => {
 		getGenderStart();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		handleChangeLangDate();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [language]);
 
 	useEffect(() => {
 		loadSchedules();
-	}, [currentDate, doctor?.id]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentDate, doctor.id]);
 
 	const handleChangeLangDate = () => {
 		const arrayDate = [];
