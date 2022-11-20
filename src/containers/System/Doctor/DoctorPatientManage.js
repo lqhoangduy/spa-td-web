@@ -246,7 +246,7 @@ function DoctorPatientManage({ currentUser, language }) {
 								type='primary'
 								className={styles.btnConfirm}
 								onClick={() => handleOpenModal(record)}>
-								<FormattedMessage id='common.confirm' />
+								<FormattedMessage id='common.sendResult' />
 							</Button>
 						)}
 						<Popconfirm

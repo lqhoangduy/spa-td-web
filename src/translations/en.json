@@ -62,7 +62,8 @@
         "cancel": "Cancel",
         "waitConfirm": "Wait confirm",
         "done": "Done",
-        "reserved": "Reserved"
+        "reserved": "Reserved",
+        "sendResult": "Send result"
     },
     "login": {
         "login": "Login",

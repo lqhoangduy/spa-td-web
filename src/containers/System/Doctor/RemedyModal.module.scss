@@ -1,6 +1,8 @@
 @import "../../../styles/common.scss";
 
 .modalRemedy {
+  width: 800px !important;
+  max-width: 100%;
 
   .emailLabel,
   .fileLabel,

@@ -10,6 +10,7 @@ import {
 	Select,
 	DatePicker,
 	ConfigProvider,
+	Spin,
 } from "antd";
 import { FormattedMessage } from "react-intl";
 import { CommonUtils, Format, languages, LanguageUtils } from "../../../utils";
@@ -77,7 +78,7 @@ function BookingModal({
 			onCancel={handleCancel}
 			className={styles.modalBooking}
 			footer={[
-				<Button key='back' onClick={handleCancel}>
+				<Button key='back' onClick={handleCancel} loading={loading}>
 					<FormattedMessage id='common.close' />
 				</Button>,
 				<Button
@@ -105,155 +106,160 @@ function BookingModal({
 						: "--"}
 				</div>
 			</div>
-			<Form
-				form={form}
-				name='create-user-form'
-				labelCol={{ span: 24 }}
-				wrapperCol={{ span: 24 }}
-				autoComplete='off'>
-				<Row gutter={[16, 0]}>
-					<Col xs={24} md={12}>
-						<Form.Item
-							label={<FormattedMessage id='doctor.name' />}
-							name='name'
-							rules={[
-								{
-									required: true,
-									message: <FormattedMessage id='doctor.name-required' />,
-								},
-							]}>
-							<Input />
-						</Form.Item>
-					</Col>
-					<Col xs={24} md={12}>
-						<Form.Item
-							label={<FormattedMessage id='system.user-manage.mobile' />}
-							name='phoneNumber'
-							rules={[
-								{
-									required: true,
-									message: (
-										<FormattedMessage id='system.user-manage.mobile-required' />
-									),
-								},
-								() => ({
-									validator(_, value) {
-										if (
-											!value ||
-											CommonUtils.validatePhoneNumber(value) ||
-											!(value.length > 0)
-										) {
-											return Promise.resolve();
-										}
-										return Promise.reject(
-											<FormattedMessage id='system.user-manage.mobile-valid' />
-										);
-									},
-								}),
-							]}>
-							<Input />
-						</Form.Item>
-					</Col>
-					<Col xs={24} md={12}>
-						<Form.Item
-							label={<FormattedMessage id='system.user-manage.email' />}
-							name='email'
-							rules={[
-								{
-									required: true,
-									message: (
-										<FormattedMessage id='system.user-manage.email-required' />
-									),
-								},
-								{
-									type: "email",
-									message: (
-										<FormattedMessage id='system.user-manage.email-valid' />
-									),
-								},
-							]}>
-							<Input />
-						</Form.Item>
-					</Col>
-					<Col xs={24} md={12}>
-						<Form.Item
-							label={<FormattedMessage id='doctor.address-contact' />}
-							name='address'
-							rules={[
-								{
-									required: true,
-									message: (
-										<FormattedMessage id='doctor.address-contact-required' />
-									),
-								},
-							]}>
-							<Input />
-						</Form.Item>
-					</Col>
-					<Col xs={24} md={24}>
-						<Form.Item
-							label={<FormattedMessage id='doctor.reason' />}
-							name='reason'
-							rules={[
-								{
-									required: true,
-									message: <FormattedMessage id='doctor.reason-required' />,
-								},
-							]}>
-							<TextArea rows={4} />
-						</Form.Item>
-					</Col>
-					<Col xs={24} md={12}>
-						<ConfigProvider locale={language === languages.EN ? en_US : vi_VN}>
+			<Spin spinning={loading}>
+				<Form
+					form={form}
+					name='create-user-form'
+					labelCol={{ span: 24 }}
+					wrapperCol={{ span: 24 }}
+					autoComplete='off'>
+					<Row gutter={[16, 0]}>
+						<Col xs={24} md={12}>
 							<Form.Item
-								label={<FormattedMessage id='doctor.birthday' />}
-								name='birthday'
+								label={<FormattedMessage id='doctor.name' />}
+								name='name'
 								rules={[
 									{
 										required: true,
-										message: <FormattedMessage id='doctor.birthday-required' />,
+										message: <FormattedMessage id='doctor.name-required' />,
 									},
 								]}>
-								<DatePicker
-									placeholder={LanguageUtils.getMessageByKey(
-										"doctor.birthday",
-										language
-									)}
-									format='DD/MM/YYYY'
-								/>
+								<Input />
 							</Form.Item>
-						</ConfigProvider>
-					</Col>
-					<Col xs={24} md={12}>
-						<Form.Item
-							label={<FormattedMessage id='system.user-manage.gender' />}
-							name='gender'
-							hasFeedback
-							rules={[
-								{
-									required: true,
-									message: (
-										<FormattedMessage id='system.user-manage.gender-required' />
-									),
-								},
-							]}>
-							<Select
-								placeholder={
-									<FormattedMessage id='system.user-manage.gender-placeholder' />
-								}>
-								{genders?.length &&
-									genders.map((gender) => (
-										<Option value={gender.keyMap} key={gender.keyMap}>
-											{language === languages.VI
-												? gender.valueVi
-												: gender.valueEn}
-										</Option>
-									))}
-							</Select>
-						</Form.Item>
-					</Col>
-				</Row>
-			</Form>
+						</Col>
+						<Col xs={24} md={12}>
+							<Form.Item
+								label={<FormattedMessage id='system.user-manage.mobile' />}
+								name='phoneNumber'
+								rules={[
+									{
+										required: true,
+										message: (
+											<FormattedMessage id='system.user-manage.mobile-required' />
+										),
+									},
+									() => ({
+										validator(_, value) {
+											if (
+												!value ||
+												CommonUtils.validatePhoneNumber(value) ||
+												!(value.length > 0)
+											) {
+												return Promise.resolve();
+											}
+											return Promise.reject(
+												<FormattedMessage id='system.user-manage.mobile-valid' />
+											);
+										},
+									}),
+								]}>
+								<Input />
+							</Form.Item>
+						</Col>
+						<Col xs={24} md={12}>
+							<Form.Item
+								label={<FormattedMessage id='system.user-manage.email' />}
+								name='email'
+								rules={[
+									{
+										required: true,
+										message: (
+											<FormattedMessage id='system.user-manage.email-required' />
+										),
+									},
+									{
+										type: "email",
+										message: (
+											<FormattedMessage id='system.user-manage.email-valid' />
+										),
+									},
+								]}>
+								<Input />
+							</Form.Item>
+						</Col>
+						<Col xs={24} md={12}>
+							<Form.Item
+								label={<FormattedMessage id='doctor.address-contact' />}
+								name='address'
+								rules={[
+									{
+										required: true,
+										message: (
+											<FormattedMessage id='doctor.address-contact-required' />
+										),
+									},
+								]}>
+								<Input />
+							</Form.Item>
+						</Col>
+						<Col xs={24} md={24}>
+							<Form.Item
+								label={<FormattedMessage id='doctor.reason' />}
+								name='reason'
+								rules={[
+									{
+										required: true,
+										message: <FormattedMessage id='doctor.reason-required' />,
+									},
+								]}>
+								<TextArea rows={4} />
+							</Form.Item>
+						</Col>
+						<Col xs={24} md={12}>
+							<ConfigProvider
+								locale={language === languages.EN ? en_US : vi_VN}>
+								<Form.Item
+									label={<FormattedMessage id='doctor.birthday' />}
+									name='birthday'
+									rules={[
+										{
+											required: true,
+											message: (
+												<FormattedMessage id='doctor.birthday-required' />
+											),
+										},
+									]}>
+									<DatePicker
+										placeholder={LanguageUtils.getMessageByKey(
+											"doctor.birthday",
+											language
+										)}
+										format='DD/MM/YYYY'
+									/>
+								</Form.Item>
+							</ConfigProvider>
+						</Col>
+						<Col xs={24} md={12}>
+							<Form.Item
+								label={<FormattedMessage id='system.user-manage.gender' />}
+								name='gender'
+								hasFeedback
+								rules={[
+									{
+										required: true,
+										message: (
+											<FormattedMessage id='system.user-manage.gender-required' />
+										),
+									},
+								]}>
+								<Select
+									placeholder={
+										<FormattedMessage id='system.user-manage.gender-placeholder' />
+									}>
+									{genders?.length &&
+										genders.map((gender) => (
+											<Option value={gender.keyMap} key={gender.keyMap}>
+												{language === languages.VI
+													? gender.valueVi
+													: gender.valueEn}
+											</Option>
+										))}
+								</Select>
+							</Form.Item>
+						</Col>
+					</Row>
+				</Form>
+			</Spin>
 		</Modal>
 	);
 }

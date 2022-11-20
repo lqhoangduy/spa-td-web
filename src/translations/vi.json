@@ -62,7 +62,8 @@
         "cancel": "Huỷ",
         "waitConfirm": "Đợi BN xác nhận",
         "done": "Đã xong",
-        "reserved": "Đã được đặt"
+        "reserved": "Đã được đặt",
+        "sendResult": "Gửi kết quả"
     },
     "login": {
         "login": "Đăng nhập",
