@@ -40,7 +40,11 @@ class Login extends Component {
 
 	render() {
 		return (
-			<div className={styles.loginWrapper}>
+			<div
+				className={styles.loginWrapper}
+				style={{
+					backgroundImage: `url("/images/banner-slider-2.jpeg")`,
+				}}>
 				<div className='login-container shadow-primary'>
 					<div className='login-content row'>
 						<div className='wrap-title'>

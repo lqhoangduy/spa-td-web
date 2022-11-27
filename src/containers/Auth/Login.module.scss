@@ -3,6 +3,8 @@
 .loginWrapper {
   height: 100vh;
   background: linear-gradient(135deg, $primary-light 0%, $primary-white 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
   position: relative;
 
   :global {
