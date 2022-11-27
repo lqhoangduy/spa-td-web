@@ -39,7 +39,7 @@ function ScheduleDoctor({ language, getGenderStart, doctor }) {
 	useEffect(() => {
 		loadSchedules();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currentDate, doctor.id]);
+	}, [currentDate, doctor?.id]);
 
 	const handleChangeLangDate = () => {
 		const arrayDate = [];
