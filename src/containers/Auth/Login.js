@@ -18,20 +18,36 @@ import { Link } from "react-router-dom";
 class Login extends Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			loading: false,
+		};
 	}
 
 	onLogin = async (values) => {
 		try {
+			this.setState({
+				loading: true,
+			});
 			const result = await userService.login(values);
 			if (result?.errorCode !== 0) {
+				this.setState({
+					loading: false,
+				});
 				message.error(result.message);
 			}
 			if (result?.errorCode === 0) {
+				this.setState({
+					loading: false,
+				});
 				const { userLoginSuccess } = this.props;
 				userLoginSuccess(result.user);
 				message.success(result.message);
 			}
 		} catch (error) {
+			this.setState({
+				loading: false,
+			});
 			if (error.response && error.response.data) {
 				message.error(error.response.data.message);
 			}
@@ -98,6 +114,7 @@ class Login extends Component {
 							</Form.Item>
 							<Form.Item>
 								<Button
+									loading={this.state.loading}
 									type='primary'
 									htmlType='submit'
 									className='login-btn'
