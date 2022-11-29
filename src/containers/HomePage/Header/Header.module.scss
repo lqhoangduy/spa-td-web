@@ -129,7 +129,9 @@
     }
 
     @include maxLg {
-      .nav {
+
+      .nav,
+      .loginWrap {
         display: none;
       }
 

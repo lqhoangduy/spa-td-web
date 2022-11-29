@@ -3,35 +3,37 @@
 
 .slider {
   margin-bottom: 24px;
+
   :global {
     .slick-thumb {
       margin-bottom: -14px;
+
       li {
         width: 60px;
         height: 40px;
         margin-right: 4px;
         margin-left: 4px;
-      
+
         img {
           border-radius: 5px;
           width: 60px;
           height: 40px;
           object-fit: cover;
-          -webkit-filter: grayscale(1);    
-          filter: grayscale(1); 
+          -webkit-filter: grayscale(1);
+          filter: grayscale(1);
         }
 
         &:hover img {
-          
-          -webkit-filter: grayscale(0);    
-          filter: grayscale(0); 
+
+          -webkit-filter: grayscale(0);
+          filter: grayscale(0);
         }
       }
 
       .slick-active {
         img {
-          -webkit-filter: grayscale(0);    
-          filter: grayscale(0); 
+          -webkit-filter: grayscale(0);
+          filter: grayscale(0);
         }
       }
     }
@@ -62,6 +64,8 @@
   .sliderTile {
     font-size: 60px;
     color: $primary-light;
+    max-width: 80vw;
+    @include ellipsis(1);
   }
 
   .sliderInput {
@@ -70,6 +74,7 @@
     border-color: $primary-light !important;
     color: $primary-white;
     box-shadow: none;
+    max-width: 80%;
 
     input {
       background: transparent;
@@ -81,7 +86,7 @@
     .sliderImage {
       height: 600px;
     }
-  
+
     .sliderItem {
       height: 600px;
     }

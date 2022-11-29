@@ -39,12 +39,23 @@ const Section = ({ language }) => {
 	const setting1 = {
 		dots: false,
 		infinite: true,
-		autoplay: true,
+		autoplay: false,
 		arrows: false,
 		variableWidth: true,
 		centerMode: true,
 		speed: 500,
 		slidesToScroll: 1,
+		responsive: [
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					variableWidth: false,
+					centerMode: true,
+				},
+			},
+		],
 	};
 
 	const setting2 = {

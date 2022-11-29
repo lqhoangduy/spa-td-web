@@ -7,6 +7,7 @@ import { Link, useHistory } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { languages } from "../../../utils/constant";
 import * as actions from "../../../store/actions";
+import clsx from "clsx";
 
 const navbars = [
 	{
@@ -65,7 +66,7 @@ const Header = ({ language, changeLanguage }) => {
 						</div>
 					</div>
 					<div className={styles.rightContainer}>
-						<Link to='/login' className={styles.link}>
+						<Link to='/login' className={clsx(styles.link, styles.loginWrap)}>
 							<div className={styles.login}>
 								<LoginOutlined className={styles.icon} />
 								<span className={styles.loginNote}>
@@ -106,13 +107,22 @@ const Header = ({ language, changeLanguage }) => {
 				onClose={() => setShowDrawer(false)}
 				visible={showDrawer}
 				className={styles.drawer}>
-				{navbars.map((nav) => (
-					<Link to={nav.link} className={styles.navLink} key={nav.key}>
+				<>
+					{navbars.map((nav) => (
+						<Link to={nav.link} className={styles.navLink} key={nav.key}>
+							<div className={styles.navItem}>
+								<h4>{nav.title}</h4>
+							</div>
+						</Link>
+					))}
+					<Link to='/login' className={styles.navLink}>
 						<div className={styles.navItem}>
-							<h4>{nav.title}</h4>
+							<h4>
+								<FormattedMessage id='header.login' />
+							</h4>
 						</div>
 					</Link>
-				))}
+				</>
 			</Drawer>
 		</>
 	);

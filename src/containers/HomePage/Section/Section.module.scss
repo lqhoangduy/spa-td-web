@@ -12,10 +12,16 @@
   }
 
   .sectionItem {
+    max-width: 100%;
     width: 280px;
     height: 160px;
     margin: 0 10px;
     padding: 0 16px;
+
+    @include maxSm {
+      padding: 0 4px;
+      margin: 0;
+    }
 
     &:hover {
       cursor: pointer;
@@ -28,6 +34,7 @@
 
     img {
       width: 280px;
+      max-width: 100%;
       height: 160px;
       object-fit: cover;
       border-radius: 5px;
