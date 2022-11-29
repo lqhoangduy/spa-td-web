@@ -96,7 +96,7 @@ const Section = ({ language }) => {
 
 	return (
 		<section className='container'>
-			{specialties?.length && (
+			{!!specialties?.length && (
 				<div className={styles.sectionWrap}>
 					<h3 className={styles.sectionTitle}>
 						<FormattedMessage id='section.specialist' />
@@ -114,7 +114,7 @@ const Section = ({ language }) => {
 					</Slider>
 				</div>
 			)}
-			{clinics?.length && (
+			{!!clinics?.length && (
 				<div className={styles.sectionWrap}>
 					<h3 className={styles.sectionTitle}>
 						<FormattedMessage id='section.branches' />
@@ -132,7 +132,7 @@ const Section = ({ language }) => {
 					</Slider>
 				</div>
 			)}
-			{topDoctors?.length && (
+			{!!topDoctors?.length && (
 				<div className={styles.sectionWrap}>
 					<h3 className={styles.sectionTitle}>
 						<FormattedMessage id='section.doctors' />
@@ -155,7 +155,7 @@ const Section = ({ language }) => {
 					</Slider>
 				</div>
 			)}
-			{handbooks?.length && (
+			{!!handbooks?.length && (
 				<div className={styles.sectionWrap}>
 					<h3 className={styles.sectionTitle}>
 						<FormattedMessage id='section.handbooks' />

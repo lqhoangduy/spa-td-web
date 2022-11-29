@@ -1,4 +1,4 @@
-import { Table, Space, Button, Tooltip, message, Popconfirm } from "antd";
+import { Table, Space, Button, Tooltip, message, Popconfirm, Spin } from "antd";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
@@ -23,6 +23,7 @@ class UserManage extends Component {
 			isModalVisible: false,
 			isModeEdit: false,
 			userEdit: null,
+			loading: false,
 		};
 	}
 
@@ -34,6 +35,9 @@ class UserManage extends Component {
 	}
 
 	getAllUsers = async () => {
+		this.setState({
+			loading: true,
+		});
 		const response = await userService.getAllUsers("ALL");
 		if (response?.errorCode === 0) {
 			const dataTable = (response.users || []).map((user) => {
@@ -50,6 +54,9 @@ class UserManage extends Component {
 				usersTable: dataTable,
 			});
 		}
+		this.setState({
+			loading: false,
+		});
 	};
 
 	handleCreateUser = async (user) => {
@@ -202,7 +209,7 @@ class UserManage extends Component {
 		];
 
 		return (
-			<>
+			<Spin spinning={this.state.loading}>
 				<div className={clsx("container", styles.userContainer)}>
 					<h1 className={clsx("title text-center", styles.userManageTitle)}>
 						<FormattedMessage id='menu.system.system-administrator.user-manage' />
@@ -236,7 +243,7 @@ class UserManage extends Component {
 					onCreateUser={this.handleCreateUser}
 					onEditUser={this.handleEditUser}
 				/>
-			</>
+			</Spin>
 		);
 	}
 }
