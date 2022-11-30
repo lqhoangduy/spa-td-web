@@ -2,10 +2,11 @@ import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Card } from "antd";
 import React, { useMemo } from "react";
 import { connect } from "react-redux";
+import LikeAndShare from "../../../components/SocialPlugin/LikeAndShare";
 import { languages } from "../../../utils";
 import styles from "./ProfileDoctor.module.scss";
 
-function ProfileDoctor({ language, doctor, isSecondStyle = false }) {
+function ProfileDoctorDetail({ language, doctor, isSecondStyle = false }) {
 	const nameVi = useMemo(() => {
 		if (!doctor) return "";
 		return `${doctor?.positionData?.valueVi} - ${doctor?.lastName} ${doctor?.firstName}`;
@@ -15,6 +16,11 @@ function ProfileDoctor({ language, doctor, isSecondStyle = false }) {
 		if (!doctor) return "";
 		return `${doctor?.positionData?.valueEn} - ${doctor?.firstName} ${doctor?.lastName}`;
 	}, [doctor]);
+
+	const currentURL =
+		+process.env.REACT_APP_IS_LOCALHOST === 1
+			? "https://rejuvenate.vercel.app/"
+			: window.location.href;
 
 	return (
 		<section className={styles.profileDoctor}>
@@ -41,6 +47,9 @@ function ProfileDoctor({ language, doctor, isSecondStyle = false }) {
 						<span className={styles.doctorDescription}>
 							{doctor?.Markdown?.description ?? ""}
 						</span>
+						<div className={styles.pluginLike}>
+							<LikeAndShare dataHref={currentURL} />
+						</div>
 					</div>
 				</div>
 			</Card>
@@ -58,4 +67,7 @@ const mapDispatchToProps = (dispatch) => {
 	return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileDoctor);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ProfileDoctorDetail);

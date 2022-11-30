@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import {
 	Spin,
-	Avatar,
 	Divider,
 	List,
 	Comment,
@@ -13,8 +12,6 @@ import {
 	Row,
 	Col,
 	Input,
-	Form,
-	Button,
 } from "antd";
 import { UserOutlined, CheckOutlined, HomeOutlined } from "@ant-design/icons";
 import { userService } from "../../../services";
@@ -28,8 +25,9 @@ import NotFound from "../../../components/NotFound/NotFound";
 import ScheduleDoctor from "./ScheduleDoctor";
 import ExtraDoctorInfo from "./ExtraDoctorInfo";
 import moment from "moment";
-import ProfileDoctor from "./ProfileDoctor";
 import FreeText from "../../../components/FreeText/FreeText";
+import ProfileDoctorDetail from "./ProfileDoctorDetail";
+import CommentFB from "../../../components/SocialPlugin/Comment";
 
 const fakeListComment = [
 	{
@@ -150,6 +148,11 @@ function DetailDoctor({ language }) {
 		return <NotFound />;
 	}
 
+	const currentURL =
+		+process.env.REACT_APP_IS_LOCALHOST === 1
+			? "https://rejuvenate.vercel.app/"
+			: window.location.href;
+
 	return (
 		<Spin spinning={loading}>
 			<section className={styles.detailDoctor}>
@@ -171,7 +174,7 @@ function DetailDoctor({ language }) {
 					</Breadcrumb>
 				</div>
 				<div className='container'>
-					<ProfileDoctor doctor={doctor} />
+					<ProfileDoctorDetail doctor={doctor} />
 				</div>
 
 				<div className='container'>
@@ -220,7 +223,7 @@ function DetailDoctor({ language }) {
 							<FormattedMessage id='doctor.patient-feedback' />
 						</h4>
 						<Card>
-							<List
+							{/* <List
 								className='comment-list'
 								itemLayout='horizontal'
 								dataSource={comments}
@@ -243,8 +246,8 @@ function DetailDoctor({ language }) {
 										/>
 									</li>
 								)}
-							/>
-							<Comment
+							/> */}
+							{/* <Comment
 								avatar={
 									<Avatar
 										src='https://joeschmoe.io/api/v1/random'
@@ -296,7 +299,8 @@ function DetailDoctor({ language }) {
 										</Form.Item>
 									</>
 								}
-							/>
+							/> */}
+							<CommentFB dataHref={currentURL} width={"100%"} />
 						</Card>
 					</div>
 				</div>
