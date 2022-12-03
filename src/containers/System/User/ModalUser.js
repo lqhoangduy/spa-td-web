@@ -56,24 +56,24 @@ const ModalUser = ({
 	};
 
 	const handleSubmitUser = async () => {
-		setIsLoading(true);
-		form.validateFields().then((values) => {
+		form.validateFields().then(async (values) => {
+			setIsLoading(true);
 			let result = false;
 			const body = {
 				...values,
 				avatar: avatar,
 			};
 			if (isEdit) {
-				result = onEditUser(body);
+				result = await onEditUser(body);
 			} else {
-				result = onCreateUser(body);
+				result = await onCreateUser(body);
 			}
 			if (result) {
 				setAvatar(null);
 				form.resetFields();
 			}
+			setIsLoading(false);
 		});
-		setIsLoading(false);
 	};
 
 	const handleCancel = () => {
@@ -164,7 +164,7 @@ const ModalUser = ({
 				onCancel={handleCancel}
 				className={styles.modalUser}
 				footer={[
-					<Button key='back' onClick={handleCancel}>
+					<Button key='back' onClick={handleCancel} loading={isLoading}>
 						<FormattedMessage id='common.close' />
 					</Button>,
 					<Button
@@ -179,259 +179,265 @@ const ModalUser = ({
 						)}
 					</Button>,
 				]}>
-				<Form
-					form={form}
-					name='create-user-form'
-					labelCol={{ span: 24 }}
-					wrapperCol={{ span: 24 }}
-					autoComplete='off'>
-					<Row gutter={[16, 16]}>
-						<Col xs={24} md={isEdit ? 24 : 12}>
-							<Form.Item
-								label={<FormattedMessage id='system.user-manage.email' />}
-								name='email'
-								rules={[
-									{
-										required: true,
-										message: (
-											<FormattedMessage id='system.user-manage.email-required' />
-										),
-									},
-									{
-										type: "email",
-										message: (
-											<FormattedMessage id='system.user-manage.email-valid' />
-										),
-									},
-								]}>
-								<Input disabled={isEdit} />
-							</Form.Item>
-						</Col>
-						{!isEdit && (
-							<Col xs={24} md={12}>
+				<Spin spinning={isLoading}>
+					<Form
+						form={form}
+						name='create-user-form'
+						labelCol={{ span: 24 }}
+						wrapperCol={{ span: 24 }}
+						autoComplete='off'>
+						<Row gutter={[16, 16]}>
+							<Col xs={24} md={isEdit ? 24 : 12}>
 								<Form.Item
-									label={<FormattedMessage id='system.user-manage.password' />}
-									name='password'
+									label={<FormattedMessage id='system.user-manage.email' />}
+									name='email'
 									rules={[
 										{
 											required: true,
 											message: (
-												<FormattedMessage id='system.user-manage.password-required' />
+												<FormattedMessage id='system.user-manage.email-required' />
+											),
+										},
+										{
+											type: "email",
+											message: (
+												<FormattedMessage id='system.user-manage.email-valid' />
 											),
 										},
 									]}>
-									<Input.Password />
+									<Input disabled={isEdit} />
 								</Form.Item>
 							</Col>
-						)}
-					</Row>
-					<Row gutter={[16, 16]}>
-						<Col xs={24} md={12}>
-							<Form.Item
-								label={<FormattedMessage id='system.user-manage.first-name' />}
-								name='firstName'
-								rules={[
-									{
-										required: true,
-										message: (
-											<FormattedMessage id='system.user-manage.firstname-required' />
-										),
-									},
-								]}>
-								<Input />
-							</Form.Item>
-						</Col>
-						<Col xs={24} md={12}>
-							<Form.Item
-								label={<FormattedMessage id='system.user-manage.last-name' />}
-								name='lastName'
-								rules={[
-									{
-										required: true,
-										message: (
-											<FormattedMessage id='system.user-manage.lastname-required' />
-										),
-									},
-								]}>
-								<Input />
-							</Form.Item>
-						</Col>
-					</Row>
-					<Row gutter={[16, 16]}>
-						<Col xs={24} md={12}>
-							<Form.Item
-								label={<FormattedMessage id='system.user-manage.mobile' />}
-								name='phoneNumber'
-								rules={[
-									{
-										required: true,
-										message: (
-											<FormattedMessage id='system.user-manage.mobile-required' />
-										),
-									},
-									() => ({
-										validator(_, value) {
-											if (
-												!value ||
-												CommonUtils.validatePhoneNumber(value) ||
-												!(value.length > 0)
-											) {
-												return Promise.resolve();
-											}
-											return Promise.reject(
-												<FormattedMessage id='system.user-manage.mobile-valid' />
-											);
+							{!isEdit && (
+								<Col xs={24} md={12}>
+									<Form.Item
+										label={
+											<FormattedMessage id='system.user-manage.password' />
+										}
+										name='password'
+										rules={[
+											{
+												required: true,
+												message: (
+													<FormattedMessage id='system.user-manage.password-required' />
+												),
+											},
+										]}>
+										<Input.Password />
+									</Form.Item>
+								</Col>
+							)}
+						</Row>
+						<Row gutter={[16, 16]}>
+							<Col xs={24} md={12}>
+								<Form.Item
+									label={
+										<FormattedMessage id='system.user-manage.first-name' />
+									}
+									name='firstName'
+									rules={[
+										{
+											required: true,
+											message: (
+												<FormattedMessage id='system.user-manage.firstname-required' />
+											),
 										},
-									}),
-								]}>
-								<Input />
-							</Form.Item>
-						</Col>
-						<Col xs={24} md={12}>
-							<Form.Item
-								label={<FormattedMessage id='system.user-manage.address' />}
-								name='address'
-								rules={[
-									{
-										required: true,
-										message: (
-											<FormattedMessage id='system.user-manage.address-required' />
-										),
-									},
-								]}>
-								<Input />
-							</Form.Item>
-						</Col>
-					</Row>
-					<Row gutter={[16, 16]}>
-						<Col xs={24} md={8}>
-							<Form.Item
-								label={<FormattedMessage id='system.user-manage.gender' />}
-								name='gender'
-								hasFeedback
-								rules={[
-									{
-										required: true,
-										message: (
-											<FormattedMessage id='system.user-manage.gender-required' />
-										),
-									},
-								]}>
-								<Select
-									placeholder={
-										<FormattedMessage id='system.user-manage.gender-placeholder' />
-									}>
-									{genders?.length &&
-										genders.map((gender) => (
-											<Option value={gender.keyMap} key={gender.keyMap}>
-												{language === languages.VI
-													? gender.valueVi
-													: gender.valueEn}
-											</Option>
-										))}
-								</Select>
-							</Form.Item>
-						</Col>
-						<Col xs={24} md={8}>
-							<Form.Item
-								label={<FormattedMessage id='system.user-manage.role' />}
-								name='roleId'
-								hasFeedback
-								rules={[
-									{
-										required: true,
-										message: (
-											<FormattedMessage id='system.user-manage.role-required' />
-										),
-									},
-								]}>
-								<Select
-									placeholder={
-										<FormattedMessage id='system.user-manage.role-placeholder' />
-									}>
-									{roles?.length &&
-										roles.map((role) => (
-											<Option value={role.keyMap} key={role.keyMap}>
-												{language === languages.VI
-													? role.valueVi
-													: role.valueEn}
-											</Option>
-										))}
-								</Select>
-							</Form.Item>
-						</Col>
-						<Col xs={24} md={8}>
-							<Form.Item
-								label={<FormattedMessage id='system.user-manage.position' />}
-								name='positionId'
-								hasFeedback
-								rules={[
-									{
-										required: true,
-										message: (
-											<FormattedMessage id='system.user-manage.position-required' />
-										),
-									},
-								]}>
-								<Select
-									placeholder={
-										<FormattedMessage id='system.user-manage.position-placeholder' />
-									}>
-									{positions?.length &&
-										positions.map((position) => (
-											<Option value={position.keyMap} key={position.keyMap}>
-												{language === languages.VI
-													? position.valueVi
-													: position.valueEn}
-											</Option>
-										))}
-								</Select>
-							</Form.Item>
-						</Col>
-						<Col xs={24}>
-							<Spin spinning={isLoadingImg}>
-								<div className={styles.uploadImage}>
-									<label>
-										<FormattedMessage id='system.user-manage.image' />
-									</label>
-									<div className={styles.uploadImageContainer}>
-										<div
-											className={styles.previewImage}
-											style={{
-												backgroundImage: `url(${avatar?.url})`,
-											}}
-											onClick={() => {
-												if (avatar?.url) {
-													setOpenLightBox(true);
+									]}>
+									<Input />
+								</Form.Item>
+							</Col>
+							<Col xs={24} md={12}>
+								<Form.Item
+									label={<FormattedMessage id='system.user-manage.last-name' />}
+									name='lastName'
+									rules={[
+										{
+											required: true,
+											message: (
+												<FormattedMessage id='system.user-manage.lastname-required' />
+											),
+										},
+									]}>
+									<Input />
+								</Form.Item>
+							</Col>
+						</Row>
+						<Row gutter={[16, 16]}>
+							<Col xs={24} md={12}>
+								<Form.Item
+									label={<FormattedMessage id='system.user-manage.mobile' />}
+									name='phoneNumber'
+									rules={[
+										{
+											required: true,
+											message: (
+												<FormattedMessage id='system.user-manage.mobile-required' />
+											),
+										},
+										() => ({
+											validator(_, value) {
+												if (
+													!value ||
+													CommonUtils.validatePhoneNumber(value) ||
+													!(value.length > 0)
+												) {
+													return Promise.resolve();
 												}
-											}}>
-											{avatar?.url && !isEdit && (
-												<div
-													className={styles.destroyImage}
-													onClick={(e) => handleDestroy(e)}>
-													<CloseOutlined />
-												</div>
-											)}
-										</div>
-										<label htmlFor='previewImg' className={styles.upload}>
-											<UploadOutlined />
-											<span>
-												<FormattedMessage id='common.upload-image' />
-											</span>
+												return Promise.reject(
+													<FormattedMessage id='system.user-manage.mobile-valid' />
+												);
+											},
+										}),
+									]}>
+									<Input />
+								</Form.Item>
+							</Col>
+							<Col xs={24} md={12}>
+								<Form.Item
+									label={<FormattedMessage id='system.user-manage.address' />}
+									name='address'
+									rules={[
+										{
+											required: true,
+											message: (
+												<FormattedMessage id='system.user-manage.address-required' />
+											),
+										},
+									]}>
+									<Input />
+								</Form.Item>
+							</Col>
+						</Row>
+						<Row gutter={[16, 16]}>
+							<Col xs={24} md={8}>
+								<Form.Item
+									label={<FormattedMessage id='system.user-manage.gender' />}
+									name='gender'
+									hasFeedback
+									rules={[
+										{
+											required: true,
+											message: (
+												<FormattedMessage id='system.user-manage.gender-required' />
+											),
+										},
+									]}>
+									<Select
+										placeholder={
+											<FormattedMessage id='system.user-manage.gender-placeholder' />
+										}>
+										{genders?.length &&
+											genders.map((gender) => (
+												<Option value={gender.keyMap} key={gender.keyMap}>
+													{language === languages.VI
+														? gender.valueVi
+														: gender.valueEn}
+												</Option>
+											))}
+									</Select>
+								</Form.Item>
+							</Col>
+							<Col xs={24} md={8}>
+								<Form.Item
+									label={<FormattedMessage id='system.user-manage.role' />}
+									name='roleId'
+									hasFeedback
+									rules={[
+										{
+											required: true,
+											message: (
+												<FormattedMessage id='system.user-manage.role-required' />
+											),
+										},
+									]}>
+									<Select
+										placeholder={
+											<FormattedMessage id='system.user-manage.role-placeholder' />
+										}>
+										{roles?.length &&
+											roles.map((role) => (
+												<Option value={role.keyMap} key={role.keyMap}>
+													{language === languages.VI
+														? role.valueVi
+														: role.valueEn}
+												</Option>
+											))}
+									</Select>
+								</Form.Item>
+							</Col>
+							<Col xs={24} md={8}>
+								<Form.Item
+									label={<FormattedMessage id='system.user-manage.position' />}
+									name='positionId'
+									hasFeedback
+									rules={[
+										{
+											required: true,
+											message: (
+												<FormattedMessage id='system.user-manage.position-required' />
+											),
+										},
+									]}>
+									<Select
+										placeholder={
+											<FormattedMessage id='system.user-manage.position-placeholder' />
+										}>
+										{positions?.length &&
+											positions.map((position) => (
+												<Option value={position.keyMap} key={position.keyMap}>
+													{language === languages.VI
+														? position.valueVi
+														: position.valueEn}
+												</Option>
+											))}
+									</Select>
+								</Form.Item>
+							</Col>
+							<Col xs={24}>
+								<Spin spinning={isLoadingImg}>
+									<div className={styles.uploadImage}>
+										<label>
+											<FormattedMessage id='system.user-manage.image' />
 										</label>
-										<input
-											ref={fileRef}
-											type='file'
-											hidden
-											id='previewImg'
-											onChange={(e) => handleChangeImage(e)}
-										/>
+										<div className={styles.uploadImageContainer}>
+											<div
+												className={styles.previewImage}
+												style={{
+													backgroundImage: `url(${avatar?.url})`,
+												}}
+												onClick={() => {
+													if (avatar?.url) {
+														setOpenLightBox(true);
+													}
+												}}>
+												{avatar?.url && !isEdit && (
+													<div
+														className={styles.destroyImage}
+														onClick={(e) => handleDestroy(e)}>
+														<CloseOutlined />
+													</div>
+												)}
+											</div>
+											<label htmlFor='previewImg' className={styles.upload}>
+												<UploadOutlined />
+												<span>
+													<FormattedMessage id='common.upload-image' />
+												</span>
+											</label>
+											<input
+												ref={fileRef}
+												type='file'
+												hidden
+												id='previewImg'
+												onChange={(e) => handleChangeImage(e)}
+											/>
+										</div>
 									</div>
-								</div>
-							</Spin>
-						</Col>
-					</Row>
-				</Form>
+								</Spin>
+							</Col>
+						</Row>
+					</Form>
+				</Spin>
 			</Modal>
 			{openLightBox && (
 				<Lightbox
