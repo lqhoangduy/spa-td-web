@@ -61,5 +61,15 @@
     .image {
       aspect-ratio: 2;
     }
+
+    :global {
+      .description {
+        display: none;
+      }
+
+      .title {
+        @include ellipsis(3);
+      }
+    }
   }
 }

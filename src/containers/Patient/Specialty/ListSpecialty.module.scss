@@ -71,5 +71,13 @@
     .image {
       aspect-ratio: 2;
     }
+
+    .description {
+      display: none;
+    }
+
+    .title {
+      @include ellipsis(3);
+    }
   }
 }
